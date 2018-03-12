@@ -1,0 +1,43 @@
+---
+project: 'Cloud native computing framework for NFV (Clover)'
+project_creation_date: ''
+project_category: ''
+lifecycle_state: 'Incubation'
+project_lead: &opnfv_clover_ptl
+primary_contact: *opnfv_clover_ptl
+issue_tracking:
+    type: 'jira'
+    url: 'https://jira.opnfv.org/projects/CLOVER'
+    key: 'CLOVER'
+mailing_list:
+    type: 'mailman2'
+    url: 'opnfv-tech-discuss@lists.opnfv.org'
+    tag: '[clover]'
+realtime_discussion:
+    type: irc
+    server: 'freenode.net'
+    channel: '#opnfv-clover'
+meetings:
+    - type: 'gotomeeting+irc'
+      agenda:  # eg: 'https://wiki.opnfv.org/display/'
+      url:  # eg: 'https://global.gotomeeting.com/join/819733085'
+      server: 'freenode.net'
+      channel: '#opnfv-meeting'
+      repeats: 'weekly'
+      time:  # eg: '16:00 UTC'
+repositories:
+    - 'clover'
+committers:
+    - <<: *opnfv_clover_ptl
+    - name: 'Wenjing Chu'
+      email: 'chu.wenjing@gmail.com'
+      company: 'gmail.com'
+      id: 'wenjing'
+    - name: 'Stephen Wong'
+      email: 'stephen.kf.wong@gmail.com'
+      company: 'gmail.com'
+      id: 's3wong'
+tsc:
+    # yamllint disable rule:line-length
+    approval: ''
+    # yamllint enable rule:line-length
