@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_d83c59c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 4469
+      },
+      "writtenOn": "2018-03-13T02:08:09Z",
+      "side": 1,
+      "message": "These content are quite suitable for an initial doc which will help users get an overview of the code repo.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 14
+      },
+      "revId": "9bf7eb3712ba82365be8a55a3ede72821aa57167",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
