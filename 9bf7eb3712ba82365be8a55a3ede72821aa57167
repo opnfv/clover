@@ -48,6 +48,23 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_3878ddf1",
+        "filename": "clover/orchestration/kube_client.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 4469
+      },
+      "writtenOn": "2018-03-13T06:41:59Z",
+      "side": 1,
+      "message": "Why not using list_namespaced_pod ? It seems dedicated for this use case. See https://github.com/kubernetes-client/python/blob/master/kubernetes/docs/CoreV1Api.md#list_namespaced_pod",
+      "revId": "9bf7eb3712ba82365be8a55a3ede72821aa57167",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_589fa9b4",
         "filename": "clover/servicemesh/route_rules.py",
         "patchSetId": 2
