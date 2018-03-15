@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a3f45e8_772f0bf7",
+        "filename": "clover/monitoring/validate.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7047
+      },
+      "writtenOn": "2018-03-15T19:43:24Z",
+      "side": 1,
+      "message": "This will not execute if prometheus is not accessible. You need to encapsulate in an Exception handler. I have to add this to the HTTP requests for tracing also.",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 20
+      },
+      "revId": "c463cd905c2b6945e266e338583c3ae658465d02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_41a68d54",
         "filename": "doc/monitoring.rst",
         "patchSetId": 1
