@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_7ef24870",
+        "filename": "clover/logging/validate.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2018-03-15T03:57:57Z",
+      "side": 1,
+      "message": "s/fluentd-es-7b48cb5f9c-n7cgq/fluentd_pod_name/g?",
+      "range": {
+        "startLine": 46,
+        "startChar": 41,
+        "endLine": 46,
+        "endChar": 69
+      },
+      "revId": "2471cbe7751aeeed3e4035a0104ef1b62a936003",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
