@@ -25,6 +25,54 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_97ef3787",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6967
+      },
+      "writtenOn": "2018-03-15T23:15:59Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "5a3f45e8_d83c59c2",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 14
+      },
+      "revId": "9bf7eb3712ba82365be8a55a3ede72821aa57167",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_77f26b70",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6967
+      },
+      "writtenOn": "2018-03-15T23:15:59Z",
+      "side": 1,
+      "message": "Thanks. Although I didn\u0027t include this text anyway in the doc patch I sent out yesterday --- as it seems to be more suitable for developer related doc",
+      "parentUuid": "5a3f45e8_d83c59c2",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 14
+      },
+      "revId": "9bf7eb3712ba82365be8a55a3ede72821aa57167",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_3863bddd",
         "filename": "clover/orchestration/kube_client.py",
         "patchSetId": 2
@@ -36,6 +84,30 @@
       "writtenOn": "2018-03-13T02:25:50Z",
       "side": 1,
       "message": "We need a packaging tool to install such dependency. I would recommend using https://docs.pipenv.org/ which handles virtualenv and pip well.",
+      "range": {
+        "startLine": 10,
+        "startChar": 5,
+        "endLine": 10,
+        "endChar": 15
+      },
+      "revId": "9bf7eb3712ba82365be8a55a3ede72821aa57167",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d7e9bf81",
+        "filename": "clover/orchestration/kube_client.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 6967
+      },
+      "writtenOn": "2018-03-15T23:15:59Z",
+      "side": 1,
+      "message": "Good suggestion. And quite easy to generate the files actually...",
+      "parentUuid": "5a3f45e8_3863bddd",
       "range": {
         "startLine": 10,
         "startChar": 5,
@@ -65,6 +137,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_b7ecf390",
+        "filename": "clover/orchestration/kube_client.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6967
+      },
+      "writtenOn": "2018-03-15T23:15:59Z",
+      "side": 1,
+      "message": "No reason :-) .  Done.",
+      "parentUuid": "5a3f45e8_3878ddf1",
+      "revId": "9bf7eb3712ba82365be8a55a3ede72821aa57167",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_589fa9b4",
         "filename": "clover/servicemesh/route_rules.py",
         "patchSetId": 2
@@ -76,6 +166,30 @@
       "writtenOn": "2018-03-13T02:25:50Z",
       "side": 1,
       "message": "Better to be UPPERCASE for constant.\n\nAnd we may need some static check rules, e.g. pep8 to keep a consistent coding style consistent inside the whole repository.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 8
+      },
+      "revId": "9bf7eb3712ba82365be8a55a3ede72821aa57167",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_17032743",
+        "filename": "clover/servicemesh/route_rules.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6967
+      },
+      "writtenOn": "2018-03-15T23:15:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_589fa9b4",
       "range": {
         "startLine": 16,
         "startChar": 0,
