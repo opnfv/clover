@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_c1d57dba",
+        "filename": "doc/release/user-guide/Fraser-userguide.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 4469
+      },
+      "writtenOn": "2018-03-15T09:28:09Z",
+      "side": 1,
+      "message": "Project",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 7
+      },
+      "revId": "fee7eb49a356b3e4f5740c92b883d3c153ea0347",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a1ef9186",
+        "filename": "doc/release/user-guide/Fraser-userguide.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 4469
+      },
+      "writtenOn": "2018-03-15T09:28:09Z",
+      "side": 1,
+      "message": "\"service mesh\" for consistency.",
+      "range": {
+        "startLine": 61,
+        "startChar": 17,
+        "endLine": 61,
+        "endChar": 28
+      },
+      "revId": "fee7eb49a356b3e4f5740c92b883d3c153ea0347",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
