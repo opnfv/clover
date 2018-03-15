@@ -22,6 +22,30 @@
       "revId": "2471cbe7751aeeed3e4035a0104ef1b62a936003",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_74ed4925",
+        "filename": "clover/logging/validate.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 4469
+      },
+      "writtenOn": "2018-03-15T10:18:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_7ef24870",
+      "range": {
+        "startLine": 46,
+        "startChar": 41,
+        "endLine": 46,
+        "endChar": 69
+      },
+      "revId": "2471cbe7751aeeed3e4035a0104ef1b62a936003",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
