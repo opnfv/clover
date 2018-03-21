@@ -1,0 +1,34 @@
+// Copyright (c) Authors of Clover
+//
+// All rights reserved. This program and the accompanying materials
+// are made available under the terms of the Apache License, Version 2.0
+// which accompanies this distribution, and is available at
+// http://www.apache.org/licenses/LICENSE-2.0
+
+syntax = "proto3";
+
+package proxy;
+
+// The controller service definition.
+service Controller {
+
+  rpc ModifyConfig (AddConfig) returns (ProxyReply) {}
+  rpc ProcessAlerts (AlertMessage) returns (ProxyReply) {}
+}
+
+message AlertMessage {
+  string event_id = 1;
+  string redis_key = 2;
+}
+
+message AddConfig {
+  string server_port = 1;
+  string server_name = 2;
+  string location_path = 3;
+  string proxy_path = 4;
+  string mirror_path = 5;
+}
+
+message ProxyReply {
+  string message = 1;
+}
