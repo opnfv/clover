@@ -1,0 +1,51 @@
+// Copyright (c) Authors of Clover
+//
+// All rights reserved. This program and the accompanying materials
+// are made available under the terms of the Apache License, Version 2.0
+// which accompanies this distribution, and is available at
+// http://www.apache.org/licenses/LICENSE-2.0
+
+syntax = "proto3";
+
+package nginx;
+
+// The controller service definition.
+service Controller {
+
+  rpc ModifyProxy (ConfigProxy) returns (NginxReply) {}
+  rpc ModifyServer (ConfigServer) returns (NginxReply) {}
+  rpc ModifyLB (ConfigLB) returns (NginxReply) {}
+  rpc ProcessAlerts (AlertMessage) returns (NginxReply) {}
+}
+
+message AlertMessage {
+  string event_id = 1;
+  string redis_key = 2;
+}
+
+message ConfigProxy {
+  string server_port = 1;
+  string server_name = 2;
+  string location_path = 3;
+  string proxy_path = 4;
+  string mirror_path = 5;
+}
+
+message ConfigServer {
+  string server_port = 1;
+  string server_name = 2;
+  string site_root = 3;
+  string site_index = 4;
+}
+
+message ConfigLB {
+  string server_port = 1;
+  string server_name = 2;
+  string slb_list = 3;
+  string slb_group = 4;
+  string lb_path = 5;
+}
+
+message NginxReply {
+  string message = 1;
+}
