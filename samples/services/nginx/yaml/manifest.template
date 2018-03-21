@@ -1,0 +1,35 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ deploy_name }}
+  labels:
+    app: {{ deploy_name }}
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ deploy_name }}
+    spec:
+      containers:
+        - name: {{ deploy_name }}
+          image: {{ image_path }}/{{ image_name }}:{{ image_tag }}
+          ports:
+           - containerPort: {{ grpc_port }}
+           - containerPort: {{ server_port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ deploy_name }}
+  labels:
+    app: {{ deploy_name }}
+spec:
+  ports:
+  - port: {{ grpc_port }}
+    name: grpc
+  - port: {{ server_port }}
+    name: http
+  selector:
+    app: {{ deploy_name }}
+---
