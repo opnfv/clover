@@ -1,0 +1,37 @@
+*.DS_Store
+*.log
+*.pyc
+.vimrc
+.ropeproject
+.settings/
+.eggs/
+*.orig
+*.BACKUP.*
+*.BASE.*
+*.LOCAL.*
+*.REMOTE.*
+*.egg
+*.egg-info
+build
+htmlcov
+.agignore
+.coverage
+*.retry
+Session*.vim
+.tags*
+.coverage.*
+*~
+setuptools*zip
+dist/
+.testrepository/
+cover/
+.*.sw?
+/docs_build/
+/docs_output/
+/docs/apidocs/yardstick*.rst
+#PyCharm IDE project configuration files
+.idea/
+# tox virtualenvs
+.tox/
+# work env
+work/

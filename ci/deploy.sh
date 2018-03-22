@@ -9,4 +9,34 @@
 #
 set -ex
 
+CLOVER_BASE_DIR=`cd ${BASH_SOURCE[0]%/*}/..;pwd`
+CLOVER_WORK_DIR=$CLOVER_BASE_DIR/work
+MASTER_NODE_NAME='master'
+
+mkdir -p $CLOVER_WORK_DIR
+cd $CLOVER_WORK_DIR
+
+# Fetch container4nfv source code
+if [ -d container4nfv ]; then
+    rm -rf container4nfv
+fi
+git clone https://git.opnfv.org/container4nfv/
+cd container4nfv
+
+# Create kubernetes + istio env
+./src/vagrant/kubeadm_istio/deploy.sh
+
+# Fetch kube-master node info
+cd src/vagrant/kubeadm_istio
+MASTER_NODE_HOST=$(vagrant ssh-config $MASTER_NODE_NAME | awk '/HostName /{print $2}')
+MASTER_NODE_USER=$(vagrant ssh-config $MASTER_NODE_NAME | awk '/User /{print $2}')
+MASTER_NODE_KEY=$(vagrant ssh-config $MASTER_NODE_NAME | awk '/IdentityFile /{print $2}')
+
+# Push clover source code to kube-master node
+ssh -i $MASTER_NODE_KEY ${MASTER_NODE_USER}@${MASTER_NODE_HOST} rm -rf clover
+scp -i $MASTER_NODE_KEY -r $CLOVER_BASE_DIR ${MASTER_NODE_USER}@${MASTER_NODE_HOST}:clover
+
+# Run test
+ssh -i $MASTER_NODE_KEY ${MASTER_NODE_USER}@${MASTER_NODE_HOST} ./clover/ci/test.sh
+
 echo "Clover deploy complete!"
