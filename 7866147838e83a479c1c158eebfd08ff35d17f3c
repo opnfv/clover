@@ -1,0 +1,7 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Stephen Wong <stephen.kf.wong@gmail.com>
+Submitted-by: Stephen Wong <stephen.kf.wong@gmail.com>
+Submitted-at: Fri, 23 Mar 2018 05:56:30 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/54359
+Project: clover
+Branch: refs/heads/master
