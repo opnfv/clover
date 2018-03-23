@@ -12,6 +12,7 @@ set -ex
 CLOVER_BASE_DIR=`cd ${BASH_SOURCE[0]%/*}/..;pwd`
 CLOVER_WORK_DIR=$CLOVER_BASE_DIR/work
 MASTER_NODE_NAME='master'
+SSH_OPTIONS="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
 mkdir -p $CLOVER_WORK_DIR
 cd $CLOVER_WORK_DIR
@@ -33,10 +34,10 @@ MASTER_NODE_USER=$(vagrant ssh-config $MASTER_NODE_NAME | awk '/User /{print $2}
 MASTER_NODE_KEY=$(vagrant ssh-config $MASTER_NODE_NAME | awk '/IdentityFile /{print $2}')
 
 # Push clover source code to kube-master node
-ssh -i $MASTER_NODE_KEY ${MASTER_NODE_USER}@${MASTER_NODE_HOST} rm -rf clover
-scp -i $MASTER_NODE_KEY -r $CLOVER_BASE_DIR ${MASTER_NODE_USER}@${MASTER_NODE_HOST}:clover
+ssh $SSH_OPTIONS -i $MASTER_NODE_KEY ${MASTER_NODE_USER}@${MASTER_NODE_HOST} rm -rf clover
+scp $SSH_OPTIONS -i $MASTER_NODE_KEY -r $CLOVER_BASE_DIR ${MASTER_NODE_USER}@${MASTER_NODE_HOST}:clover
 
 # Run test
-ssh -i $MASTER_NODE_KEY ${MASTER_NODE_USER}@${MASTER_NODE_HOST} ./clover/ci/test.sh
+ssh $SSH_OPTIONS -i $MASTER_NODE_KEY ${MASTER_NODE_USER}@${MASTER_NODE_HOST} ./clover/ci/test.sh
 
 echo "Clover deploy complete!"
