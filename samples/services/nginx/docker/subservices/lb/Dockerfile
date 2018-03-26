@@ -9,19 +9,6 @@ FROM ubuntu:16.04
 LABEL maintainer="Eddie Arrage" maintainer_email="eddie.arrage@huawei.com"
 LABEL version="0.1" description="Clover - Nginx HTTP LB"
 
-RUN \
-    apt-get update && apt-get install -y \
-# Some debug tool in container
-    wget \
-    libdnet \
-    net-tools \
-# Nginx as proxy
-    nginx \
-    python-pip \
-&& \
-# Install required python packages
-    python -m pip install grpcio redis jinja2
-
 COPY /process /process
 COPY /grpc /grpc
 CMD ./process/start_process.sh lb
