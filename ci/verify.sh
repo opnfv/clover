@@ -9,4 +9,10 @@
 #
 set -ex
 
+CLOVER_BASE_DIR=$(cd ${BASH_SOURCE[0]%/*}/..;pwd)
+
+# TEST build/upload clover image
+$CLOVER_BASE_DIR/samples/build.sh
+
+
 echo "Clover verify complete!"
