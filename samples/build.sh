@@ -9,10 +9,16 @@
 #
 set -ex
 
-CLOVER_BASE_DIR=$(cd ${BASH_SOURCE[0]%/*}/..;pwd)
+CLOVER_BASE_DIR=`cd ${BASH_SOURCE[0]%/*}/..;pwd`
+export IMAGE_PATH=opnfv
 
-# TEST build/upload clover image
-$CLOVER_BASE_DIR/samples/build.sh
+cd $CLOVER_BASE_DIR/samples/services/nginx/docker/
 
+./build_lb.sh
+./build_proxy.sh
+./build_server.sh
 
-echo "Clover verify complete!"
+cd $CLOVER_BASE_DIR/samples/services/snort_ids/docker/
+./build.sh
+
+echo "Clover sample build complete!"
