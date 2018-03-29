@@ -9,11 +9,15 @@
 #
 set -ex
 
-CLOVER_BASE_DIR=`cd ${BASH_SOURCE[0]%/*}/..;pwd`
+CLOVER_BASE_DIR=$(cd ${BASH_SOURCE[0]%/*}/..;pwd)
 CLOVER_WORK_DIR=$CLOVER_BASE_DIR/work
-MASTER_NODE_NAME='master'
+MASTER_NODE_NAME="master"
 SSH_OPTIONS="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 K8S_ISTIO_DEPLOY_TIMEOUT=3600
+
+FUNCTEST_IMAGE="opnfv/functest-kubernetes:latest"
+INSTALLER_TYPE="container4nfv"
+DEPLOY_SCENARIO="k8-istio-clover"
 
 mkdir -p $CLOVER_WORK_DIR
 cd $CLOVER_WORK_DIR
@@ -42,3 +46,35 @@ scp $SSH_OPTIONS -i $MASTER_NODE_KEY -r $CLOVER_BASE_DIR ${MASTER_NODE_USER}@${M
 ssh $SSH_OPTIONS -i $MASTER_NODE_KEY ${MASTER_NODE_USER}@${MASTER_NODE_HOST} ./clover/ci/test.sh
 
 echo "Clover deploy complete!"
+
+###############################################################################
+# Prepare and run functest.
+# TODO: Use jenkins to trigger functest job.
+
+# Setup configuration file for running functest
+mkdir -p $CLOVER_WORK_DIR/functest/results
+scp $SSH_OPTIONS -i $MASTER_NODE_KEY \
+    ${MASTER_NODE_USER}@${MASTER_NODE_HOST}:.kube/config \
+    $CLOVER_WORK_DIR/functest/kube-config
+rc_file=$CLOVER_WORK_DIR/functest/k8.creds
+echo "export KUBERNETES_PROVIDER=local" >> $rc_file
+KUBE_MASTER_URL=$(cat $CLOVER_WORK_DIR/functest/kube-config | grep server | awk '{print $2}')
+echo "export KUBE_MASTER_URL=$KUBE_MASTER_URL" >> $rc_file
+KUBE_MASTER_IP=$(echo $KUBE_MASTER_URL | awk -F'https://|:[0-9]+' '$0=$2')
+echo "export KUBE_MASTER_IP=$KUBE_MASTER_IP" >> $rc_file
+
+# Run functest
+sudo docker pull $FUNCTEST_IMAGE
+sudo docker run --rm \
+    -e INSTALLER_TYPE=$INSTALLER_TYPE \
+    -e NODE_NAME=$NODE_NAME \
+    -e DEPLOY_SCENARIO=$DEPLOY_SCENARIO \
+    -e BUILD_TAG=$BUILD_TAG \
+    -v $rc_file:/home/opnfv/functest/conf/env_file \
+    -v $CLOVER_WORK_DIR/functest/results:/home/opnfv/functest/results \
+    -v $CLOVER_WORK_DIR/functest/kube-config:/root/.kube/config \
+    $FUNCTEST_IMAGE \
+    /bin/bash -c 'run_tests -r -t all'
+
+echo "Clover run functest complete!"
+###############################################################################
