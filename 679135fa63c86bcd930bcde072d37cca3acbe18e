@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_d3725848",
+        "filename": "ci/deploy.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5441
+      },
+      "writtenOn": "2018-03-29T11:20:21Z",
+      "side": 1,
+      "message": "It is necessary to remove rc_file after each deployment:\nrm -rf $rc_file",
+      "revId": "679135fa63c86bcd930bcde072d37cca3acbe18e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
