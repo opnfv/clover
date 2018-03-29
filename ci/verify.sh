@@ -9,4 +9,5 @@
 #
 set -ex
 
+env
 echo "Clover verify complete!"
