@@ -13,6 +13,7 @@ CLOVER_BASE_DIR=`cd ${BASH_SOURCE[0]%/*}/..;pwd`
 CLOVER_WORK_DIR=$CLOVER_BASE_DIR/work
 MASTER_NODE_NAME='master'
 SSH_OPTIONS="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+K8S_ISTIO_DEPLOY_TIMEOUT=3600
 
 mkdir -p $CLOVER_WORK_DIR
 cd $CLOVER_WORK_DIR
@@ -25,7 +26,7 @@ git clone https://git.opnfv.org/container4nfv/
 cd container4nfv
 
 # Create kubernetes + istio env
-./src/vagrant/kubeadm_istio/deploy.sh
+timeout $K8S_ISTIO_DEPLOY_TIMEOUT ./src/vagrant/kubeadm_istio/deploy.sh
 
 # Fetch kube-master node info
 cd src/vagrant/kubeadm_istio
