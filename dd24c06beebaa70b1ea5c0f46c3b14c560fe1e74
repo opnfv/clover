@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_a82637cc",
+        "filename": "samples/services/nginx/docker/build_lb.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7047
+      },
+      "writtenOn": "2018-03-29T06:21:22Z",
+      "side": 1,
+      "message": "These are good suggestions and I have a patch that I\u0027m working on to address all your comments and some other improvements.\n\nFor the prefix we are thinking \u0027clover-ns\u0027 for network service rather than using the term \u0027VNF\u0027.",
+      "parentUuid": "5a3f45e8_5cdf7d3b",
+      "range": {
+        "startLine": 11,
+        "startChar": 45,
+        "endLine": 11,
+        "endChar": 52
+      },
+      "revId": "dd24c06beebaa70b1ea5c0f46c3b14c560fe1e74",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_fcd76921",
         "filename": "samples/services/nginx/docker/build_lb.sh",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-26T03:20:07Z",
       "side": 1,
       "message": "change this like below, so that run command `IMAGE_PATH\u003dopnfv ./build_lb.sh` could push the image to dockerhub.\n\n    IMAGE_PATH\u003d${IMAGE_PATH:-\"localhost:5000\"}\n    docker tag http-lb $IMAGE_PATH/http-lb",
+      "range": {
+        "startLine": 12,
+        "startChar": 19,
+        "endLine": 12,
+        "endChar": 33
+      },
+      "revId": "dd24c06beebaa70b1ea5c0f46c3b14c560fe1e74",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8821bbb6",
+        "filename": "samples/services/nginx/docker/build_lb.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7047
+      },
+      "writtenOn": "2018-03-29T06:21:22Z",
+      "side": 1,
+      "message": "Okay, going to do the same thing for IMAGE_NAME but probably need to be more unique to deal with each service for nginx if you want to source from the same CI script. \n\ndocker tag $IMAGE_LB_NAME $IMAGE_PATH/$IMAGE_LB_NAME",
+      "parentUuid": "5a3f45e8_fcd76921",
       "range": {
         "startLine": 12,
         "startChar": 19,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_081dab73",
+        "filename": "samples/services/nginx/docker/grpc/nginx_client.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7047
+      },
+      "writtenOn": "2018-03-29T06:21:22Z",
+      "side": 1,
+      "message": "I can find this dynamically using python Kubernetes client but I\u0027m not sure we need this for Fraser if we are not going to use this script for any real validation.\n\nThey are examples of changing the run-time config of the service with GRPC. This script needs more work if it\u0027s going to be used in any real manner.",
+      "parentUuid": "5a3f45e8_7ce35905",
+      "range": {
+        "startLine": 17,
+        "startChar": 14,
+        "endLine": 17,
+        "endChar": 26
+      },
+      "revId": "dd24c06beebaa70b1ea5c0f46c3b14c560fe1e74",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_9ce8e5e3",
         "filename": "samples/services/nginx/docker/subservices/lb/Dockerfile",
         "patchSetId": 4
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_4817b351",
+        "filename": "samples/services/nginx/docker/subservices/lb/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7047
+      },
+      "writtenOn": "2018-03-29T06:21:22Z",
+      "side": 1,
+      "message": "I agree that they are almost identical. Except for this:\n\nCMD ./process/start_process.sh lb\n\nCMD ./process/start_process.sh server\n\nCMD ./process/start_process.sh proxy\n\nWhich is setting the service to startup upon deployment. Perhaps there\u0027s a better way... This was all done quickly for the demo at ONS this week.",
+      "parentUuid": "5a3f45e8_9ce8e5e3",
+      "revId": "dd24c06beebaa70b1ea5c0f46c3b14c560fe1e74",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_3ce27103",
         "filename": "samples/services/nginx/yaml/lb.yaml",
         "patchSetId": 4
@@ -99,6 +189,30 @@
       "writtenOn": "2018-03-26T03:20:07Z",
       "side": 1,
       "message": "-\u003e {{IMAGE_PATH}}/http-lb:{{IMAGE_TAG}}\n\nthen we could use script like https://github.com/Metaswitch/clearwater-docker/blob/master/kubernetes/k8s-gencfg to render the configuration file.\n\nwe need IMAGE_TAG when we have stable branch.",
+      "range": {
+        "startLine": 16,
+        "startChar": 17,
+        "endLine": 16,
+        "endChar": 39
+      },
+      "revId": "dd24c06beebaa70b1ea5c0f46c3b14c560fe1e74",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a80d9740",
+        "filename": "samples/services/nginx/yaml/lb.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7047
+      },
+      "writtenOn": "2018-03-29T06:21:22Z",
+      "side": 1,
+      "message": "Okay, I have a render script to generate the yaml now, which I also like better.",
+      "parentUuid": "5a3f45e8_3ce27103",
       "range": {
         "startLine": 16,
         "startChar": 17,
