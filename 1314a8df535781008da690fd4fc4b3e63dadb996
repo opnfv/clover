@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_ae03df40",
+        "filename": "clover/orchestration/kube_client.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 6967
+      },
+      "writtenOn": "2018-03-30T08:58:11Z",
+      "side": 1,
+      "message": "I overloaded the method --- it is also being used to get ALL services under a namespace and the corresponding labels and selectors. Although looking at the code now, I actually can\u0027t find where I use it with svc\u003dNone. I will change it to read_namespaced_service for now",
+      "parentUuid": "5a3f45e8_cee10b9c",
+      "revId": "1314a8df535781008da690fd4fc4b3e63dadb996",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_2ef06f66",
         "filename": "clover/orchestration/kube_client.py",
         "patchSetId": 4
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_8efee336",
+        "filename": "clover/orchestration/kube_client.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 6967
+      },
+      "writtenOn": "2018-03-30T08:58:11Z",
+      "side": 1,
+      "message": "No --- this one is basically formatting the output of list_namespaced_pod to dictionary {pod-name: labels: {}}",
+      "parentUuid": "5a3f45e8_2ef06f66",
+      "revId": "1314a8df535781008da690fd4fc4b3e63dadb996",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_0ef3f373",
         "filename": "clover/orchestration/kube_client.py",
         "patchSetId": 4
@@ -47,6 +83,30 @@
       "writtenOn": "2018-03-30T08:30:54Z",
       "side": 1,
       "message": "Can we find the pod with `read_namespaced_pod` ?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 43
+      },
+      "revId": "1314a8df535781008da690fd4fc4b3e63dadb996",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_eefde73b",
+        "filename": "clover/orchestration/kube_client.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6967
+      },
+      "writtenOn": "2018-03-30T08:58:11Z",
+      "side": 1,
+      "message": "No --- in fact, it is significantly different (I believe I need to use better variable name). Essentially this is used as DEPLOYMENT name to pod_names mapping --- and you can have multiple pods prefixed by the same deployment name... and this method will find all of them...",
+      "parentUuid": "5a3f45e8_0ef3f373",
       "range": {
         "startLine": 51,
         "startChar": 0,
