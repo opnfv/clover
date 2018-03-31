@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_82e877e3",
+        "filename": "clover/orchestration/kube_client.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 6967
+      },
+      "writtenOn": "2018-03-31T02:32:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_cee10b9c",
+      "revId": "1314a8df535781008da690fd4fc4b3e63dadb996",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_2ef06f66",
         "filename": "clover/orchestration/kube_client.py",
         "patchSetId": 4
