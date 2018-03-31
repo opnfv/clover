@@ -8,11 +8,9 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 import sys
 
-sys.path.insert(0, '..')
-
-from orchestration import kube_client
-import servicemesh.route_rules as rr
-from tracing.tracing import Tracing
+from clover.orchestration import kube_client
+import clover.servicemesh.route_rules as rr
+from clover.tracing.tracing import Tracing
 
 class ValidateWRR(object):
 
