@@ -10,12 +10,10 @@
 import getopt
 import sys
 
-sys.path.insert(0, '..')
-
-from orchestration import kube_client
-import servicemesh.route_rules as rr
-from tracing.tracing import Tracing
-from validate_rr import ValidateWRR
+from clover.orchestration import kube_client
+import clover.servicemesh.route_rules as rr
+from clover.tracing.tracing import Tracing
+from clover.tools.validate_rr import ValidateWRR
 
 def main(argv):
     service_name = None
