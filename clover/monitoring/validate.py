@@ -5,8 +5,9 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 
-from monitoring import Monitoring
 from kubernetes import client, config
+
+from clover.monitoring.monitoring import Monitoring
 
 PROMETHEUS_URL = "http://127.0.0.1:9090"
 PROMETHEUS_DEPLOYMENT = "prometheus"

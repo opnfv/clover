@@ -5,9 +5,9 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 
-from tracing import Tracing
 from kubernetes import client, config
 
+from clover.tracing.tracing import Tracing
 
 JAEGER_IP = "localhost"
 # JAEGER_IP = "1.1.1.1"

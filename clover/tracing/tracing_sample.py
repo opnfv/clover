@@ -7,7 +7,8 @@
 
 import uuid
 import time
-from tracing import Tracing
+
+from clover.tracing.tracing import Tracing
 
 t = Tracing('localhost', '30888')
 
