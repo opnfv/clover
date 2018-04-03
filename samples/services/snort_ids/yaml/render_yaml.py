@@ -23,6 +23,7 @@ def render_yaml(args):
             image_tag=args['image_tag'],
             deploy_name=args['deploy_name'],
             grpc_port=args['grpc_port'],
+            pac_port=args['pac_port'],
             redis_port=args['redis_port'],
             http_port=args['http_port']
         )
@@ -58,5 +59,9 @@ if __name__ == '__main__':
     parser.add_argument(
             '--grpc_port', default='50052',
             help='The image tag to use')
+    parser.add_argument(
+            '--pac_port', default='50054',
+            help='The image tag to use')
+
     args = parser.parse_args()
     print(render_yaml(vars(args)))
