@@ -52,6 +52,24 @@
       "revId": "b395e6c31765c68356912aa75c4f44bbdb1d9e55",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5b781a2b",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2018-04-03T09:33:08Z",
+      "side": 1,
+      "message": "No, in clover/docker directory don\u0027t container all clover source code.\n\ndocker image build doesn\u0027t support copy file from parent dir.\n\n`COPY ../ ${CLOVER_REPO_DIR}` will get error:\n\n\"Forbidden path outside the build context: ../ ()\"\n\nFor local development use `docker run -v \u003clocal/path/clover\u003e:/home/opnfv/repos/clover` cloud be better.",
+      "parentUuid": "5a3f45e8_1b0e9234",
+      "revId": "b395e6c31765c68356912aa75c4f44bbdb1d9e55",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
