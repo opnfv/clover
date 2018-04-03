@@ -23,6 +23,7 @@ def render_yaml(args):
             image_tag=args['image_tag'],
             deploy_name=args['deploy_name'],
             grpc_port=args['grpc_port'],
+            pac_port=args['pac_port'],
             redis_port=args['redis_port'],
             http_port=args['http_port']
         )
@@ -42,7 +43,7 @@ if __name__ == '__main__':
             help='The image name to use')
     parser.add_argument(
             '--image_path', default='localhost:5000',
-            help='The path to the images to use')
+            help='The path to the image to use')
     parser.add_argument(
             '--image_tag', default='latest',
             help='The image tag to use')
@@ -54,9 +55,13 @@ if __name__ == '__main__':
             help='The redis port to connect to for alerts')
     parser.add_argument(
             '--http_port', default='80',
-            help='Analyze http traffic on this port')
+            help='Analyze http data-plane traffic on this port')
     parser.add_argument(
             '--grpc_port', default='50052',
-            help='The image tag to use')
+            help='The GRPC server port for snort management')
+    parser.add_argument(
+            '--pac_port', default='50054',
+            help='The GRPC server port of the service to send alerts on')
+
     args = parser.parse_args()
     print(render_yaml(vars(args)))
