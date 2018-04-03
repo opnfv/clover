@@ -47,7 +47,8 @@ class Controller(nginx_pb2_grpc.ControllerServicer):
             # self.template_file = 'templates/lb.template'
             self.template_file = '/grpc/templates/lb.template'
             slb_list = pickle.dumps(
-                    ['clover-server1', 'clover-server2', 'clover-server3'])
+                    ['clover-server1:9180', 'clover-server2:9180',
+                        'clover-server3:9180'])
             self.ModifyLB(nginx_pb2.ConfigLB(
                 server_port='9180', server_name='http-lb',
                 slb_list=slb_list,
