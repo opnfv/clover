@@ -16,6 +16,24 @@
       "revId": "b395e6c31765c68356912aa75c4f44bbdb1d9e55",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d864304b",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2018-04-03T03:18:13Z",
+      "side": 1,
+      "message": "with \"COPY setup.sh ${CLOVER_REPO_DIR}/docker/setup.sh\"\nwe could successfully build the image, run container, docker cp other souce file to the right path in container , pip install --upgrade, then we can test :).",
+      "parentUuid": "5a3f45e8_98d748ed",
+      "revId": "b395e6c31765c68356912aa75c4f44bbdb1d9e55",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
