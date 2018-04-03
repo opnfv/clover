@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_98d748ed",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 4469
+      },
+      "writtenOn": "2018-04-03T02:24:59Z",
+      "side": 1,
+      "message": "How do you build and test it locally before the changes are merged in the remote repository?",
+      "revId": "b395e6c31765c68356912aa75c4f44bbdb1d9e55",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
