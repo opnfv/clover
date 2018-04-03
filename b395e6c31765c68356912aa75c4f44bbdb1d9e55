@@ -34,6 +34,24 @@
       "revId": "b395e6c31765c68356912aa75c4f44bbdb1d9e55",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1b0e9234",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 4469
+      },
+      "writtenOn": "2018-04-03T07:09:31Z",
+      "side": 1,
+      "message": "Could we replace `git clone ...` with `COPY . ${CLOVER_REPO_DIR}`, since we have already cloned the repository to get `Dockerfile` and `setup.sh`. It will make local development much easier.\n\nMy 2 cents.",
+      "parentUuid": "5a3f45e8_d864304b",
+      "revId": "b395e6c31765c68356912aa75c4f44bbdb1d9e55",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
