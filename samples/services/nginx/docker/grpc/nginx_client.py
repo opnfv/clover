@@ -66,9 +66,9 @@ def modify_server(stub):
 
 def modify_lb(stub):
     slb_list = pickle.dumps(
-                    ['clover-server1', 'clover-server2', 'clover-server3'])
+                    ['clover-server1:9180', 'clover-server2:9180'])
     response = stub.ModifyLB(nginx_pb2.ConfigLB(
-            server_port='9188', server_name='http-lb',
+            server_port='9180', server_name='http-lb',
             slb_list=slb_list,
             slb_group='cloverlb', lb_path='/'))
     print(response.message)
