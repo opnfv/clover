@@ -22,6 +22,30 @@
       "revId": "8223630bc3329b0c287835d0dab26854d8e43397",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_acb5a232",
+        "filename": "clover/tools/yaml/redis.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7047
+      },
+      "writtenOn": "2018-04-04T05:31:02Z",
+      "side": 1,
+      "message": "The two images are for the redis master and redis sentinel elements, which are described here:\n\nhttps://github.com/kubernetes/examples/blob/master/staging/storage/redis/README.md\n\nI\u0027ve really only used the simplest of deployments for redis thus far. It consists of using the default redis-master.yaml manifest and adding a service named \u0027redis\u0027 on port 6379 for communication within the k8s cluster.\n\nFor a more reliable redis service, you can deploy all the manifests outlined in the above link. This will allow multiple redis and sentinel replicas to be deployed. However, I don\u0027t think this is necessary for us at the moment, given our data isn\u0027t critical.",
+      "parentUuid": "5a3f45e8_31ec4fc7",
+      "range": {
+        "startLine": 26,
+        "startChar": 13,
+        "endLine": 26,
+        "endChar": 32
+      },
+      "revId": "8223630bc3329b0c287835d0dab26854d8e43397",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
