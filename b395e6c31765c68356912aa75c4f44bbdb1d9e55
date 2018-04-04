@@ -70,6 +70,24 @@
       "revId": "b395e6c31765c68356912aa75c4f44bbdb1d9e55",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b1d7bfec",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 4469
+      },
+      "writtenOn": "2018-04-04T01:29:43Z",
+      "side": 1,
+      "message": "You may send the context explicitly, e.g. `docker build -f docker/Dockerfile \u003cCLOVER_REPO\u003e` \n\nIt is supported by releng to override those parameters. It allows us to build multiple images from the same repository. See example in https://git.opnfv.org/releng/tree/jjb/releng/opnfv-docker.yml#n88\n\n:-)",
+      "parentUuid": "5a3f45e8_5b781a2b",
+      "revId": "b395e6c31765c68356912aa75c4f44bbdb1d9e55",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
