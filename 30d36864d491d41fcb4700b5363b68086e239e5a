@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_aac5813d",
+        "filename": "samples/services/snort_ids/docker/grpc/snort_alerts.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6967
+      },
+      "writtenOn": "2018-04-05T05:29:58Z",
+      "side": 1,
+      "message": "Oh... is that why the alert didn\u0027t get sent to proxy-access-control? :-)",
+      "revId": "30d36864d491d41fcb4700b5363b68086e239e5a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
