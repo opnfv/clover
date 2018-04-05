@@ -57,7 +57,7 @@ spec:
     spec:
       containers:
         - name: clover-server1
-          image: localhost:5000/clover-ns-nginx-server:latest
+          image: opnfv/clover-ns-nginx-server:latest
           ports:
            - containerPort: 50054
            - containerPort: 9180
@@ -91,7 +91,7 @@ spec:
     spec:
       containers:
         - name: clover-server2
-          image: localhost:5000/clover-ns-nginx-server:latest
+          image: opnfv/clover-ns-nginx-server:latest
           ports:
            - containerPort: 50054
            - containerPort: 9180
@@ -125,7 +125,7 @@ spec:
     spec:
       containers:
         - name: clover-server3
-          image: localhost:5000/clover-ns-nginx-server:latest
+          image: opnfv/clover-ns-nginx-server:latest
           ports:
            - containerPort: 50054
            - containerPort: 9180
@@ -159,7 +159,7 @@ spec:
     spec:
       containers:
         - name: clover-server4
-          image: localhost:5000/clover-ns-nginx-server:latest
+          image: opnfv/clover-ns-nginx-server:latest
           ports:
            - containerPort: 50054
            - containerPort: 9180
@@ -193,7 +193,7 @@ spec:
     spec:
       containers:
         - name: clover-server5
-          image: localhost:5000/clover-ns-nginx-server:latest
+          image: opnfv/clover-ns-nginx-server:latest
           ports:
            - containerPort: 50054
            - containerPort: 9180
@@ -229,7 +229,7 @@ spec:
     spec:
       containers:
         - name: http-lb
-          image: localhost:5000/clover-ns-nginx-lb:latest
+          image: opnfv/clover-ns-nginx-lb:latest
           ports:
            - containerPort: 50054
            - containerPort: 9180
@@ -250,7 +250,7 @@ spec:
     spec:
       containers:
         - name: http-lb
-          image: localhost:5000/clover-ns-nginx-lb:latest
+          image: opnfv/clover-ns-nginx-lb:latest
           ports:
            - containerPort: 50054
            - containerPort: 9180
@@ -284,7 +284,7 @@ spec:
     spec:
       containers:
         - name: snort-ids
-          image: localhost:5000/clover-ns-snort-ids:latest
+          image: opnfv/clover-ns-snort-ids:latest
           ports:
            - containerPort: 50052
            - containerPort: 50054
@@ -324,7 +324,7 @@ spec:
     spec:
       containers:
         - name: proxy-access-control
-          image: localhost:5000/clover-ns-nginx-proxy:latest
+          image: opnfv/clover-ns-nginx-proxy:latest
           ports:
            - containerPort: 50054
            - containerPort: 9180
