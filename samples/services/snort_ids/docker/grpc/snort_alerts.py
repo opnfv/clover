@@ -14,7 +14,7 @@ from idstools import unified2
 
 
 HOST_IP = 'redis'
-PROXY_GRPC = 'http-proxy:50054'
+PROXY_GRPC = 'proxy-access-control:50054'
 
 logging.basicConfig(filename='alert.log', level=logging.DEBUG)
 

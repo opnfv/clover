@@ -18,6 +18,7 @@ spec:
            - containerPort: {{ grpc_port }}
            - containerPort: {{ redis_port }}
            - containerPort: {{ http_port }}
+           - containerPort: {{ pac_port }}
 ---
 apiVersion: v1
 kind: Service
@@ -33,6 +34,8 @@ spec:
     name: redis
   - port: {{ http_port }}
     name: http
+  - port: {{ pac_port }}
+    name: proxy-access-control
   selector:
     app: {{ deploy_name }}
 ---
