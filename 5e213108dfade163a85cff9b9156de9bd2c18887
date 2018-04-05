@@ -1,0 +1,10 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Yujun Zhang <zhang.yujunz@zte.com.cn>
+Code-Review+1: qi liang <liangqi1@huawei.com>
+Code-Review+2: Stephen Wong <stephen.kf.wong@gmail.com>
+Verified+1: Stephen Wong <stephen.kf.wong@gmail.com>
+Submitted-by: Stephen Wong <stephen.kf.wong@gmail.com>
+Submitted-at: Thu, 05 Apr 2018 23:20:26 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/54759
+Project: clover
+Branch: refs/heads/master
