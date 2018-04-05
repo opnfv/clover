@@ -16,13 +16,16 @@ def render_yaml(args):
     grpc_port = '50054'
     if args['service_type'] == 'lb':
         out_file = 'lb.yaml'
-        deploy_name = 'http-lb'
+        if args['deploy_name'] == 'default':
+            args['deploy_name'] = 'http-lb'
     elif args['service_type'] == 'proxy':
         out_file = 'proxy.yaml'
-        deploy_name = 'proxy-access-control'
+        if args['deploy_name'] == 'default':
+            args['deploy_name'] = 'proxy-access-control'
     elif args['service_type'] == 'server':
         out_file = 'server.yaml'
-        deploy_name = 'clover-server'
+        if args['deploy_name'] == 'default':
+            args['deploy_name'] = 'clover-server'
     else:
         return "Invalid service type: {}".format(args['service_type'])
 
@@ -33,7 +36,7 @@ def render_yaml(args):
             image_path=args['image_path'],
             image_name=args['image_name'],
             image_tag=args['image_tag'],
-            deploy_name=deploy_name,
+            deploy_name=args['deploy_name'],
             server_port=server_port,
             grpc_port=grpc_port
         )
@@ -60,5 +63,8 @@ if __name__ == '__main__':
     parser.add_argument(
             '--image_tag', default='latest',
             help='The image tag to use')
+    parser.add_argument(
+            '--deploy_name', default='default',
+            help='The deployment name to use')
     args = parser.parse_args()
     print(render_yaml(vars(args)))

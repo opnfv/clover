@@ -16,18 +16,24 @@ import nginx_pb2
 import nginx_pb2_grpc
 
 
-def run(args):
+def run(args, grpc_port='50054'):
     # get pod ip for grpc
     pod_ip = get_podip(args['service_name'])
     if pod_ip == '':
-        return "Cant find service with name: {}".format(args['service_name'])
-    nginx_grpc = pod_ip + ':50054'
+        return "Cant find service: {}".format(args['service_name'])
+    nginx_grpc = pod_ip + ':' + grpc_port
     channel = grpc.insecure_channel(nginx_grpc)
     stub = nginx_pb2_grpc.ControllerStub(channel)
 
     # modify config
-    if args['service_type'] == 'lb':
-        modify_lb(stub)
+    if args['service_type'] == 'lbv1':
+        slb_list = pickle.dumps(
+                    ['clover-server1:9180', 'clover-server2:9180'])
+        modify_lb(stub, slb_list)
+    if args['service_type'] == 'lbv2':
+        slb_list = pickle.dumps(
+                    ['clover-server4:9180', 'clover-server5:9180'])
+        modify_lb(stub, slb_list)
     elif args['service_type'] == 'proxy':
         modify_proxy(stub)
     elif args['service_type'] == 'server':
@@ -38,14 +44,16 @@ def run(args):
 
 
 def get_podip(pod_name):
-    config.load_kube_config()
-    v1 = client.CoreV1Api()
-    ret = v1.list_pod_for_all_namespaces(watch=False)
     ip = ''
-    for i in ret.items:
-        if i.metadata.name.lower().find(pod_name.lower()) != -1:
-            print(i.status.pod_ip)
-            ip = i.status.pod_ip
+    if pod_name != '':
+        config.load_kube_config()
+        v1 = client.CoreV1Api()
+        ret = v1.list_pod_for_all_namespaces(watch=False)
+        for i in ret.items:
+            if i.metadata.name.lower().find(pod_name.lower()) != -1:
+                print("Pod IP: {}".format(i.status.pod_ip))
+                ip = i.status.pod_ip
+                return str(ip)
     return str(ip)
 
 
@@ -64,11 +72,9 @@ def modify_server(stub):
     print(response.message)
 
 
-def modify_lb(stub):
-    slb_list = pickle.dumps(
-                    ['clover-server1', 'clover-server2', 'clover-server3'])
+def modify_lb(stub, slb_list):
     response = stub.ModifyLB(nginx_pb2.ConfigLB(
-            server_port='9188', server_name='http-lb',
+            server_port='9180', server_name='http-lb',
             slb_list=slb_list,
             slb_group='cloverlb', lb_path='/'))
     print(response.message)

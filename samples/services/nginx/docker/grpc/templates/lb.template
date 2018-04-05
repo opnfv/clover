@@ -61,9 +61,19 @@ http {
 
     upstream {{ slb_group }} {
         {%- for item in slb_list %}
-            server {{ item }};
+            server 127.0.0.1:800{{ loop.index }};
         {%- endfor %}
     }
+
+    {%- for item in slb_list %}
+    server {
+        listen 800{{ loop.index }};
+        location / {
+           proxy_http_version 1.1;
+           proxy_pass http://{{ item }};
+        }
+    }
+    {%- endfor %}
 
     server {
         listen {{ server_port }};
@@ -73,6 +83,9 @@ http {
             proxy_http_version 1.1;
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection "upgrade";
+            proxy_set_header X-Forwarded-For $remote_addr;
+            proxy_set_header X-Forwarded-Proto http;
+            proxy_set_header X-Real-IP $remote_addr;
             proxy_pass http://{{ slb_group }};
         }
 
