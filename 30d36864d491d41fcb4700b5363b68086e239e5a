@@ -16,6 +16,24 @@
       "revId": "30d36864d491d41fcb4700b5363b68086e239e5a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_503d90ba",
+        "filename": "samples/services/snort_ids/docker/grpc/snort_alerts.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7047
+      },
+      "writtenOn": "2018-04-05T18:19:39Z",
+      "side": 1,
+      "message": "Yes, I think this was the reason. When I renamed the deployment of the proxy on the demo EC2 instance at some point, I forgot to change this. In the near future, I think we can improve the implementation. We can, for example, have this process fetch the service name to send alerts to from redis without having to hardcode this here. The GRPC server in snort could initialize the value and allow for modifications of it (or change redis directly from the controlling agent). However, I noticed that tracing doesn\u0027t seem to show the alert messages without this dns name also being in the yaml \u0027Service\u0027 portion of the snort manifest. The entire process of changing a run-time configuration of a service should be considered further. Should we instead, destroy the pod/deployment and generate another manifest and recreate and allow internal parameters for the service to be initialized by fetching from redis at startup? Do we create a v2 first and create an istio route rule once the new version is validated. Perhaps it depends on the scope of the change. Anyway, interesting considerations.",
+      "parentUuid": "5a3f45e8_aac5813d",
+      "revId": "30d36864d491d41fcb4700b5363b68086e239e5a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
