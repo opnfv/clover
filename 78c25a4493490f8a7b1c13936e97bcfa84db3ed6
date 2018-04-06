@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_5b6931bd",
+        "filename": "samples/gen-kube-config.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7047
+      },
+      "writtenOn": "2018-04-06T05:56:14Z",
+      "side": 1,
+      "message": "Hi Liangqi, I think I misunderstood some of your comments on a previous patch. I didn\u0027t realize you would use sed to modify the values of a static yaml. I modified the code already and there isn\u0027t a default yaml any longer.\n\nInstead there\u0027s a python script in the yaml directory to render the manifest. So you could do the following instead:\n\npython render_yaml.py --service_type\u003dlb --image_name\u003dclover-ns-nginx-lb --image_path\u003dopnfv --image_tag\u003dlatest\n\nThis will generate lb.yaml\n\npython render_yaml.py --service_type\u003dproxy --image_name\u003dclover-ns-nginx-proxy --image_path\u003dopnfv --image_tag\u003dlatest\n\nFor proxy.yaml\n\npython render_yaml.py --service_type\u003dserver --image_name\u003dclover-ns-nginx-server --image_path\u003d$IMAGE_PATH --image_tag\u003d$IMAGE_TAG\n\nFor server.yaml\n\nSame thing for snort but without the service_type argument.\n\npython render_yaml.py --image_name\u003dclover-ns-snort-ids --image_path\u003d$IMAGE_PATH --image_tag\u003d$IMAGE_TAG",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 4
+      },
+      "revId": "78c25a4493490f8a7b1c13936e97bcfa84db3ed6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
