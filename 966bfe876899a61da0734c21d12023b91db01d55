@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_3a27f613",
+        "filename": "docker/setup_clover_k8s_env.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7047
+      },
+      "writtenOn": "2018-04-10T22:28:33Z",
+      "side": 1,
+      "message": "Thanks for working on this. It\u0027s great to have.\n\nWe can probably ignore for this release but perhaps we should consider the overall install namespace of all the components. The namespace breakdown is currently:\n\nistio-system: prometheus, jaeger\ndefault: redis\nlogging: elasticsearch, fluentd, kibana\n\nIf we are going to expose this script as the installation method to users outside of CI, it\u0027s a thought.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 142
+      },
+      "revId": "966bfe876899a61da0734c21d12023b91db01d55",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
