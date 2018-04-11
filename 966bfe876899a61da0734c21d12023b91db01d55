@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_9a356af9",
+        "filename": "docker/setup_clover_k8s_env.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2018-04-11T03:15:22Z",
+      "side": 1,
+      "message": "Agree, we could improve this part in the following release.",
+      "parentUuid": "5a3f45e8_3a27f613",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 142
+      },
+      "revId": "966bfe876899a61da0734c21d12023b91db01d55",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_fad2aed0",
         "filename": "docker/validate_clover_k8s_env.sh",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-04-10T23:44:23Z",
       "side": 1,
       "message": "The reason I had 30888 in the tracing interface was because I use the \u0027expose\u0027 command as opposed to the \u0027port-forward\u0027 command and the resultant port from that command was 30888. A NodePort will get a variable port between: 30000-32767  \n\nThis is the command that is executed:\nkubectl expose -n istio-system deployment jaeger-deployment --port\u003d16686 --type\u003dNodePort\n\nI will change the default port in the tracing interface to 16686 in another patch. So you should use 16686:16686 in your port-forward command.\n\nThe reason I prefer \u0027expose\u0027 to \u0027port-forward\u0027 is that the cluster node IP will be externally available for the service. In the case of jaeger/prometheus, it allows the UI to be accessible externally instead of just allowing localhost access...",
+      "range": {
+        "startLine": 27,
+        "startChar": 126,
+        "endLine": 27,
+        "endChar": 131
+      },
+      "revId": "966bfe876899a61da0734c21d12023b91db01d55",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3a26d6ce",
+        "filename": "docker/validate_clover_k8s_env.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2018-04-11T03:15:22Z",
+      "side": 1,
+      "message": "got it and done.",
+      "parentUuid": "5a3f45e8_fad2aed0",
       "range": {
         "startLine": 27,
         "startChar": 126,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_fa3c6ee4",
+        "filename": "docker/validate_clover_k8s_env.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2018-04-11T03:15:22Z",
+      "side": 1,
+      "message": "done.",
+      "parentUuid": "5a3f45e8_dad532ba",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 39
+      },
+      "revId": "966bfe876899a61da0734c21d12023b91db01d55",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_3adc16e4",
         "filename": "docker/validate_clover_k8s_env.sh",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2018-04-10T23:44:23Z",
       "side": 1,
       "message": "I will change the default port to 16686 in this script to support this patch. It\u0027s a better default anyway since 30888 was a random assignment between 30000-32767.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 33
+      },
+      "revId": "966bfe876899a61da0734c21d12023b91db01d55",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_da3ff2d4",
+        "filename": "docker/validate_clover_k8s_env.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2018-04-11T03:15:22Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "5a3f45e8_3adc16e4",
       "range": {
         "startLine": 30,
         "startChar": 0,
