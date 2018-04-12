@@ -8,6 +8,7 @@
 FROM ubuntu:16.04
 LABEL image=opnfv/clover
 ARG BRANCH=master
+ARG ISTIO_VERSION=0.6.0
 
 # GIT repo directory
 ENV REPOS_DIR="/home/opnfv/repos"

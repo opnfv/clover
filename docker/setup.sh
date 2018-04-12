@@ -16,11 +16,13 @@ if [ "x${ISTIO_VERSION}" = "x" ] ; then
                   grep tag_name | sed "s/ *\"tag_name\": *\"\(.*\)\",*/\1/")
 fi
 
-ISTIO_DIR_NAME="istio-$ISTIO_VERSION"
+mkdir istio-source
 
-cd /usr/local/
-curl -L https://git.io/getLatestIstio | sh -
-mv $ISTIO_DIR_NAME istio-source
+curl -L https://github.com/istio/istio/releases/download/${ISTIO_VERSION}/istio-${ISTIO_VERSION}-linux.tar.gz | \
+tar xz -C istio-source --strip-components 1
+
+# Install istioctl
+cp istio-source/bin/* /usr/local/bin
 
 # Install kubectl
 curl -s http://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
@@ -33,6 +35,5 @@ apt-get update \
     && apt-get -y autoremove \
     && apt-get clean
 
-# Persistently append istioctl bin path to PATH env
-echo 'export PATH="$PATH:/usr/local/istio-source/bin"' >> ~/.bashrc
+# Enable kubectl bash completion
 echo "source <(kubectl completion bash)" >> ~/.bashrc
