@@ -1,15 +1,13 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [dev-packages]
 
-
-
 [packages]
-
-kubernetes = "*"
+kubernetes = ">=1.0.0"
 sh = "*"
+pbr = "!=2.1.0,>=2.0.0"
+xtesting = "*"
+redis = ">=2.10.0"
