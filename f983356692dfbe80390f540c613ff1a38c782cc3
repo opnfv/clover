@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_e7716ea9",
+        "filename": "docker/setup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 4469
+      },
+      "writtenOn": "2018-04-13T06:39:27Z",
+      "side": 1,
+      "message": "I just realized it is a build time argument and pass \u0027-e\u0027 to docker run will not work. Provided as a build arg instead.",
+      "parentUuid": "5a3f45e8_5c4919b6",
+      "range": {
+        "startLine": 21,
+        "startChar": 57,
+        "endLine": 21,
+        "endChar": 73
+      },
+      "revId": "f983356692dfbe80390f540c613ff1a38c782cc3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_dcd409bf",
         "filename": "docker/setup.sh",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-04-13T02:56:32Z",
       "side": 1,
       "message": "This ends up being the wrong export path with your change. istio installs to /istio-source.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 67
+      },
+      "revId": "f983356692dfbe80390f540c613ff1a38c782cc3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7c04d517",
+        "filename": "docker/setup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 4469
+      },
+      "writtenOn": "2018-04-13T06:39:27Z",
+      "side": 1,
+      "message": "Fixed by copying the binary to PATH.",
+      "parentUuid": "5a3f45e8_dcd409bf",
       "range": {
         "startLine": 36,
         "startChar": 0,
