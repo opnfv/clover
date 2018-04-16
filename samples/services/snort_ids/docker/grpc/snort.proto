@@ -27,8 +27,9 @@ message AddRule {
   string src_port = 4;
   string src_ip = 5;
   string msg = 6;
-  string sid = 7;
-  string rev = 8;
+  string content = 7;
+  string sid = 8;
+  string rev = 9;
 }
 
 message SnortReply {

@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='snort.proto',
   package='snort',
   syntax='proto3',
-  serialized_pb=_b('\n\x0bsnort.proto\x12\x05snort\"\x1b\n\x0c\x43ontrolSnort\x12\x0b\n\x03pid\x18\x01 \x01(\t\"\x88\x01\n\x07\x41\x64\x64Rule\x12\x10\n\x08protocol\x18\x01 \x01(\t\x12\x11\n\tdest_port\x18\x02 \x01(\t\x12\x0f\n\x07\x64\x65st_ip\x18\x03 \x01(\t\x12\x10\n\x08src_port\x18\x04 \x01(\t\x12\x0e\n\x06src_ip\x18\x05 \x01(\t\x12\x0b\n\x03msg\x18\x06 \x01(\t\x12\x0b\n\x03sid\x18\x07 \x01(\t\x12\x0b\n\x03rev\x18\x08 \x01(\t\"\x1d\n\nSnortReply\x12\x0f\n\x07message\x18\x01 \x01(\t2\xac\x01\n\nController\x12/\n\x08\x41\x64\x64Rules\x12\x0e.snort.AddRule\x1a\x11.snort.SnortReply\"\x00\x12\x36\n\nStartSnort\x12\x13.snort.ControlSnort\x1a\x11.snort.SnortReply\"\x00\x12\x35\n\tStopSnort\x12\x13.snort.ControlSnort\x1a\x11.snort.SnortReply\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x0bsnort.proto\x12\x05snort\"\x1b\n\x0c\x43ontrolSnort\x12\x0b\n\x03pid\x18\x01 \x01(\t\"\x99\x01\n\x07\x41\x64\x64Rule\x12\x10\n\x08protocol\x18\x01 \x01(\t\x12\x11\n\tdest_port\x18\x02 \x01(\t\x12\x0f\n\x07\x64\x65st_ip\x18\x03 \x01(\t\x12\x10\n\x08src_port\x18\x04 \x01(\t\x12\x0e\n\x06src_ip\x18\x05 \x01(\t\x12\x0b\n\x03msg\x18\x06 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x07 \x01(\t\x12\x0b\n\x03sid\x18\x08 \x01(\t\x12\x0b\n\x03rev\x18\t \x01(\t\"\x1d\n\nSnortReply\x12\x0f\n\x07message\x18\x01 \x01(\t2\xac\x01\n\nController\x12/\n\x08\x41\x64\x64Rules\x12\x0e.snort.AddRule\x1a\x11.snort.SnortReply\"\x00\x12\x36\n\nStartSnort\x12\x13.snort.ControlSnort\x1a\x11.snort.SnortReply\"\x00\x12\x35\n\tStopSnort\x12\x13.snort.ControlSnort\x1a\x11.snort.SnortReply\"\x00\x62\x06proto3')
 )
 
 
@@ -106,15 +106,22 @@ _ADDRULE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='sid', full_name='snort.AddRule.sid', index=6,
+      name='content', full_name='snort.AddRule.content', index=6,
       number=7, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='rev', full_name='snort.AddRule.rev', index=7,
+      name='sid', full_name='snort.AddRule.sid', index=7,
       number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='rev', full_name='snort.AddRule.rev', index=8,
+      number=9, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -132,7 +139,7 @@ _ADDRULE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=52,
-  serialized_end=188,
+  serialized_end=205,
 )
 
 
@@ -162,8 +169,8 @@ _SNORTREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=190,
-  serialized_end=219,
+  serialized_start=207,
+  serialized_end=236,
 )
 
 DESCRIPTOR.message_types_by_name['ControlSnort'] = _CONTROLSNORT
@@ -200,8 +207,8 @@ _CONTROLLER = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   options=None,
-  serialized_start=222,
-  serialized_end=394,
+  serialized_start=239,
+  serialized_end=411,
   methods=[
   _descriptor.MethodDescriptor(
     name='AddRules',

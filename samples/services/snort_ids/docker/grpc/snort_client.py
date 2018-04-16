@@ -30,6 +30,8 @@ def run(args, grpc_port='50052'):
         return add_tcprule(stub)
     elif args['cmd'] == 'addicmp':
         return add_icmprule(stub)
+    elif args['cmd'] == 'addscan':
+        return add_scanrule(stub)
     elif args['cmd'] == 'start':
         return start_snort(stub)
     elif args['cmd'] == 'stop':
@@ -71,6 +73,20 @@ def add_icmprule(stub):
             protocol='icmp', dest_port='any', dest_ip='$HOME_NET',
             src_port='any', src_ip='any', msg='icmp test', sid='10000001',
             rev='001'))
+        print(stop_snort(stub))
+        print(start_snort(stub))
+    except Exception as e:
+        return e
+    return response.message
+
+
+def add_scanrule(stub):
+    try:
+        response = stub.AddRules(snort_pb2.AddRule(
+            protocol='tcp', dest_port='any', dest_ip='$HOME_NET',
+            src_port='any', src_ip='any',
+            msg='MALWARE-CNC User-Agent ASafaWeb Scan', sid='10000003',
+            rev='001', content='"asafaweb.com"'))
         print(stop_snort(stub))
         print(start_snort(stub))
     except Exception as e:
