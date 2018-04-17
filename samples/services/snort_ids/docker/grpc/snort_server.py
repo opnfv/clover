@@ -35,7 +35,8 @@ class Controller(snort_pb2_grpc.ControllerServicer):
             f = open(file_local, 'a')
             rule = 'alert {} {} {} -> {} {} '.format(
                 r.protocol, r.src_ip, r.src_port, r.dest_ip, r.dest_port) \
-                + '(msg:"{}"; sid:{}; rev:{};)\n'.format(r.msg, r.sid, r.rev)
+                + '(msg:"{}"; content:{}; sid:{}; rev:{};)\n'.format(
+                                      r.msg, r.content, r.sid, r.rev)
             f.write(rule)
             f.close
             msg = "Added to local rules"
