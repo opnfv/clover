@@ -35,3 +35,4 @@ cover/
 .tox/
 # work env
 work/
+.pytest_cache

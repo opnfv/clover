@@ -9,6 +9,8 @@ from kubernetes import client, config
 from kubernetes.stream import stream
 import sh
 import re
+import os
+import pytest
 
 FLUENTD_NAMESPACE = 'logging'
 FLUENTD_PATTERN = 'fluentd-.*'
@@ -54,3 +56,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    pytest.main([os.path.dirname(os.path.realpath(__file__))])
