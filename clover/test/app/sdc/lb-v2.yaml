@@ -1,0 +1,23 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: http-lb-v2
+  labels:
+    app: http-lb
+    version: v2
+spec:
+  template:
+    metadata:
+      labels:
+        app: http-lb
+        version: v2
+    spec:
+      containers:
+        - name: http-lb
+          image: localhost:5000/http-lb2
+          ports:
+           - containerPort: 50054
+           - containerPort: 9188
+---
+

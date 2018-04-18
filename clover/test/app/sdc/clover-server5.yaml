@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: clover-server5
+  labels:
+    app: clover-server5
+spec:
+  template:
+    metadata:
+      labels:
+        app: clover-server5
+    spec:
+      containers:
+        - name: clover-server5
+          image: opnfv/clover-ns-nginx-server:latest
+          ports:
+           - containerPort: 50054
+           - containerPort: 9180
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: clover-server5
+  labels:
+    app: clover-server5
+spec:
+  ports:
+  - port: 50054
+    name: grpc
+  - port: 9180
+    name: http
+  selector:
+    app: clover-server5

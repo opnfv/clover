@@ -1,0 +1,24 @@
+test-svc: http-lb
+kind: A-B-Testing
+deployment-A: http-lb-v1
+deployment-B:
+  name: http-lb-v2
+  manifest: sdc/lb-v2.yaml
+additional-deployments:
+  - name: clover-server4
+    manifest: sdc/clover-server4.yaml
+  - name: clover-server5
+    manifest: sdc/clover-server5.yaml
+ab-test-rr: sdc/route-rule-lb-50-v2.yaml
+traffic-test: lb-test.sh
+success:
+  criteria:
+  - type: performance
+    condition: 120
+  action:
+  - type: commit
+    routerule: sdc/route-rule-lb-v2.yaml
+  failed:
+    action:
+    - type: rollback
+      routerule: sdc/route-rule-lb-v1.yaml
