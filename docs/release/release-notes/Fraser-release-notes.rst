@@ -4,7 +4,7 @@
 .. (c) optionally add copywriters name
 
 
-This document provides the release notes for Fraser of OPNFV Clover.
+This document provides Clover project's release notes for the OPNFV Fraser release.
 
 .. contents::
    :depth: 3
@@ -25,8 +25,8 @@ Version history
 Important notes
 ===============
 
-The OPNFV Clover project for Fraser can ONLY be run on Kubernetes version 1.9.3 or
-above
+The Clover project for OPNFV Fraser can ONLY be run on Kubernetes version 1.9.3 or
+later
 
 Summary
 =======
@@ -61,11 +61,11 @@ Version change
 
 Module version changes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Fraser marks the first release of OPNFV Clover
+OPNFV Fraser marks the first release for Clover
 
 Document version changes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Fraser marks the first release of OPNFV Clover
+OPNFV Fraser marks the first release for Clover
 
 Reason for version
 ^^^^^^^^^^^^^^^^^^^^

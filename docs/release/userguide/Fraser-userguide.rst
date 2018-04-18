@@ -8,7 +8,7 @@
 Clover User Guide (Fraser Release)
 ================================================================
 
-This document provides the user guide for Fraser release of Clover.
+This document provides the Clover user guide for OPNFV Fraser release.
 
 .. contents::
    :depth: 3
@@ -18,9 +18,9 @@ This document provides the user guide for Fraser release of Clover.
 Description
 ===========
 
-Project Clover was established to investigate best practice to implement,
+Project Clover was established to investigate best practices to implement,
 build, deploy, and operate virtual network functions as cloud native
-applications. "Cloud native" has a ever evolving and expanding definition,
+applications. "Cloud native" has an ever evolving and expanding definition,
 and in Clover, the focus is effectively running and operating VNFs built
 in a micro-service design pattern running on Docker containers and
 orchestrated by Kubernetes.
@@ -57,8 +57,8 @@ What is in Fraser?
 Usage
 =====
 
- * each modules (service mesh, logging, tracing, monitoring) are Python
-   modules with their own set of library calls / API exposed. The descriptions
+ * each module (service mesh, logging, tracing, monitoring) is a Python
+   module with its own set of library calls/ API exposed. The descriptions
    of these library calls are under doc/developer (TBD)
 
  * tools directory contains Python tools for generic use
@@ -72,7 +72,7 @@ Usage
    - user specify via yaml the "success" expectation of v2 (latency,
      performance, session loss...etc)
    - Clover tool validates sessions conformance with user defined expectations
-   - The "commit" action is invoked to move 100% traffic to v2
+   - The "commit" action is invoked to move 100% of the traffic to v2
    - Clover tool validates traffic conformance with route rules
    - A fault is injected for the path to the extra service of v2 which adds
      a one second delay onto the path
