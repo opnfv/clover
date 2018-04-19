@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_afb72f39",
+        "filename": "clover/test/script/lb-test.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 4469
+      },
+      "writtenOn": "2018-04-19T07:18:59Z",
+      "side": 1,
+      "message": "Should this be an argument? Or read from an environment variable?\n\nI think it is not a fixed address.",
+      "range": {
+        "startLine": 4,
+        "startChar": 9,
+        "endLine": 4,
+        "endChar": 33
+      },
+      "revId": "f19ded852acd0fb125aadb80ae61a36e3e2c80c2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
