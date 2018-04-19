@@ -22,6 +22,30 @@
       "revId": "f19ded852acd0fb125aadb80ae61a36e3e2c80c2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f5b8eac9",
+        "filename": "clover/test/script/lb-test.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 6967
+      },
+      "writtenOn": "2018-04-19T23:26:02Z",
+      "side": 1,
+      "message": "Done. Good point --- actually @earrage and I talked about that as I ran test on my setup, that as part of the procedure, you would need to modify the script.\n\nNevertheless, you still need to give input somehow. So now I put that into a more official place --- the test yaml itself.",
+      "parentUuid": "5a3f45e8_afb72f39",
+      "range": {
+        "startLine": 4,
+        "startChar": 9,
+        "endLine": 4,
+        "endChar": 33
+      },
+      "revId": "f19ded852acd0fb125aadb80ae61a36e3e2c80c2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
