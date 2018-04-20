@@ -25,16 +25,17 @@ Version history
 Important notes
 ===============
 
-The Clover project for OPNFV Fraser can ONLY be run on Kubernetes version 1.9.3 or
+The Clover project for OPNFV Fraser can ONLY be run on Kubernetes version 1.9 or
 later
 
 Summary
 =======
 
-Clover provides tools to help run cloud native virtual network functions. These
-tools include service-mesh and associated policy-based-routing config (via
-Istio), logging (via fluentd), monitoring (via Prometheus), and tracing (via
-OpenTracing and Jaeger).
+Clover Fraser release provides tools for installation and validation of various
+upstream cloud native projects including Istio, fluentd, Jaegar, and Prometheus.
+In addition, the Fraser release also includes a sample VNF, its Kubernetes
+manifest, simple tools to validate route rules from Istio, as well as an
+example A-B testing framework.
 
 Release Data
 ============
@@ -49,7 +50,7 @@ Release Data
 | **Release designation**              | Fraser                               |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | 2018-04-xx                           |
+| **Release date**                     | 2018-04-27
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Purpose of the delivery**          | OPNFV Fraser release                 |
@@ -59,7 +60,7 @@ Release Data
 Version change
 ^^^^^^^^^^^^^^^^
 
-Module version changes
+odule version changes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 OPNFV Fraser marks the first release for Clover
 
