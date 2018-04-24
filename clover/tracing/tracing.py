@@ -10,7 +10,7 @@ import time
 import redis
 
 TRACING_IP = "localhost"
-TRACING_PORT = "30888"
+TRACING_PORT = "16686"
 
 
 class Tracing:
