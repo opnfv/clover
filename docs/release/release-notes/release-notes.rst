@@ -60,7 +60,7 @@ Release Data
 Version change
 ^^^^^^^^^^^^^^^^
 
-Module version changes
+odule version changes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 OPNFV Fraser marks the first release for Clover
 
