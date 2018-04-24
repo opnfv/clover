@@ -14,7 +14,7 @@ from idstools import unified2
 
 
 HOST_IP = 'redis'
-PROXY_GRPC = 'proxy-access-control:50054'
+# PROXY_GRPC = 'proxy-access-control:50054'
 
 logging.basicConfig(filename='alert.log', level=logging.DEBUG)
 
@@ -34,7 +34,7 @@ reader = unified2.SpoolRecordReader("/var/log/snort",
 
 def sendGrpcAlert(event_id, redis_key):
     try:
-        channel = grpc.insecure_channel(PROXY_GRPC)
+        channel = grpc.insecure_channel('proxy-access-control:50054')
         stub = nginx_pb2_grpc.ControllerStub(channel)
         stub.ProcessAlerts(nginx_pb2.AlertMessage(
             event_id=event_id, redis_key=redis_key))
@@ -45,13 +45,15 @@ def sendGrpcAlert(event_id, redis_key):
 for record in reader:
     try:
         if isinstance(record, unified2.Event):
-            snort_event = "snort_event:" + str(record['event-id'])
-            r.sadd('snort_events', str(record['event-id']))
-            r.hmset(snort_event, record)
-            sendGrpcAlert(str(record['event-id']), 'snort_events')
-        # elif isinstance(record, unified2.Packet):
-            # print("Packet:")
+            event = record
+        elif isinstance(record, unified2.Packet):
+            packet = record
         # elif isinstance(record, unified2.ExtraData):
             # print("Extra-Data:")
+        snort_event = "snort_event:" + str(record['event-id'])
+        r.sadd('snort_events', str(record['event-id']))
+        event.update(packet)
+        r.hmset(snort_event, event)
+        sendGrpcAlert(str(record['event-id']), 'snort_events')
     except Exception as e:
         logging.debug(e)
