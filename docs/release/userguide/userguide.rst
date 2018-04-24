@@ -24,7 +24,7 @@ fluentd, Jaeger, and Prometheus. Clover Fraser release also provides a
 sample VNF which follows micro-service design pattern, its Kubernetes
 manifest, and an automatic scipt to demonstrate a sample A-B testing use
 case using the sample VNF running on Istio with trace data exposed to
-Jaeger.
+Jaeger running in istio-system namespace.
 
 What is in Fraser?
 ==================
