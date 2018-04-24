@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_33e1c5fe",
+        "filename": "samples/services/snort_ids/docker/grpc/snort_alerts.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 4469
+      },
+      "writtenOn": "2018-04-24T00:58:37Z",
+      "side": 1,
+      "message": "Why commenting out this constant?",
+      "revId": "841cc31ad8cc6a6a2e76488bde1f7103013671ae",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
