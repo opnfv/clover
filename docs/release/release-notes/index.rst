@@ -12,4 +12,4 @@ OPNFV Clover Design Specification
 .. toctree::
    :maxdepth: 1
 
-   Fraser-release-notes
+   release-notes
