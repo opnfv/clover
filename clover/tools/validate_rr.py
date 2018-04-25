@@ -14,10 +14,12 @@ from clover.tracing.tracing import Tracing
 
 class ValidateWRR(object):
 
-    def __init__(self, test_id, tracing_ip='localhost', tracing_port='31298'):
+    def __init__(self, test_id, tracing_ip='localhost', tracing_port='31298',
+                 redis_ip='localhost'):
         self._k8s_client = kube_client.KubeClient()
         self._test_id = test_id
-        self._tracing = Tracing(tracing_ip, tracing_port)
+        self._tracing = Tracing(tracing_ip, tracing_port,
+                                redis_ip=redis_ip)
 
     def check_pods_up(self, pod_list, namespace='default'):
         for pod in pod_list:
