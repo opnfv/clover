@@ -12,6 +12,8 @@ import subprocess
 import sys
 import yaml
 
+from clover.orchestration.kube_client import KubeClient
+
 #istioctl='$HOME/istio-0.6.0/bin/istioctl'
 # The assumption is that istioctl is already in the user's path
 ISTIOCTL='istioctl'
@@ -85,14 +87,22 @@ def parse_route_rules(routerules):
 def _derive_key_from_test_id(test_id):
     return 'route-rules-' + str(test_id)
 
+def _get_redis_ip():
+    k8s_client = KubeClient()
+    redis_pod = k8s_client.find_pod_by_name('redis')
+    redis_ip = redis_pod.get('pod_ip')
+    return redis_ip
+
 def set_route_rules(test_id):
-    r = redis.StrictRedis(host='localhost', port=6379, db=0)
+    redis_ip = _get_redis_ip()
+    r = redis.StrictRedis(host=redis_ip, port=6379, db=0)
     key = _derive_key_from_test_id(test_id)
     rr = get_route_rules()
     r.set(key, rr)
 
 def fetch_route_rules(test_id):
-    r = redis.StrictRedis(host='localhost', port=6379, db=0)
+    redis_ip = _get_redis_ip()
+    r = redis.StrictRedis(host=redis_ip, port=6379, db=0)
     key = _derive_key_from_test_id(test_id)
     rr = r.get(key)
     return yaml.load(rr)

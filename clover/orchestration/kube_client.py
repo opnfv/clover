@@ -31,8 +31,27 @@ class KubeClient(object):
         ret_dict[svc.metadata.name] = {}
         ret_dict[svc.metadata.name]['labels'] = svc.metadata.labels
         ret_dict[svc.metadata.name]['selector'] = svc.spec.selector
+        ret_dict[svc.metadata.name]['cluster_ip'] = svc.spec.cluster_ip
 
         return ret_dict
+
+    def find_pod_by_name(self, pod_name, namespace='default'):
+        ret_dict = {}
+        try:
+            pod = self.core_v1.read_namespaced_pod(name=pod_name,
+                                                   namespace=namespace)
+        except client.rest.ApiException:
+            pod = None
+        if not pod:
+            print('found no pod %s in namespace %s' \
+                   % (pod_name, namespace))
+            return None
+        ret_dict['name'] = pod_name
+        ret_dict['labels'] = pod.metadata.labels
+        ret_dict['pod_ip'] = pod.status.pod_ip
+
+        return ret_dict
+
 
     def find_pod_by_namespace(self, namespace='default'):
         ret_dict = {}

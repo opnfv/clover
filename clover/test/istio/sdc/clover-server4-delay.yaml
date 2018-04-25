@@ -1,0 +1,13 @@
+apiVersion: config.istio.io/v1alpha2
+kind: RouteRule
+metadata:
+  name: clover-server4-delay
+  namespace: default
+spec:
+  destination:
+    name: clover-server4
+  httpFault:
+    delay:
+      fixedDelay: 1.000s
+      percent: 100
+  precedence: 2
