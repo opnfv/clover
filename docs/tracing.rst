@@ -1,3 +1,10 @@
+.. This work is licensed under a Creative Commons Attribution 4.0 International
+.. License.
+.. http://creativecommons.org/licenses/by/4.0
+.. (c) OPNFV, Authors of Clover
+
+.. _tracing:
+
 #######
 Tracing
 #######
@@ -11,6 +18,14 @@ which uses in-memory storage. It can be deployed to the istio-system namespace w
 following command::
 
     kubectl apply -n istio-system -f https://raw.githubusercontent.com/jaegertracing/jaeger-kubernetes/master/all-in-one/jaeger-all-in-one-template.yml
+
+Alternatively, both Prometheus and Jaeger can be installed in combination with the
+Clover container using the command::
+
+    $ sudo docker run --rm \
+    -v ~/.kube/config:/root/.kube/config \
+    opnfv/clover \
+    /bin/bash -c '/home/opnfv/repos/clover/samples/scenarios/view.sh'
 
 The standard Jaeger REST port is at 16686. To make this service available outside of the
 Kubernetes cluster via any node IP in the cluster, use the following command::

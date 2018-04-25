@@ -1,3 +1,10 @@
+.. This work is licensed under a Creative Commons Attribution 4.0 International
+.. License.
+.. http://creativecommons.org/licenses/by/4.0
+.. (c) OPNFV, Authors of Clover
+
+.. _logging:
+
 #######
 Logging
 #######
@@ -21,11 +28,10 @@ The scripts in ``clover/logging`` validates fluentd installation::
 
     python clover/logging/validate.py
 
-It validates the installation with the following criterias
+It validates the installation with the following criteria:
 
 #. existence of fluented pod
 #. fluentd input is configured correctly
-#. TBD
 
 **************************
 Understanding how it works
@@ -62,7 +68,7 @@ Istio defines when to log by creating a custom resource ``rule``. For example:
 This rule specifies that all instances of ``newlog.logentry`` that matches the
 expression will be handled by the specified handler ``handler.fluentd``. We
 shall explain ``instances`` and ``handler`` later. The expression ``true`` means
-whenever a request arrive at Mixer, it will trigger the actions defined belows.
+whenever a request arrives at Mixer, it will trigger the actions defined below.
 
 ``rule`` is a custom resource definition from `Istio installation`_.
 
@@ -139,7 +145,7 @@ By the way, ``logentry`` is also a custom resource definition created by Istio.
 Where to log
 ============
 
-For log, the handler defines where these information will be handled, in this
+For log, the handler defines where this information will be handled, in this
 example, a fluentd daemon on fluentd-es.logging:24224.
 
 .. code-block:: yaml
