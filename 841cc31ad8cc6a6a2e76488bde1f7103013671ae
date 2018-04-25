@@ -16,6 +16,24 @@
       "revId": "841cc31ad8cc6a6a2e76488bde1f7103013671ae",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b1e5cc0a",
+        "filename": "samples/services/snort_ids/docker/grpc/snort_alerts.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7047
+      },
+      "writtenOn": "2018-04-25T00:39:40Z",
+      "side": 1,
+      "message": "This a good question. I\u0027m seeing some kind of intermittent issue where this process gets stuck in the SendGrpcAlert method. It seems to have something to do with the DNS hostname resolution in Kubernetes. I have not been able to fully characterize this yet.\n\nI know that avoiding the use of the constant doesn\u0027t really make sense..",
+      "parentUuid": "5a3f45e8_33e1c5fe",
+      "revId": "841cc31ad8cc6a6a2e76488bde1f7103013671ae",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
