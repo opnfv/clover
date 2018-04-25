@@ -33,10 +33,16 @@ class Controller(snort_pb2_grpc.ControllerServicer):
             # file_local = 'testfile'
             file_local = '/etc/snort/rules/local.rules'
             f = open(file_local, 'a')
-            rule = 'alert {} {} {} -> {} {} '.format(
-                r.protocol, r.src_ip, r.src_port, r.dest_ip, r.dest_port) \
-                + '(msg:"{}"; content:{}; sid:{}; rev:{};)\n'.format(
-                                      r.msg, r.content, r.sid, r.rev)
+            if r.content:
+                rule = 'alert {} {} {} -> {} {} '.format(
+                    r.protocol, r.src_ip, r.src_port, r.dest_ip, r.dest_port) \
+                    + '(msg:"{}"; content:{}; sid:{}; rev:{};)\n'.format(
+                                          r.msg, r.content, r.sid, r.rev)
+            else:
+                rule = 'alert {} {} {} -> {} {} '.format(
+                    r.protocol, r.src_ip, r.src_port, r.dest_ip, r.dest_port) \
+                    + '(msg:"{}"; sid:{}; rev:{};)\n'.format(
+                                          r.msg, r.sid, r.rev)
             f.write(rule)
             f.close
             msg = "Added to local rules"
