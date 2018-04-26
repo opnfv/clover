@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_e5030a40",
+        "filename": "docs/release/configguide/a_b_config_guide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2018-04-26T03:19:37Z",
+      "side": 1,
+      "message": "It\u0027s better to run `git checkout` first then run `pip install`.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 32
+      },
+      "revId": "9c7ce50f2799c37edef01f222d14c0b1a09fe521",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
