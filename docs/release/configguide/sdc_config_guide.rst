@@ -1,8 +1,9 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International License.
 .. http://creativecommons.org/licenses/by/4.0
 .. SPDX-License-Identifier CC-BY-4.0
-.. (c) optionally add copywriters name
+.. (c) Authors of Clover
 
+.. _sdc_config_guide:
 
 =======================================
 Clover SDC Sample Configuration Guide
@@ -11,17 +12,13 @@ Clover SDC Sample Configuration Guide
 This document provides a guide to use the Service Delivery Controller (SDC) sample, which is
 initially delivered in the Clover Fraser release.
 
-.. contents::
-   :depth: 3
-   :local:
-
-
 Overview
 =========
 
-The SDC is a sample application that allows the flow of ingress HTTP traffic to be controlled
-and inspected in an Istio service mesh. It provides the ability to demonstrate the Istio sandbox
-including a service mesh and surrounding tools including tracing, monitoring, and logging.
+The SDC is a sample set of web-oriented network services that allow the flow of ingress HTTP
+traffic to be controlled and inspected in an Istio service mesh. It provides the ability to
+demonstrate the Istio sandbox including a service mesh and surrounding tools including tracing,
+monitoring, and logging.
 
 The SDC sample comprises the following services:
 
@@ -31,17 +28,17 @@ The SDC sample comprises the following services:
 
  * **Load Balancer** - provides basic round-robin load balancing to other downstream
    services without Istio provisions. Istio features built-in load balancing to provide
-   request routing for canary and A/B scenarios. The sample application employs both tiers
+   request routing for canary and A/B scenarios. The SDC sample employs both tiers
    of load balancing to demonstrate how load balancing algorithms can be controlled to
    address both network and application requirements.
 
- * **Intrusion Detection System** - used to detect web vulnerabilities using limited set of
-   rules/signatures and send security alerts to the proxy.
+ * **Intrusion Detection System** - used to detect web security vulnerabilities using limited
+   set of rules/signatures and send security alerts to the proxy.
 
  * **Server** - simple web servers used to terminate web requests from the load balancing
-   services for end-to-end traffic flow.
+   services to enable end-to-end traffic flow.
 
-The table below shows key details of the sample application Kubernetes manifest for the services
+The table below shows key details of the sample Kubernetes manifest for the services
 outlined above:
 
 +---------------------+----------------------+------------------------+-----------------------+
@@ -103,12 +100,14 @@ in round-robin fashion.
 A controlling agent that can reside inside or outside of the mesh can be used to modify the
 run-time configuration of the services, which is denoted in green. Python sample scripts that
 implement a GRPC client act as a control-agent and are used to reconfigure http-lb-v2 to load
-balance across clover-server4/5 instead of servers 1/2/3. The sample application provides
-additional examples of modifying run-time configurations such as adding user-defined rules
-to the snort-ids service to trigger alerts on other network events.
+balance across clover-server4/5 instead of servers 1/2/3. The sample provides additional examples
+of modifying run-time configurations such as adding user-defined rules to the snort-ids service
+to trigger alerts on other network events.
 
-Deploying the sample app
-========================
+Deploying the sample
+====================
+
+.. _sdc_prerequisites:
 
 Prerequisites
 -------------
@@ -122,6 +121,8 @@ The following assumptions must be met before continuing on to deployment:
  * Installation of a pod network that supports the Container Network Interface (CNI). It is
    recommended to use flannel, as most development work employed this network add-on.
  * Installation of Istio and Istio client (istioctl) is in your PATH (for deploy from source)
+
+.. _sdc_deploy_container:
 
 Deploy with Clover container
 ----------------------------
@@ -226,6 +227,8 @@ The result of the Istio deployment must include the following pods:
     istio-system   istio-mixer-7f4fd7dff-mjpr8        3/3       Running
     istio-system   istio-pilot-5f5f76ddc8-cglxs       2/2       Running
 
+.. _sdc_ingress_port:
+
 Determining the ingress IP and port
 -----------------------------------
 
@@ -247,8 +250,8 @@ configured ingress rule, which defines a gateway for external traffic to enter
 the Istio service mesh. This makes the traffic management and policy features of Istio available
 for edge services.
 
-Using the sample app
-====================
+Using the sample
+================
 
 To confirm the scenario is running properly, HTTP GET requests can be made from an external
 host with a destination of the Kubernetes cluster. Requests can be invoked from the host OS
@@ -265,6 +268,8 @@ An HTTP response will be returned as a result of the wget or curl command, if th
 is operating correctly. However, the visibility into what services were accessed within
 the service mesh remains hidden. The next section `Exposing tracing and monitoring`_ shows how
 to inspect the internals of the Istio service mesh.
+
+.. _sdc_view_container:
 
 Exposing tracing and monitoring
 -------------------------------
@@ -317,9 +322,10 @@ Where node IP is an IP from one of the Kubernetes cluster node(s).
     :align: center
     :scale: 100%
 
+
 The diagram above shows the Jaeger tracing UI after traces have been fetched for the
 proxy-access-control service. After executing an HTTP request using the simple curl/wget
-commands outlined in `Using the sample app`_ , a list of SDC services will be displayed
+commands outlined in `Using the sample`_ , a list of SDC services will be displayed
 in the top left drop-down box labelled ``Service``. Choose ``proxy-access-control`` in
 the drop-down and click the ``Find Traces`` button at the bottom of the left controls.
 The blue box denotes what should be displayed for the services that were involved in
@@ -340,6 +346,8 @@ For this example, it is conducted from the host OS of a Kubernetes cluster node.
 
 **Note, the subsequent instructions assume the flannel network CNI plugin is installed. Other
 Kubernetes networking plugins may work but have not been validated.**
+
+.. _sdc_modify_lb:
 
 Modifying the http-lb server list
 ----------------------------------
