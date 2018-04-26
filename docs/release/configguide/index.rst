@@ -1,16 +1,16 @@
-.. This work is licensed under a Creative Commons Attribution 4.0 International License.
+.. This work is licensed under a Creative Commons Attribution 4.0 International
+.. License.
 .. http://creativecommons.org/licenses/by/4.0
-.. SPDX-License-Identifier CC-BY-4.0
-.. (c) optionally add copywriters name
+.. (c) OPNFV, Authors of Clover
 
 .. _clover_config_guides:
 
-********************************************************
-OPNFV Verified Program Testing User Guide
-********************************************************
+=================================
+OPNFV Clover Configuration Guides
+=================================
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
 
    sdc_config_guide.rst
    a_b_config_guide.rst
