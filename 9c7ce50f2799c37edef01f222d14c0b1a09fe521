@@ -22,6 +22,30 @@
       "revId": "9c7ce50f2799c37edef01f222d14c0b1a09fe521",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a0ae107f",
+        "filename": "docs/release/configguide/a_b_config_guide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7047
+      },
+      "writtenOn": "2018-04-26T06:24:13Z",
+      "side": 1,
+      "message": "Agreed, thanks for catching this",
+      "parentUuid": "5a3f45e8_e5030a40",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 32
+      },
+      "revId": "9c7ce50f2799c37edef01f222d14c0b1a09fe521",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
