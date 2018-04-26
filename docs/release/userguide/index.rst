@@ -4,7 +4,7 @@
 .. (c) OPNFV, Authors of Clover
 
 =================================
-OPNFV Clover Design Specification
+OPNFV Clover User Guide
 =================================
 
 .. toctree::

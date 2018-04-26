@@ -8,57 +8,53 @@
 Clover User Guide (Fraser Release)
 ================================================================
 
-This document provides the Clover user guide for OPNFV Fraser release.
-
-.. contents::
-   :depth: 3
-   :local:
-
+This document provides the Clover user guide for the OPNFV Fraser release.
 
 Description
 ===========
 
-As project Clover's first release, Fraser release includes installation
-and simple validation of foundational upstream projects including Istio,
-fluentd, Jaeger, and Prometheus. Clover Fraser release also provides a
-sample VNF which follows micro-service design pattern, its Kubernetes
-manifest, and an automatic scipt to demonstrate a sample A-B testing use
-case using the sample VNF running on Istio with trace data exposed to
-Jaeger running in istio-system namespace.
+As project Clover's first release, the Fraser release includes installation and simple
+validation of foundational upstream projects including Istio, fluentd, Jaeger, and
+Prometheus. The Clover Fraser release also provides a sample set of web-oriented network
+services, which follow a micro-service design pattern, its Kubernetes manifest, and an
+automated script to demonstrate a sample A-B testing use-case. The A-B sample script
+validates performance criteria using Istio request routing functionality leveraging
+the sample services deployed within Istio and the tracing data available within Jaeger.
 
 What is in Fraser?
 ==================
 
- * a sample micro-service composed VNF
+ * Sample micro-service composed VNF named Service Delivery Controller (SDC)
 
- * logging module: fluentd and elasticsearch Kubernetes manifests,
+ * Logging module: fluentd and elasticsearch Kubernetes manifests,
    and fluentd installation validation
 
- * tracing module: jaeger Kubernetes manifest, installation validation,
-   jaegar tracing query tools, module for trace data output to datastore
+ * Tracing module: Jaeger Kubernetes manifest, installation validation,
+   Jaegar tracing query tools, and module for trace data output to datastore
 
- * monitoring module: prometheus Kubernetes manifest, installation
-   validation, sample Prometheous query of Istio related metrics
+ * Monitoring module: Prometheus Kubernetes manifest, installation
+   validation, and sample Prometheous query of Istio related metrics
 
  * Istio route-rules sample yaml and validation tools
 
  * Test scripts
 
- * Sample code for an A-B testing demo shown during ONS
+ * Sample code for an A-B testing demo shown during ONS North America 2018
 
 Usage
 =====
 
- * Python modules to validate installation of fluentd, Jaeger, and
-   Prometheus
+ * Python modules to validate installation of fluentd logging, Jaeger tracing, and
+   Prometheus monitoring. Deployment and validation instructions can be found at:
+   :ref:`logging`, :ref:`tracing`, and :ref:`monitoring` respectively.
 
- * Installation and deployment of a sample VNF
-   - VNF designed and implemented with micro-service design pattern
-   - tested and validated via Istio service mesh tools
+ * Deployment and usage of SDC sample
+   - Services designed and implemented with micro-service design pattern
+   - Tested and validated via Istio service mesh tools
+   Detailed usage instructions for the sample can be found at :ref:`sdc_config_guide`
 
- * sample tool to validate Istio route rules:
+ * An example use-case for A-B testing. Detailed usage instructions for this sample A-B
+   validation can be found at: :ref:`a_b_config_guide`
+
+ * Sample tool to validate Istio route rules:
    tools/python clover_validate_route_rules.py -s <service name> -t <test id>
-
- * an example use case: A-B testing:
-   test/fraser_a_b_test.py -t yaml/fraser_a_b_test.yaml -p <tracing port num>
-   *** detail procedure to run sample A-B testing at docs/configguide/...
