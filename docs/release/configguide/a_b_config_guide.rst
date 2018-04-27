@@ -61,7 +61,7 @@ First setup the environment using the Clover source with the following commands:
 
 Edit the input configuration yaml file located at ``test/yaml/fraser_a_b_test.yaml``
 and modify the value under the ``params`` key with the istio-ingress port obtained using
-the SDC guide at :ref:`sdc_ingress_port`. The example of port 32580 is shown below in bold.
+the SDC guide at :ref:`sdc_ingress_port`. The example of port 32580 is shown below.
 
 .. code-block:: bash
 
@@ -69,7 +69,7 @@ the SDC guide at :ref:`sdc_ingress_port`. The example of port 32580 is shown bel
       name: lb-test.sh
       params:
         - 10.244.0.1
-        - **32580**
+        - 32580
 
 Execute toplevel script
 -----------------------
@@ -77,6 +77,7 @@ Execute toplevel script
 To execute the script, use the command:
 
 .. code-block:: bash
+
     $ python test/fraser_a_b_test.py -t test/yaml/fraser_a_b_test.yaml -p 30869
 
 The value to the argument ``-p`` must be the tracing port exposed outside of the Kubernetes
@@ -95,7 +96,7 @@ Troubleshooting
 
 If the script fails because a route rule with the same name exists from a
 previous test run, use the following command to delete the rule before executing the
-sample script::
+sample script again::
 
     istioctl -n default delete routerules lb-default
 
