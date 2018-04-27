@@ -16,14 +16,14 @@ Overview
 =========
 
 The SDC is a sample set of web-oriented network services that allow the flow of ingress HTTP
-traffic to be controlled and inspected in an Istio service mesh. It provides the ability to
-demonstrate the Istio sandbox including a service mesh and surrounding tools including tracing,
-monitoring, and logging.
+traffic to be controlled and inspected in an Istio service mesh within Kubernetes. It provides
+the ability to demonstrate the Istio sandbox including service mesh concepts and surrounding
+tools including tracing, monitoring, and logging.
 
 The SDC sample comprises the following services:
 
- * **Proxy** - used to mirror traffic to security (snort-ids) services and propagate traffic to
-   load balancing services. In future releases, the proxy will process security alerts and
+ * **Proxy** - used to mirror traffic to security (**snort-ids**) services and propagate traffic
+   to load balancing services. In future releases, the proxy will process security alerts and
    provide access control by blacklisting clients based on source IP address.
 
  * **Load Balancer** - provides basic round-robin load balancing to other downstream
@@ -42,7 +42,7 @@ The table below shows key details of the sample Kubernetes manifest for the serv
 outlined above:
 
 +---------------------+----------------------+------------------------+-----------------------+
-| Service             |     Kubernetes       | Docker Image           | Ports                 |
+| Service             | Kubernetes           | Docker Image           | Ports                 |
 |                     | Deployment App Name  |                        |                       |
 +=====================+======================+========================+=======================+
 | Proxy               | proxy-access-control | clover-ns-nginx-proxy  | HTTP: 9180            |
@@ -69,7 +69,8 @@ Additionally, the sample uses other ancillary elements including:
    by the Clover tracing module to analyze traces over time. Standard community containers of
    Redis are employed by Clover.
 
- * A Kubernetes Ingress resource (proxy-gateway) to manage external access to the service mesh.
+ * A Kubernetes Ingress resource (**proxy-gateway**) to manage external access to the service
+   mesh.
 
  * Clover docker container that is used to invoke deployment and cleanup scripts for the sample.
    It can also be used to execute scripts that modify run-time service configurations. Using the
@@ -84,25 +85,26 @@ Additionally, the sample uses other ancillary elements including:
 
 The diagram above shows the flow of web traffic where all blue arrows denote the path of incoming
 HTTP requests through the service mesh. Requests are directed to the istio-ingress entry point
-using the Ingress resource (proxy-gateway). Istio-ingress acts as a gateway and sends traffic to
-the proxy-access-control service. Proxy-access-control mirrors traffic to the snort-ids
-service for it to monitor all incoming HTTP requests. The snort-ids asynchronously sends alert
-notifications to proxy-access-control over GRPC on port 50054, which is denoted in red, and
-stores the details of the alert events into Redis for other services to potentially inspect.
+using the Ingress resource (**proxy-gateway**). Istio-ingress acts as a gateway and sends traffic
+to the **proxy-access-control** service. **Proxy-access-control** mirrors traffic to the
+**snort-ids** service for it to monitor all incoming HTTP requests. The **snort-ids**
+asynchronously sends alert notifications to **proxy-access-control** over GRPC on port 50054,
+which is denoted in red, and stores the details of the alert events into Redis for other services
+to potentially inspect.
 
-Proxy-access-control also sends traffic to the http-lb load balancing service. Http-lb deploys
-two versions (http-lb-v1, http-lb-v2) of itself by sharing the same app name (http-lb) but using
-a distinct version in the Kubernetes manifest. By default, without any further configuration,
-Istio will load balance requests with a 50/50 percentage split among these two http-lb versions.
-Both the load balancers are internally configured by default to send traffic to clover-server1/2/3
-in round-robin fashion.
+**Proxy-access-control** also sends traffic to the **http-lb** load balancing service. **Http-lb**
+deploys two versions (**http-lb-v1**, **http-lb-v2**) of itself by sharing the same app name
+(**http-lb**) but using a distinct version in the Kubernetes manifest. By default, without any
+further configuration, Istio will load balance requests with a 50/50 percentage split among these
+two **http-lb** versions. Both the load balancers are internally configured by default to send
+traffic to **clover-server1/2/3** in round-robin fashion.
 
 A controlling agent that can reside inside or outside of the mesh can be used to modify the
 run-time configuration of the services, which is denoted in green. Python sample scripts that
-implement a GRPC client act as a control-agent and are used to reconfigure http-lb-v2 to load
-balance across clover-server4/5 instead of servers 1/2/3. The sample provides additional examples
-of modifying run-time configurations such as adding user-defined rules to the snort-ids service
-to trigger alerts on other network events.
+implement a GRPC client act as a control-agent and are used to reconfigure **http-lb-v2** to load
+balance across **clover-server4/5** instead of servers 1/2/3. The sample provides additional
+examples of modifying run-time configurations such as adding user-defined rules to the
+**snort-ids** service to trigger alerts on other network events.
 
 Deploying the sample
 ====================
@@ -119,7 +121,8 @@ The following assumptions must be met before continuing on to deployment:
  * Installation of Kubernetes has already been performed. The installation in this guide was
    executed in a single-node Kubernetes cluster on a modest virtual machine.
  * Installation of a pod network that supports the Container Network Interface (CNI). It is
-   recommended to use flannel, as most development work employed this network add-on.
+   recommended to use flannel, as most development work employed this network add-on. Success
+   using Weave Net as the CNI plugin has also been reported.
  * Installation of Istio and Istio client (istioctl) is in your PATH (for deploy from source)
 
 .. _sdc_deploy_container:
@@ -127,18 +130,20 @@ The following assumptions must be met before continuing on to deployment:
 Deploy with Clover container
 ----------------------------
 
-The easiest way to deploy the sample is to use the Clover container by pulling the
-container and executing a top-level deploy script using the following two commands:
+The easiest way to deploy the sample into your Kubernetes cluster is to use the Clover
+container by pulling the container and executing a top-level deploy script using the following
+two commands:
 
 .. code-block:: bash
 
     $ docker pull opnfv/clover:<release_tag>
 
-The <release_tag> is **6.0.0** for the Fraser release. However, the latest
-will be pulled if the tag is unspecified.
+The <release_tag> is **opnfv-6.0.0** for the Fraser release. However, the latest
+will be pulled if the tag is unspecified. To deploy the Fraser release use these commands:
 
 .. code-block:: bash
 
+    $ docker pull opnfv/clover:opnfv-6.0.0
     $ sudo docker run --rm \
     -v ~/.kube/config:/root/.kube/config \
     opnfv/clover \
@@ -245,7 +250,7 @@ types are unsupported in this configuration. It is normal for the EXTERNAL-IP to
 <pending> indefinitely**
 
 In this example, traffic arriving on port 32410 will flow to istio-ingress. The
-istio-ingress service will route traffic to the proxy-access-control service based on a
+istio-ingress service will route traffic to the **proxy-access-control** service based on a
 configured ingress rule, which defines a gateway for external traffic to enter
 the Istio service mesh. This makes the traffic management and policy features of Istio available
 for edge services.
@@ -324,7 +329,7 @@ Where node IP is an IP from one of the Kubernetes cluster node(s).
 
 
 The diagram above shows the Jaeger tracing UI after traces have been fetched for the
-proxy-access-control service. After executing an HTTP request using the simple curl/wget
+**proxy-access-control** service. After executing an HTTP request using the simple curl/wget
 commands outlined in `Using the sample`_ , a list of SDC services will be displayed
 in the top left drop-down box labelled ``Service``. Choose ``proxy-access-control`` in
 the drop-down and click the ``Find Traces`` button at the bottom of the left controls.
@@ -352,9 +357,9 @@ Kubernetes networking plugins may work but have not been validated.**
 Modifying the http-lb server list
 ----------------------------------
 
-By default, both versions of the load balancers send incoming HTTP requests to clover-server1/2/3
-in round-robin fashion. To have the version 2 load balancer (http-lb-v2) send its traffic to
-clover-server4/5 instead, issue the following command:
+By default, both versions of the load balancers send incoming HTTP requests to
+**clover-server1/2/3** in round-robin fashion. To have the version 2 load balancer
+(**http-lb-v2**) send its traffic to **clover-server4/5** instead, issue the following command:
 
 .. code-block:: bash
 
@@ -363,6 +368,16 @@ clover-server4/5 instead, issue the following command:
     opnfv/clover \
     /bin/bash -c 'python /home/opnfv/repos/clover/samples/services/nginx/docker/grpc/nginx_client.py \
     --service_type=lbv2 --service_name=http-lb-v2'
+
+If the command executes successfully, the return message should appear as below::
+
+    Pod IP: 10.244.0.184
+    Modified nginx config
+    Modification complete
+
+If several more HTTP GET requests are subsequently sent to the ingress, the Jaeger UI should
+begin to display requests flowing to **clover-server4/5** from **http-lb-v2**. The **http-lb-v1**
+version of the load balancer will still balance requests to **clover-server1/2/3**.
 
 Adding rules to snort-ids
 --------------------------
@@ -377,7 +392,10 @@ A snort IDS alert can be triggered by adding the HTTP User-Agent string shown be
 signature that invokes this alert is part of the community rules that are installed in the
 snort service by default. Using the curl or wget commands below, an alert can be observed using
 the Jaeger tracing browser UI. It will be displayed as a GRPC message on port 50054 from the
-**snort-ids** service to the **proxy-access-control** service.
+**snort-ids** service to the **proxy-access-control** service. The red box depicted in the
+Jaeger UI diagram in section `Exposing tracing and monitoring`_ shows what should be displayed
+for the alerts. Drilling down into the trace will show a GPRC message from snort with HTTP URL
+``http://proxy-access-control:50054/nginx.Controller/ProcessAlerts``.
 
 .. code-block:: bash
 
@@ -400,6 +418,13 @@ each time the HTTP GET request is observed by snort using the following command.
     /bin/bash -c 'python /home/opnfv/repos/clover/samples/services/snort_ids/docker/grpc/snort_client.py \
     --cmd=addscan --service_name=snort-ids'
 
+Successful completion of the above command will yield output similar to the following::
+
+    Pod IP: 10.244.0.183
+    Stopped Snort on pid: 34, Cleared Snort logs
+    Started Snort on pid: 91
+    Added to local rules
+
 To add an ICMP rule to snort service, use the following command:
 
 .. code-block:: bash
@@ -410,12 +435,130 @@ To add an ICMP rule to snort service, use the following command:
     /bin/bash -c 'python /home/opnfv/repos/clover/samples/services/snort_ids/docker/grpc/snort_client.py \
     --cmd=addicmp --service_name=snort-ids'
 
-The above command will trigger alerts whenever ICMP packets are observed by the snort service.
-An alert can be generated by pinging the snort service using the flannel IP address assigned to
-the **snort-ids** pod.
+Successful execution of the above command will trigger alerts whenever ICMP packets are observed
+by the snort service. An alert can be generated by pinging the snort service using the flannel IP
+address assigned to the **snort-ids** pod. The Jaeger UI can again be inspected and should display
+the same ``ProcessAlert`` messages flowing from the **snort-ids** to the **proxy-access-control**
+service for ICMP packets.
 
 Advanced Usage
 ===============
+
+Inspect Redis
+-------------
+
+This section assumes alert messages have already been successfully generated from the
+**snort-ids** service using the instructions outlined in section `Adding rules to snort-ids`_.
+
+The **snort-ids** service writes the details of alert events into a Redis data store deployed
+within the Kubernetes cluser.  This event and packet data can be inspected by first
+installing the ``redis-tools`` Linux package on one of the nodes within the Kubernetes cluster.
+For a Ubuntu host OS, this can be performed with the following command:
+
+.. code-block:: bash
+
+    $ sudo apt-get install redis-tools
+
+Assuming a flannel CNI plugin, Redis can then be accessed by finding the IP assigned to the
+Redis pod with the command:
+
+.. code-block:: bash
+
+    $ kubectl get pod --all-namespaces -o wide
+    NAMESPACE      NAME        READY     STATUS    RESTARTS   AGE       IP
+    default        redis       2/2       Running   0          2d        10.244.0.176
+
+In the example listing above, the Redis pod IP is at 10.244.0.176. This IP can be used to
+access the Redis CLI with the command:
+
+.. code-block:: bash
+
+    $ redis-cli -h 10.244.0.176
+    10.244.0.176:6379>
+
+The redis CLI prompt ensues and the alert event indexes can be fetched with the Redis ``SMEMBERS``
+set command with the key **snort_events** for the argument, as shown below::
+
+    10.244.0.176:6379> SMEMBERS snort_events
+    1) "1"
+    2) "2"
+    3) "3"
+    4) "4"
+    5) "5"
+    6) "6"
+
+The individual alert details are stored as Redis hashes and can be retrieved with the
+Redis ``HGETALL`` hash command to get the values of the entire hash with key
+**snort_event:1** formed by using the prefix of **snort_event:** concatenated with an index
+retrieved from the prior listing output from the ``SMEMBERS`` command, as shown below::
+
+    10.244.0.176:6379> HGETALL snort_event:1
+    1)  "blocked"
+    2)  "0"
+    3)  "packet-microsecond"
+    4)  "726997"
+    5)  "packet-second"
+    6)  "1524609217"
+    7)  "pad2"
+    8)  "None"
+    9)  "destination-ip"
+    10) "10.244.0.183"
+    11) "signature-revision"
+    12) "1"
+    13) "signature-id"
+    14) "10000001"
+    15) "protocol"
+    16) "1"
+    17) "packets"
+    18) "[]"
+    19) "source-ip.raw"
+    20) "\n\xf4\x00\x01"
+    21) "dport-icode"
+    22) "0"
+    23) "extra-data"
+    24) "[]"
+    25) "length"
+    26) "98"
+    27) "priority"
+    28) "0"
+    29) "linktype"
+    30) "1"
+    31) "classification-id"
+    32) "0"
+    33) "event-id"
+    34) "1"
+    35) "destination-ip.raw"
+    36) "\n\xf4\x00\xb7"
+    37) "generator-id"
+    38) "1"
+    39) "appid"
+    40) "None"
+    41) "sport-itype"
+    42) "8"
+    43) "event-second"
+    44) "1524609217"
+    45) "impact"
+    46) "0"
+    47) "data"
+    48) "\nX\n\xf4\x00\xb7\nX\n\xf4\x00\x01\b\x00E\x00\x00T\x95\x82@\x00@\x01\x8e\x87\n\xf4\x00\x01\n\xf4\x00\xb7\b\x00T\x06{\x02\x00\x01\xc1\xb0\xdfZ\x00\x00\x00\x00\xbe\x17\x0b\x00\x00\x00\x00\x00\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f !\"#$%&'()*+,-./01234567"
+    49) "mpls-label"
+    50) "None"
+    51) "sensor-id"
+    52) "0"
+    53) "vlan-id"
+    54) "None"
+    55) "event-microsecond"
+    56) "726997"
+    57) "source-ip"
+    58) "10.244.0.1"
+    59) "impact-flag"
+    60) "0"
+
+The alert above was generated for an ICMP packet after adding the custom rule for ICMP outlined in
+section `Adding rules to snort-ids`_. The ICMP rule/signature ID that was used when adding the
+custom rule is ``10000001`` and is output in the above listing.
+
+To exit the Redis CLI, use the command ``exit``.
 
 A-B Validation
 --------------
@@ -496,7 +639,9 @@ The OPNFV docker images can be removed with the following commands:
     $ docker rmi opnfv/clover-ns-snort-ids
     $ docker rmi opnfv/clover
 
-The Redis, Prometheus and Jaeger docker images can be removed with the following commands:
+If deployment was performed with the Clover container, the first four images above will not
+be present. The Redis, Prometheus and Jaeger docker images can be removed with the following
+commands, if deployed from source:
 
 .. code-block:: bash
 
