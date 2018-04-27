@@ -3,9 +3,9 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Authors of Clover
 
-========================
-OPNFV Clover Design Docs
-========================
+======================================
+OPNFV Clover Tool Install & Validation
+======================================
 
 .. toctree::
    :maxdepth: 2

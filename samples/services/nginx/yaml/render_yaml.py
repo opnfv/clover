@@ -58,10 +58,10 @@ if __name__ == '__main__':
             '--image_name', required=True,
             help='The image name to use')
     parser.add_argument(
-            '--image_path', default='localhost:5000',
+            '--image_path', default='opnfv',
             help='The path to the images to use')
     parser.add_argument(
-            '--image_tag', default='latest',
+            '--image_tag', default='opnfv-6.0.0',
             help='The image tag to use')
     parser.add_argument(
             '--deploy_name', default='default',
