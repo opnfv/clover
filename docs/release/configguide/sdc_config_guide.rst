@@ -314,7 +314,7 @@ following command:
     istio-system   jaeger-deployment NodePort  10.105.94.85 <none>        16686:32174/TCP
     istio-system   prometheus        NodePort  10.97.74.230 <none>        9090:32708/TCP
 
-In the example above, the Jaeger tracing web-based UI will be available on port 32171 and
+In the example above, the Jaeger tracing web-based UI will be available on port 32174 and
 the Prometheus monitoring UI on port 32708. In your browser, navigate to the following
 URLs for Jaeger and Prometheus respectively::
 
