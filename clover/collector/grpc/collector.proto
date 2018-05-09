@@ -1,0 +1,37 @@
+// Copyright (c) Authors of Clover
+//
+// All rights reserved. This program and the accompanying materials
+// are made available under the terms of the Apache License, Version 2.0
+// which accompanies this distribution, and is available at
+// http://www.apache.org/licenses/LICENSE-2.0
+
+syntax = "proto3";
+
+package collector;
+
+// The controller service definition.
+service Controller {
+
+  rpc StopCollector (ConfigCollector) returns (CollectorReply) {}
+  rpc StartCollector (ConfigCollector) returns (CollectorReply) {}
+  rpc InitVisibility (ConfigCassandra) returns (CollectorReply) {}
+}
+
+message ConfigCassandra {
+  string cassandra_hosts = 1;
+  int32 cassandra_port = 2;
+}
+
+message ConfigCollector {
+  string t_port = 1;
+  string t_host = 2;
+  string m_port = 3;
+  string m_host = 4;
+  string c_port = 5;
+  string c_hosts = 6;
+  string sinterval = 7;
+}
+
+message CollectorReply {
+  string message = 1;
+}

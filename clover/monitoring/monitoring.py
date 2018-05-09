@@ -91,7 +91,8 @@ class Monitoring(object):
             print("query %s %s, status=%s, size=%d, dur=%.3f" % \
                 (self.host, query_params["query"], resp.status_code, len(resp.text), dur))
             pp = pprint.PrettyPrinter(indent=2)
-            pp.pprint(resp.json())
+            ##pp.pprint(resp.json())
+            return resp.json()
 
         except Exception as e:
             print("ERROR: Could not query prometheus instance %s. \n %s" % (url, e))
