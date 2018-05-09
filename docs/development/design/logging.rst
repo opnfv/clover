@@ -14,18 +14,22 @@ First, install logging stack Elasticsearch, Fluentd and Kibana::
 
     kubectl apply -f install/logging-stack.yaml
 
-Then configure fluentd for istio::
-
-    kubectl apply -f install/fluentd-istio.yaml
-
-Note that, it must be done in two steps. If you run ``kubectl apply -f install``
-instead, the mixer adapter may fail to intialize because the target service can
-not be found. You may find an error message from mixer container::
+Note that, it must be done in a separated steps. If you run ``kubectl apply -f
+install`` instead, the mixer adapter may fail to intialize because the target
+service can not be found. You may find an error message from mixer container::
 
     2018-05-09T02:43:14.435156Z	error	Unable to initialize adapter:
     snapshot='6', handler='handler.fluentd.istio-system', adapter='fluentd',
     err='adapter instantiation error: dial tcp: lookup fluentd-es.logging on
     10.96.0.10:53: no such host'.
+
+Then configure fluentd for istio::
+
+    kubectl apply -f install/fluentd-istio.yaml
+
+Configure fluentd for node level logging::
+
+    kubectl apply -f install/fluentd-daemonset-elasticsearch-rbac.yaml
 
 .. _sample configuration: https://istio.io/docs/tasks/telemetry/fluentd.html
 
