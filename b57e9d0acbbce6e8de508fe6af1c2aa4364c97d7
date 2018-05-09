@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_f2cf377d",
+        "filename": "docs/development/design/logging.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7047
+      },
+      "writtenOn": "2018-05-09T23:56:01Z",
+      "side": 1,
+      "message": "Consider modifying to \u0027done in separate steps\u0027.",
+      "range": {
+        "startLine": 17,
+        "startChar": 30,
+        "endLine": 17,
+        "endChar": 41
+      },
+      "revId": "b57e9d0acbbce6e8de508fe6af1c2aa4364c97d7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
