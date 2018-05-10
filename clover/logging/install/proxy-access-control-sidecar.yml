@@ -1,0 +1,32 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: proxy-access-control
+  labels:
+    app: proxy-access-control
+spec:
+  template:
+    metadata:
+      labels:
+        app: proxy-access-control
+    spec:
+      containers:
+        - name: proxy-access-control
+          image: opnfv/clover-ns-nginx-proxy:latest
+          ports:
+            - containerPort: 50054
+            - containerPort: 9180
+# inject nginx access log streaming
+          volumeMounts:
+            - name: nginxlog
+              mountPath: /var/log/nginx
+        - name: nginx-access-log
+          image: busybox
+          args: [/bin/sh, -c, 'tail -n+1 -f /var/log/nginx/access.log']
+          volumeMounts:
+            - name: nginxlog
+              mountPath: /var/log/nginx
+      volumes:
+        - name: nginxlog
+          emptyDir: {}
