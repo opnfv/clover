@@ -359,3 +359,108 @@ spec:
           serviceName: proxy-access-control
           servicePort: 9180
 ---
+#
+#
+# Right now I embed the cassandra statefulset here but
+# The addition below can also be separated into a separate
+# yaml file and executed after the invocation of
+# the original service_delivery_controller_opnfv.yaml
+# by invoking:
+#  % kubectl create -f <(istioctl kube-inject --debug -f the_new_yaml_file.yaml)
+#
+#
+#
+# Cassandra Statefulset
+#
+# Assumption:
+#    - The Cassandra Statefulset right now assumes that
+#    the service is deployed in the 'data-plane-ns' namespace
+#    therefore the environment variable CASSANDRA_SEEDS is set to
+#    "cassandra-0.cassandra.data-plane-ns.svc.cluster.local" below.
+#    you want to use your own name space or 'default'
+#    the value becomes:
+#    "cassandra-0.cassandra.<NAMESPACE_NAME>.svc.cluster.local"
+#    note that this value rely on a functioning DNS on kubernetes to resolve the IP
+#
+#    This static method can be made dynamic by using Helm
+#    or bash script to replace the namespace on the fly. 
+#
+#   - Cassandra launch only 1 replica in the cluster
+#     to dynamically scale up or down, you can use:
+#     kubectl edit statefulset cassandra
+#     and edit the value of the replica key
+#
+#
+#
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: data-plane-ns
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: cassandra
+  name: cassandra
+  namespace: data-plane-ns
+spec:
+  clusterIP: None
+  ports:
+  - port: 9042
+  selector:
+    app: cassandra
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: cassandra
+  labels:
+    app: cassandra
+  namespace: data-plane-ns
+spec:
+  serviceName: cassandra
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cassandra
+  template:
+    metadata:
+      labels:
+        app: cassandra
+    spec:
+      terminationGracePeriodSeconds: 1800
+      containers:
+      - name: cassandra
+        image: cassandra:3
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 7000
+          name: intra-node
+        - containerPort: 7001
+          name: tls-intra-node
+        - containerPort: 7199
+          name: jmx
+        - containerPort: 9042
+          name: cql
+        resources:
+          limits:
+            cpu: "500m"
+            memory: 1Gi
+          requests:
+           cpu: "500m"
+           memory: 1Gi
+        env:
+          - name: MAX_HEAP_SIZE
+            value: 512M
+          - name: HEAP_NEWSIZE
+            value: 100M
+          - name: CASSANDRA_SEEDS
+            value: "cassandra-0.cassandra.data-plane-ns.svc.cluster.local"
+          - name: CASSANDRA_CLUSTER_NAME
+            value: "MyCassandraDemo"
+          - name: CASSANDRA_DC
+            value: "DC1-K8Demo"
+          - name: CASSANDRA_RACK
+            value: "Rack1-K8Demo"
+
