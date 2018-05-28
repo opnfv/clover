@@ -20,7 +20,7 @@ RUN apt-get update \
     && apt-get install -y git python-setuptools python-pip curl apt-transport-https \
     && apt-get -y autoremove && apt-get clean \
     && pip install --upgrade pip \
-    && python -m pip install grpcio argparse
+    && python -m pip install grpcio argparse protobuf
 
 # Fetch source code
 RUN mkdir -p ${REPOS_DIR}
