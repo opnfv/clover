@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: homer
+  labels:
+    app: homer
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: homer
+        service: homer
+    spec:
+      containers:
+      #- image: "localhost:5000/homer:clearwater/base:latest"
+      - image: "instance-1:5000/clearwater/homer:latest"
+        imagePullPolicy: Always
+        name: homer
+        ports:
+        - containerPort: 22
+        - containerPort: 7888
+        envFrom:
+        - configMapRef:
+              name: env-vars
+        env:
+        - name: MY_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        livenessProbe:
+          tcpSocket:
+            port: 7888
+          initialDelaySeconds: 30
+        readinessProbe:
+          tcpSocket:
+            port: 7888
+      restartPolicy: Always

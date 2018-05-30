@@ -1,0 +1,1 @@
+kubectl exec -it $(kubectl get pods -l=service=ellis -o jsonpath='{.items[0].metadata.name}') -c ellis -- bash -c "sudo bash -c \"export PATH=/usr/share/clearwater/ellis/env/bin:$PATH ; cd /usr/share/clearwater/ellis/src/metaswitch/ellis/tools/ ; python create_numbers.py --start 6505550000 --count 10\""

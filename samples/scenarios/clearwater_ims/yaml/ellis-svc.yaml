@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ellis
+  labels:
+    app: ellis
+spec:
+  #clusterIP: None
+  type: "LoadBalancer"
+  loadBalancerIP: <External Load Balancer IP>
+  ports:
+  - name: "http"
+    port: 80
+  selector:
+    app: ellis
+    service: ellis

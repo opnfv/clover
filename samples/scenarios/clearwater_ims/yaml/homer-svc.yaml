@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: homer
+  labels:
+    app: homer
+spec:
+  ports:
+  - name: "7888"
+    port: 7888
+  selector:
+    app: homer
+    service: homer
+  clusterIP: None

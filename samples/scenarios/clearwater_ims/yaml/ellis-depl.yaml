@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ellis
+  labels:
+    app: ellis
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ellis
+        service: ellis
+    spec:
+      containers:
+      #- image: "localhost:5000/ellis:clearwater/base:latest"
+      - image: "instance-1:5000/clearwater/ellis:latest"
+        imagePullPolicy: Always
+        name: ellis
+        ports:
+        - containerPort: 22
+        - containerPort: 80
+        envFrom:
+        - configMapRef:
+              name: env-vars
+        env:
+        - name: MY_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: PUBLIC_IP
+          value: <External Load Balancer IP>
+        livenessProbe:
+          tcpSocket:
+            port: 80
+          initialDelaySeconds: 30
+        readinessProbe:
+          tcpSocket:
+            port: 80
+      restartPolicy: Always
