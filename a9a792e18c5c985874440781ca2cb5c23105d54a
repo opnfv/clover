@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_ec0f00e0",
+        "filename": "samples/scenarios/clearwater_ims/clt-docker/clearwater-live-test.tgz",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4469
+      },
+      "writtenOn": "2018-05-31T01:29:32Z",
+      "side": 1,
+      "message": "What is the content of this binary file?",
+      "revId": "a9a792e18c5c985874440781ca2cb5c23105d54a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
