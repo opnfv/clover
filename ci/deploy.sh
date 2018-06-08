@@ -9,8 +9,11 @@
 #
 set -ex
 
+# test line
+
 CLOVER_BASE_DIR=$(cd ${BASH_SOURCE[0]%/*}/..;pwd)
 CLOVER_WORK_DIR=$CLOVER_BASE_DIR/work
+CLOVER_WORK_DIR_CONTAINER4NFV=$CLOVER_WORK_DIR/container4nfv
 MASTER_NODE_NAME="master"
 SSH_OPTIONS="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 K8S_ISTIO_DEPLOY_TIMEOUT=3600
@@ -20,20 +23,20 @@ INSTALLER_TYPE="container4nfv"
 DEPLOY_SCENARIO="k8-istio-clover"
 
 mkdir -p $CLOVER_WORK_DIR
-cd $CLOVER_WORK_DIR
-
 # Fetch container4nfv source code
-if [ -d container4nfv ]; then
-    rm -rf container4nfv
+if [ -d $CLOVER_WORK_DIR_CONTAINER4NFV ]; then
+    rm -rf $CLOVER_WORK_DIR_CONTAINER4NFV
 fi
-git clone https://git.opnfv.org/container4nfv/
-cd container4nfv
+git clone https://git.opnfv.org/container4nfv/ $CLOVER_WORK_DIR_CONTAINER4NFV
+pushd $CLOVER_WORK_DIR_CONTAINER4NFV
 
 # Create kubernetes + istio env
 timeout $K8S_ISTIO_DEPLOY_TIMEOUT ./src/vagrant/kubeadm_istio/deploy.sh
 
+popd
+
 # Fetch kube-master node info
-cd src/vagrant/kubeadm_istio
+pushd $CLOVER_WORK_DIR_CONTAINER4NFV/src/vagrant/kubeadm_istio
 MASTER_NODE_HOST=$(vagrant ssh-config $MASTER_NODE_NAME | awk '/HostName /{print $2}')
 MASTER_NODE_USER=$(vagrant ssh-config $MASTER_NODE_NAME | awk '/User /{print $2}')
 MASTER_NODE_KEY=$(vagrant ssh-config $MASTER_NODE_NAME | awk '/IdentityFile /{print $2}')
@@ -44,6 +47,8 @@ scp $SSH_OPTIONS -i $MASTER_NODE_KEY -r $CLOVER_BASE_DIR ${MASTER_NODE_USER}@${M
 
 # Run test
 ssh $SSH_OPTIONS -i $MASTER_NODE_KEY ${MASTER_NODE_USER}@${MASTER_NODE_HOST} ./clover/ci/test.sh
+
+popd
 
 echo "Clover deploy complete!"
 
