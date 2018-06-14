@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_6c12d6b5",
+        "filename": "clover/tools/yaml/cassandra.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5391
+      },
+      "writtenOn": "2018-06-14T12:22:33Z",
+      "side": 1,
+      "message": "white space",
+      "range": {
+        "startLine": 23,
+        "startChar": 56,
+        "endLine": 23,
+        "endChar": 57
+      },
+      "revId": "5c3772fdc8ebd3656610e4dea6ab4043abff7260",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
