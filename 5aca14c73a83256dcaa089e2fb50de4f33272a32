@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_8c3aca34",
+        "filename": "docker/setup_clover_k8s_env.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5391
+      },
+      "writtenOn": "2018-06-14T11:53:33Z",
+      "side": 1,
+      "message": "we need right the file directory",
+      "range": {
+        "startLine": 29,
+        "startChar": 17,
+        "endLine": 29,
+        "endChar": 82
+      },
+      "revId": "5aca14c73a83256dcaa089e2fb50de4f33272a32",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
