@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_47308d56",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5391
+      },
+      "writtenOn": "2018-06-15T01:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_bb91ca54",
+      "revId": "80ca68a6c9853290ea222420f4d66495d5a89148",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_98204c9d",
         "filename": "xci-k8s-setup.sh",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-06-12T08:34:38Z",
       "side": 1,
       "message": "Should we use\n\n set -e\n set -x\n\nhere?",
+      "revId": "80ca68a6c9853290ea222420f4d66495d5a89148",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_873aa534",
+        "filename": "xci-k8s-setup.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5391
+      },
+      "writtenOn": "2018-06-15T01:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_98204c9d",
       "revId": "80ca68a6c9853290ea222420f4d66495d5a89148",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
