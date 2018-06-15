@@ -70,7 +70,7 @@ RUN \
     ln -s libdnet.so.1.0.1 libdnet.1 \
 && \
 # Install required python libraries
-    python -m pip install grpcio redis idstools
+    python -m pip install grpcio redis idstools protobuf
 
 COPY /process /process
 COPY /grpc /grpc
