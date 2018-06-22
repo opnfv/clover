@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='nginx.proto',
   package='nginx',
   syntax='proto3',
-  serialized_pb=_b('\n\x0bnginx.proto\x12\x05nginx\"3\n\x0c\x41lertMessage\x12\x10\n\x08\x65vent_id\x18\x01 \x01(\t\x12\x11\n\tredis_key\x18\x02 \x01(\t\"w\n\x0b\x43onfigProxy\x12\x13\n\x0bserver_port\x18\x01 \x01(\t\x12\x13\n\x0bserver_name\x18\x02 \x01(\t\x12\x15\n\rlocation_path\x18\x03 \x01(\t\x12\x12\n\nproxy_path\x18\x04 \x01(\t\x12\x13\n\x0bmirror_path\x18\x05 \x01(\t\"_\n\x0c\x43onfigServer\x12\x13\n\x0bserver_port\x18\x01 \x01(\t\x12\x13\n\x0bserver_name\x18\x02 \x01(\t\x12\x11\n\tsite_root\x18\x03 \x01(\t\x12\x12\n\nsite_index\x18\x04 \x01(\t\"j\n\x08\x43onfigLB\x12\x13\n\x0bserver_port\x18\x01 \x01(\t\x12\x13\n\x0bserver_name\x18\x02 \x01(\t\x12\x10\n\x08slb_list\x18\x03 \x01(\t\x12\x11\n\tslb_group\x18\x04 \x01(\t\x12\x0f\n\x07lb_path\x18\x05 \x01(\t\"\x1d\n\nNginxReply\x12\x0f\n\x07message\x18\x01 \x01(\t2\xeb\x01\n\nController\x12\x36\n\x0bModifyProxy\x12\x12.nginx.ConfigProxy\x1a\x11.nginx.NginxReply\"\x00\x12\x38\n\x0cModifyServer\x12\x13.nginx.ConfigServer\x1a\x11.nginx.NginxReply\"\x00\x12\x30\n\x08ModifyLB\x12\x0f.nginx.ConfigLB\x1a\x11.nginx.NginxReply\"\x00\x12\x39\n\rProcessAlerts\x12\x13.nginx.AlertMessage\x1a\x11.nginx.NginxReply\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x0bnginx.proto\x12\x05nginx\"3\n\x0c\x41lertMessage\x12\x10\n\x08\x65vent_id\x18\x01 \x01(\t\x12\x11\n\tredis_key\x18\x02 \x01(\t\"w\n\x0b\x43onfigProxy\x12\x13\n\x0bserver_port\x18\x01 \x01(\t\x12\x13\n\x0bserver_name\x18\x02 \x01(\t\x12\x15\n\rlocation_path\x18\x03 \x01(\t\x12\x12\n\nproxy_path\x18\x04 \x01(\t\x12\x13\n\x0bmirror_path\x18\x05 \x01(\t\"\xb7\x01\n\x0c\x43onfigServer\x12\x13\n\x0bserver_port\x18\x01 \x01(\t\x12\x13\n\x0bserver_name\x18\x02 \x01(\t\x12\x11\n\tsite_root\x18\x03 \x01(\t\x12\x12\n\nsite_index\x18\x04 \x01(\t\x12\x1a\n\x12upload_path_config\x18\x05 \x01(\t\x12\x11\n\tlocations\x18\x06 \x01(\t\x12\x18\n\x10upload_path_test\x18\x07 \x01(\t\x12\r\n\x05\x66iles\x18\x08 \x01(\t\"j\n\x08\x43onfigLB\x12\x13\n\x0bserver_port\x18\x01 \x01(\t\x12\x13\n\x0bserver_name\x18\x02 \x01(\t\x12\x10\n\x08slb_list\x18\x03 \x01(\t\x12\x11\n\tslb_group\x18\x04 \x01(\t\x12\x0f\n\x07lb_path\x18\x05 \x01(\t\"\x1d\n\nNginxReply\x12\x0f\n\x07message\x18\x01 \x01(\t2\xeb\x01\n\nController\x12\x36\n\x0bModifyProxy\x12\x12.nginx.ConfigProxy\x1a\x11.nginx.NginxReply\"\x00\x12\x38\n\x0cModifyServer\x12\x13.nginx.ConfigServer\x1a\x11.nginx.NginxReply\"\x00\x12\x30\n\x08ModifyLB\x12\x0f.nginx.ConfigLB\x1a\x11.nginx.NginxReply\"\x00\x12\x39\n\rProcessAlerts\x12\x13.nginx.AlertMessage\x1a\x11.nginx.NginxReply\"\x00\x62\x06proto3')
 )
 
 
@@ -157,6 +157,34 @@ _CONFIGSERVER = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='upload_path_config', full_name='nginx.ConfigServer.upload_path_config', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='locations', full_name='nginx.ConfigServer.locations', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='upload_path_test', full_name='nginx.ConfigServer.upload_path_test', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='files', full_name='nginx.ConfigServer.files', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -169,8 +197,8 @@ _CONFIGSERVER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=196,
-  serialized_end=291,
+  serialized_start=197,
+  serialized_end=380,
 )
 
 
@@ -228,8 +256,8 @@ _CONFIGLB = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=293,
-  serialized_end=399,
+  serialized_start=382,
+  serialized_end=488,
 )
 
 
@@ -259,8 +287,8 @@ _NGINXREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=401,
-  serialized_end=430,
+  serialized_start=490,
+  serialized_end=519,
 )
 
 DESCRIPTOR.message_types_by_name['AlertMessage'] = _ALERTMESSAGE
@@ -313,8 +341,8 @@ _CONTROLLER = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   options=None,
-  serialized_start=433,
-  serialized_end=668,
+  serialized_start=522,
+  serialized_end=757,
   methods=[
   _descriptor.MethodDescriptor(
     name='ModifyProxy',

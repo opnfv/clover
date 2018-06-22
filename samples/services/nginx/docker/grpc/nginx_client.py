@@ -67,8 +67,9 @@ def modify_proxy(stub):
 
 def modify_server(stub):
     response = stub.ModifyServer(nginx_pb2.ConfigServer(
-            server_port='9180', server_name='clover-server',
-            site_root='/var/www/html', site_index='index.nginx-debian.html'))
+            server_port='9180', server_name='clover-server1',
+            upload_path='/upload',
+            site_root='/var/www/html', site_index='index.html'))
     print(response.message)
 
 
