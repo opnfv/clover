@@ -8,8 +8,5 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 #
 
-# Start the nginx process
-./process/nginx_process.sh
-
 # Start the grpc server
 ./process/grpc_process.sh $1 -D
