@@ -28,23 +28,21 @@ class Controller(nginx_pb2_grpc.ControllerServicer):
         logging.basicConfig(filename='nginx.log', level=logging.DEBUG)
         self.service_type = service_type
         self.out_file = '/etc/nginx/nginx.conf'
-        # self.out_file = 'testfile'
+        self.nginx = 0
         if service_type == "proxy":
-            # self.template_file = 'templates/proxy.template'
             self.template_file = '/grpc/templates/proxy.template'
             self.ModifyProxy(nginx_pb2.ConfigProxy(
                 server_port='9180', server_name='proxy-access-control',
                 location_path='/', proxy_path='http://http-lb:9180',
                 mirror_path='http://snort-ids:80'), "")
         if service_type == "server":
-            # self.template_file = 'templates/server.template'
             self.template_file = '/grpc/templates/server.template'
             self.ModifyServer(nginx_pb2.ConfigServer(
                 server_port='9180', server_name='clover-server',
                 site_root='/var/www/html',
-                site_index='index.nginx-debian.html'), "")
+                upload_path='/upload',
+                site_index='index.html'), "")
         if service_type == "lb":
-            # self.template_file = 'templates/lb.template'
             self.template_file = '/grpc/templates/lb.template'
             slb_list = pickle.dumps(
                     ['clover-server1:9180', 'clover-server2:9180',
@@ -82,12 +80,23 @@ class Controller(nginx_pb2_grpc.ControllerServicer):
                 server_port=r.server_port,
                 server_name=r.server_name,
                 site_root=r.site_root,
-                site_index=r.site_index
+                site_index=r.site_index,
+                upload_path=r.upload_path
             )
             with open(self.out_file, "wb") as fh:
                 fh.write(output)
+
+            template_upload = '/grpc/templates/upload_form.template'
+            out_file = r.site_root + '/' + r.site_index
+            with open(template_upload) as f:
+                tmpl = Template(f.read())
+            output = tmpl.render(
+                upload_path=r.upload_path
+            )
+            with open(out_file, "wb") as fh:
+                fh.write(output)
             msg = "Modified nginx config"
-            self.RestartNginx()
+            self.RestartNginx('custom')
         except Exception as e:
             logging.debug(e)
             msg = "Failed to modify nginx config"
@@ -113,9 +122,17 @@ class Controller(nginx_pb2_grpc.ControllerServicer):
             msg = "Failed to modify nginx config"
         return nginx_pb2.NginxReply(message=msg)
 
-    def RestartNginx(self):
-        subprocess.Popen(
-                  ["service nginx restart"], shell=True)
+    def RestartNginx(self, package='default'):
+        if package == 'custom':
+            if self.nginx == 0:
+                p = subprocess.Popen(["nginx"], shell=True)
+            else:
+                subprocess.Popen.kill(self.nginx)
+                p = subprocess.Popen(["nginx"], shell=True)
+            self.nginx = p
+        else:
+            subprocess.Popen(
+                      ["service nginx restart"], shell=True)
 
     def ProcessAlerts(self, request, context):
         try:

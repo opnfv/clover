@@ -3,69 +3,101 @@ worker_processes auto;
 pid /run/nginx.pid;
 
 events {
-	worker_connections 768;
-	# multi_accept on;
+    worker_connections 768;
+    # multi_accept on;
 }
 
 http {
 
-	##
-	# Basic Settings
-	##
+    ##
+    # Basic Settings
+    ##
 
-	sendfile on;
-	tcp_nopush on;
-	tcp_nodelay on;
-	keepalive_timeout 65;
-	types_hash_max_size 2048;
-	# server_tokens off;
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 65;
+    types_hash_max_size 2048;
+    # server_tokens off;
 
 
-	include /etc/nginx/mime.types;
-	default_type application/octet-stream;
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
 
-	##
-	# SSL Settings
-	##
+    ##
+    # SSL Settings
+    ##
 
-	ssl_protocols TLSv1 TLSv1.1 TLSv1.2; # Dropping SSLv3, ref: POODLE
-	ssl_prefer_server_ciphers on;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2; # Dropping SSLv3, ref: POODLE
+    ssl_prefer_server_ciphers on;
 
-	##
-	# Logging Settings
-	##
+    ##
+    # Logging Settings
+    ##
 
-	access_log /var/log/nginx/access.log;
-	error_log /var/log/nginx/error.log;
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
 
-	##
-	# Gzip Settings
-	##
+    ##
+    # Gzip Settings
+    ##
 
-	gzip on;
-	gzip_disable "msie6";
+    gzip on;
+    gzip_disable "msie6";
 
-	# gzip_vary on;
-	# gzip_proxied any;
-	# gzip_comp_level 6;
-	# gzip_buffers 16 8k;
-	# gzip_http_version 1.1;
-	# gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+    # gzip_vary on;
+    # gzip_proxied any;
+    # gzip_comp_level 6;
+    # gzip_buffers 16 8k;
+    # gzip_http_version 1.1;
+    # gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
 
-	##
-	# Virtual Host Configs
-	##
+    ##
+    # Virtual Host Configs
+    ##
 
-	include /etc/nginx/conf.d/*.conf;
-	#include /etc/nginx/sites-enabled/*;
+    include /etc/nginx/conf.d/*.conf;
+    #include /etc/nginx/sites-enabled/*;
 
-    server {
-        listen {{ server_port }};
-        server_name {{ server_name }};
+        server {
+            listen {{ server_port }};
+            server_name {{ server_name }};
+            client_max_body_size 500m;
 
-        root {{ site_root }};
-        index {{ site_index }};
-    }
+            root {{ site_root }};
+            index {{ site_index }};
 
+            location {{ upload_path }} {
+                # Pass altered request body to this location
+                upload_pass   @return_path;
+
+                # Store files to this directory
+                upload_resumable on;
+                upload_state_store /tmp/state;
+                upload_store {{ site_root }}{{ upload_path }};
+
+                # Allow uploaded files to be read only by user
+                #upload_store_access user:r;
+
+                # Set specified fields in request body
+                upload_set_form_field $upload_field_name.name "$upload_file_name";
+                upload_set_form_field $upload_field_name.content_type "$upload_content_type";
+                upload_set_form_field $upload_field_name.path "$upload_tmp_path";
+
+                # Inform backend about hash and size of a file
+                upload_aggregate_form_field "$upload_field_name.md5" "$upload_file_md5";
+                upload_aggregate_form_field "$upload_field_name.size" "$upload_file_size";
+
+                upload_pass_form_field "^submit$|^description$";
+
+                upload_cleanup 400 404 499 500-505;
+            }
+
+            location @return_path {
+                proxy_pass http://clover-controller:80;
+                #return 204;
+            }
+
+
+        }
 }
-
