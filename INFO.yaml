@@ -4,6 +4,10 @@ project_creation_date: ''
 project_category: ''
 lifecycle_state: 'Incubation'
 project_lead: &opnfv_clover_ptl
+    name: 'Wenjing Chu'
+    email: 'chu.wenjing@gmail.com'
+    company: 'gmail.com'
+    id: 'wenjing'
 primary_contact: *opnfv_clover_ptl
 issue_tracking:
     type: 'jira'
@@ -29,10 +33,6 @@ repositories:
     - 'clover'
 committers:
     - <<: *opnfv_clover_ptl
-    - name: 'Wenjing Chu'
-      email: 'chu.wenjing@gmail.com'
-      company: 'gmail.com'
-      id: 'wenjing'
     - name: 'Stephen Wong'
       email: 'stephen.kf.wong@gmail.com'
       company: 'gmail.com'
