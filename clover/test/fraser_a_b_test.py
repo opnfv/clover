@@ -218,6 +218,8 @@ def main(argv):
     test_id = uuid.uuid4()
     rr.set_route_rules(test_id)
     tracing.setTest(test_id)
+    # wait 1 sec to avoid missing the first test result
+    time.sleep(1)
     try:
         output = subprocess.check_output(cmd, shell=True)
     except subprocess.CalledProcessError, e:
