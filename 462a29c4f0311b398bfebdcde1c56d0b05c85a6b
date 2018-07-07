@@ -1,0 +1,9 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Junaid Ali <junaidali.yahya@gmail.com>
+Code-Review+2: Yujun Zhang <zhang.yujunz@zte.com.cn>
+Code-Review+2: Stephen Wong <stephen.kf.wong@gmail.com>
+Submitted-by: Stephen Wong <stephen.kf.wong@gmail.com>
+Submitted-at: Sat, 07 Jul 2018 05:45:04 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/58355
+Project: clover
+Branch: refs/heads/master
