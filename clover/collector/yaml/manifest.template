@@ -1,0 +1,43 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ deploy_name }}
+  labels:
+    app: {{ deploy_name }}
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ deploy_name }}
+    spec:
+      containers:
+        - name: {{ deploy_name }}
+          image: {{ image_path }}/{{ image_name }}:{{ image_tag }}
+          ports:
+           - containerPort: {{ grpc_port }}
+           - containerPort: {{ redis_port }}
+           - containerPort: {{ monitor_port }}
+           - containerPort: {{ trace_port }}
+           - containerPort: {{ cass_port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ deploy_name }}
+  labels:
+    app: {{ deploy_name }}
+spec:
+  ports:
+  - port: {{ grpc_port }}
+    name: grpc
+  - port: {{ redis_port }}
+    name: redis
+  - port: {{ trace_port }}
+    name: jaeger-deployment
+  - port: {{ monitor_port }}
+    name: prometheus
+  - port: {{ cass_port }}
+    name: cassandra
+  selector:
+    app: {{ deploy_name }}
