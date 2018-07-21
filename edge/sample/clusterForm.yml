@@ -1,0 +1,15 @@
+---
+- hosts: all
+  roles:
+  - clusterForm_common
+  become: true
+
+- hosts: master
+  roles:
+  - clusterForm_master
+  become: true
+
+- hosts: slaves
+  roles:
+  - clusterForm_slave(s)
+  become: true

@@ -1,0 +1,16 @@
+[master]
+192.168.1.107
+
+[slaves]
+192.168.1.103
+192.168.1.108
+192.168.1.109
+192.168.1.110
+192.168.1.111
+
+[kube-cluster:children]
+master
+slaves
+
+[kube-cluster:vars]
+ansible_ssh_user=pi
