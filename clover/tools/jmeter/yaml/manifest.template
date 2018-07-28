@@ -1,0 +1,45 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ deploy_name }}
+  labels:
+    app: {{ deploy_name }}
+spec:
+{%- if replica_count %}
+  replicas: 3{% endif %}
+  template:
+    metadata:
+      labels:
+        app: {{ deploy_name }}
+    spec:
+      containers:
+        - name: {{ deploy_name }}
+          image: {{ image_path }}/{{ image_name }}:{{ image_tag }}
+          ports:
+{%- if grpc_port %}
+           - containerPort: {{ grpc_port }}{% endif %}
+           - containerPort: {{ rmi_port }}
+           - containerPort: {{ http_port }}
+           - containerPort: {{ ssl_port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ deploy_name }}
+  labels:
+    app: {{ deploy_name }}
+spec:
+  ports:
+{%- if grpc_port %}
+  - port: {{ grpc_port }}
+    name: grpc{% endif %}
+  - port: {{ rmi_port }}
+    name: rmi
+  - port: {{ http_port }}
+    name: http
+  - port: {{ ssl_port }}
+    name: https
+  selector:
+    app: {{ deploy_name }}
+---
