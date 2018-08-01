@@ -358,4 +358,3 @@ spec:
         backend:
           serviceName: proxy-access-control
           servicePort: 9180
----
