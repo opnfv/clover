@@ -1,0 +1,11 @@
+load_spec:
+    num_threads: 1
+    loops: 1
+    ramp_time: 60
+url_list:
+    - name: url1
+      url: http://proxy-access-control.default:9180
+      method: GET
+    - name: url2
+      url: http://proxy-access-control.default:9180
+      method: GET
