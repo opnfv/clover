@@ -1,0 +1,7 @@
+sample_interval: "10"
+#t_host: jaeger-deployment.istio-system
+#t_port: "16686"
+t_host: jaeger-query.istio-system
+t_port: "80"
+m_port: "9090"
+m_host: prometheus.istio-system
