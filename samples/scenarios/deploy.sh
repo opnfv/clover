@@ -15,7 +15,7 @@ cd $CLOVER_BASE_DIR
 
 echo "Deploying Istio manual sidecar injection without TLS authentication"
 
-kubectl apply -f $ISTIO_BASE_DIR/install/kubernetes/istio.yaml
+kubectl apply -f $ISTIO_BASE_DIR/install/kubernetes/istio-demo.yaml
 
 echo "Deploying Service Delivery Controller sample scenario"
 
