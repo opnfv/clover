@@ -1,0 +1,5 @@
+---
+- hosts: all
+  roles:
+  - clusterTear_common
+  become: true

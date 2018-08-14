@@ -1,0 +1,127 @@
+# Copyright (c) Authors of Clover
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+
+- name: Checking dependencies for Docker
+  shell: docker --version
+  register: doc_ver
+  ignore_errors: true
+  failed_when: false
+
+- name: Removing unsupported version of Docker (if any)
+  apt:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - 'docker'
+    - 'docker-engine'
+    - 'docker-ce'
+    - 'docker.io'
+  when: doc_ver.stdout.find('18.04.0-ce') == -1
+
+- name: Adding GPG key for Docker
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+  when: doc_ver.stdout.find('18.04.0-ce') == -1
+
+- name: Updating sources.list.d directory
+  shell: echo "deb [arch=armhf] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") $(lsb_release -cs) edge" | \ tee /etc/apt/sources.list.d/docker.list
+  when: doc_ver.stdout.find('18.04.0-ce') == -1
+
+- name: Installing Docker 18.04.0
+  apt:
+    name: docker-ce=18.04.0~ce~3-0~raspbian
+    update_cache: yes
+  when: doc_ver.stdout.find('18.04.0-ce') == -1
+
+- name: Adding user 'pi' to the 'docker' group
+  shell: usermod pi -aG docker
+  when: doc_ver.stdout.find('18.04.0-ce') == -1
+
+- name: Removing docker from apt sources to prevent upgrade
+  file:
+    path: /etc/apt/sources.list.d/docker.list
+    state: absent
+
+- name: Turning off swap
+  shell: dphys-swapfile swapoff && dphys-swapfile uninstall && update-rc.d dphys-swapfile remove
+
+- name: Checking cgroup dependencies
+  shell: cat /boot/cmdline.txt
+  register: boot
+
+- name: Enabling cpuset cgroup
+  shell: sed -i 's/$/ cgroup_enable=cpuset/' /boot/cmdline.txt
+  args:
+    warn: false
+  when: boot.stdout.find('cgroup_enable=cpuset') == -1
+
+- name: Enabling memory cgroup (1/2)
+  shell: sed -i 's/$/ cgroup_memory=1/' /boot/cmdline.txt
+  args:
+    warn: false
+  when: boot.stdout.find('cgroup_memory=1') == -1
+
+- name: Enabling memory cgroup (2/2)
+  shell: sed -i 's/$/ cgroup_enable=memory/' /boot/cmdline.txt
+  args:
+    warn: false
+  when: boot.stdout.find('cgroup_enable=memory') == -1
+
+- name: Rebooting
+  shell: sleep 2 && reboot
+  async: 1
+  poll: 0
+  ignore_errors: true
+  when: boot.stdout.find('cgroup_enable=cpuset') == -1 or boot.stdout.find('cgroup_memory=1') == -1 or boot.stdout.find('cgroup_enable=memory') == -1
+
+- name: Waiting for host(s) to come online
+  wait_for_connection:
+    delay: 30
+  when: boot.stdout.find('cgroup_enable=cpuset') == -1 or boot.stdout.find('cgroup_memory=1') == -1 or boot.stdout.find('cgroup_enable=memory') == -1
+
+- name: Checking dependencies for Kubernetes
+  shell: kubeadm version
+  register: kube_ver
+  ignore_errors: true
+  failed_when: false
+
+- name: Removing unsupported version of Kubernetes (if any)
+  apt:
+    name: "{{ item }}"
+    state: absent
+    autoremove: yes
+  with_items:
+    - 'kubeadm'
+    - 'kubectl'
+    - 'kubelet'
+  when: kube_ver.stdout.find('v1.10.2') == -1
+
+- name: Adding GPG key for kubernetes
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+  when: kube_ver.stdout.find('v1.10.2') == -1
+
+- name: Updating sources.list.d directory
+  shell: echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+  when: kube_ver.stdout.find('v1.10.2') == -1
+
+- name: Installing kubeadm, kubectl and kubelet version 1.10.2-00
+  apt:
+    name: "{{ item }}"
+    update_cache: true
+  with_items:
+    - 'kubeadm=1.10.2-00'
+    - 'kubectl=1.10.2-00'
+    - 'kubelet=1.10.2-00'
+  when: kube_ver.stdout.find('v1.10.2') == -1
+
+- name: Removing kubernetes from apt sources to prevent upgrade
+  file:
+    path: /etc/apt/sources.list.d/kubernetes.list
+    state: absent
