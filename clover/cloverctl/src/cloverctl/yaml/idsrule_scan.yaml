@@ -1,0 +1,9 @@
+sid: "10000003"
+protocol: tcp
+dest_port: any
+dest_ip: $HOME_NET
+src_port: any
+src_ip: any
+msg: MALWARE-CNC User-Agent ASafaWeb Scan
+rev: "001"
+content: '"asafaweb.com"'
