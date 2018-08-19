@@ -1,0 +1,38 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ deploy_name }}
+  labels:
+    app: {{ deploy_name }}
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ deploy_name }}
+    spec:
+      containers:
+        - name: {{ deploy_name }}
+          image: {{ image_path }}/{{ image_name }}:{{ image_tag }}
+          ports:
+           - containerPort: {{ snort_grpc_port }}
+           - containerPort: {{ nginx_grpc_port }}
+           - containerPort: {{ redis_port }}
+           - containerPort: {{ cass_port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ deploy_name }}
+  labels:
+    app: {{ deploy_name }}
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    nodePort: {{ node_port }}
+    protocol: TCP
+  selector:
+    app: {{ deploy_name }}
