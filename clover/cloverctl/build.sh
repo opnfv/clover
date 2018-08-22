@@ -25,6 +25,7 @@ go get github.com/tools/godep
 go get -u github.com/spf13/cobra/cobra
 go get -u gopkg.in/resty.v1
 
+go get k8s.io/apimachinery/pkg/runtime
 go get k8s.io/client-go/...
 cd $GOPATH/src/k8s.io/client-go
 git checkout $CLIENTGOVERSION

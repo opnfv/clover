@@ -10,14 +10,20 @@ package cloverkube
 import (
     "fmt"
     "os"
-     "path/filepath"
-     "strings"
+    "path/filepath"
+    "strings"
+    "io/ioutil"
+    "io"
+    "bytes"
 
     appsv1 "k8s.io/api/apps/v1"
     apiv1 "k8s.io/api/core/v1"
     metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
     "k8s.io/client-go/kubernetes"
     "k8s.io/client-go/tools/clientcmd"
+    "k8s.io/apimachinery/pkg/runtime"
+    "k8s.io/client-go/tools/remotecommand"
+
 )
 
 func setClient() kubernetes.Interface {
@@ -397,4 +403,94 @@ func GetPodsIP(pod_name string, namespace string) []string {
     }
 
     return ips
+}
+
+func CopyFileToPod(src, dest string) error {
+
+    // dest must be "namespace/podname/containername:<your path>"
+    pSplit := strings.Split(dest, ":")
+    pathPrefix := pSplit[0]
+    pathToCopy := pSplit[1]
+
+    buffer, err := ioutil.ReadFile(src)
+    if err != nil {
+        fmt.Print(err)
+    }
+
+    dir, _ := filepath.Split(pathToCopy)
+    command := "mkdir -p " + dir
+    _, stderr, err := Exec(pathPrefix, command, nil)
+
+    if err != nil {
+        fmt.Print(err)
+        fmt.Print(stderr)
+        return err
+    }
+
+    command = "cp /dev/stdin " + pathToCopy
+    stdin := bytes.NewReader(buffer)
+    _, stderr, err = Exec(pathPrefix, command, stdin)
+
+    if err != nil {
+        fmt.Print(err)
+        fmt.Print(stderr)
+        return err
+    }
+
+    return nil
+}
+
+
+func Exec(pathPrefix, command string, stdin io.Reader) ([]byte, []byte, error) {
+        clientset := setClient()
+        kubeconfig := filepath.Join(
+             os.Getenv("HOME"), ".kube", "config",
+        )
+        config, err := clientcmd.BuildConfigFromFlags("", kubeconfig)
+        if err != nil {
+            panic(err.Error())
+        }
+
+        prefixSplit := strings.Split(pathPrefix, "/")
+        namespace := prefixSplit[0]
+        podName := prefixSplit[1]
+        containerName := prefixSplit[2]
+
+        req := clientset.Core().RESTClient().Post().
+                Resource("pods").
+                Name(podName).
+                Namespace(namespace).
+                SubResource("exec")
+        scheme := runtime.NewScheme()
+        if err := apiv1.AddToScheme(scheme); err != nil {
+                return nil, nil, fmt.Errorf("error adding to scheme: %v", err)
+        }
+
+        parameterCodec := runtime.NewParameterCodec(scheme)
+        req.VersionedParams(&apiv1.PodExecOptions{
+                Command:   strings.Fields(command),
+                Container: containerName,
+                Stdin:     stdin != nil,
+                Stdout:    true,
+                Stderr:    true,
+                TTY:       false,
+        }, parameterCodec)
+
+        exec, err := remotecommand.NewSPDYExecutor(config, "POST", req.URL())
+        if err != nil {
+                return nil, nil, fmt.Errorf("error while creating Executor: %v", err)
+        }
+
+        var stdout, stderr bytes.Buffer
+        err = exec.Stream(remotecommand.StreamOptions{
+                Stdin:  stdin,
+                Stdout: &stdout,
+                Stderr: &stderr,
+                Tty:    false,
+        })
+        if err != nil {
+                return nil, nil, fmt.Errorf("error in Stream: %v", err)
+        }
+
+        return stdout.Bytes(), stderr.Bytes(), nil
 }
