@@ -35,6 +35,7 @@ RUN cp clover/clover/collector/grpc/collector_pb2_grpc.py /control/api
 RUN cp clover/clover/collector/grpc/collector_pb2.py /control/api
 RUN cp clover/clover/tools/jmeter/jmeter-master/grpc/jmeter_pb2_grpc.py /control/api
 RUN cp clover/clover/tools/jmeter/jmeter-master/grpc/jmeter_pb2.py /control/api
+RUN cp -rf  clover/clover/spinnaker/lib/ /control/api
 RUN rm -rf /grpc_temp
 
 WORKDIR /process

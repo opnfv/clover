@@ -9,6 +9,7 @@ from os import path
 import yaml
 
 from kubernetes import client, config
+from kubernetes.stream import stream
 
 class KubeClient(object):
 
@@ -120,3 +121,36 @@ class KubeClient(object):
 
             svc_name = body.get('metadata').get('name')
             return svc_name
+
+    def copy_file_to_pod(self, source, destination, podname, namespace='default'):
+        # Note: only can copy file to the pod, which only include one container
+        exec_command = ['/bin/sh']
+        resp = stream(self.core_v1.connect_get_namespaced_pod_exec, podname,
+                      namespace,
+                      command=exec_command,
+                      stderr=True, stdin=True,
+                      stdout=True, tty=False,
+                      _preload_content=False)
+
+        buffer = ''
+        with open(source, "rb") as file:
+            buffer += file.read()
+
+        commands = []
+        commands.append(bytes("cat <<'EOF' >" + destination + "\n"))
+        commands.append(buffer)
+        commands.append(bytes("EOF\n"))
+
+        while resp.is_open():
+            resp.update(timeout=1)
+            if resp.peek_stdout():
+                print("STDOUT: %s" % resp.read_stdout())
+            if resp.peek_stderr():
+                print("STDERR: %s" % resp.read_stderr())
+            if commands:
+                c = commands.pop(0)
+                resp.write_stdin(c)
+            else:
+                break
+
+        resp.close()

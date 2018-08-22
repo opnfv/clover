@@ -20,7 +20,7 @@
 #    note that this value rely on a functioning DNS on kubernetes to resolve the IP
 #
 #    This static method can be made dynamic by using Helm
-#    or bash script to replace the namespace on the fly. 
+#    or bash script to replace the namespace on the fly.
 #
 #   - Cassandra launch only 1 replica in the cluster
 #     to dynamically scale up or down, you can use:
