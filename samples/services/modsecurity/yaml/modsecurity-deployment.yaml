@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: modsecurity-crs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: modsecurity-crs
+  template:
+    metadata:
+      labels:
+        app: modsecurity-crs
+    spec:
+      containers:
+        - name: modsecurity-crs
+          image: clover/clover-ns-modsecurity-crs
+          ports:
+            - containerPort: 80
+          env:
+            - name: PARANOIA
+              value: '1'

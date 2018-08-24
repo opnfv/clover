@@ -1,0 +1,38 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ deploy_name }}
+  labels:
+    app: {{ deploy_name }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ deploy_name }}
+    spec:
+      containers:
+        - name: {{ deploy_name }}
+          image: {{ image_path }}/{{ image_name }}:{{ image_tag }}
+          ports:
+           - containerPort: {{ http_port }}
+          env:
+            - name: PARANOIA
+              value: {{ paranoia_level }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ deploy_name }}
+  labels:
+    app: {{ deploy_name }}
+spec:
+  ports:
+  - port: {{ http_port }}
+    name: http-modsecurity-crs
+    targetPort: {{ http_port }}
+  selector:
+    app: {{ deploy_name }}
+---
