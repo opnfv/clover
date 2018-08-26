@@ -1,0 +1,6 @@
+{
+	"name": "sample",
+	"description": null,
+	"email": "sample-app-demo@example.com",
+	"cloudProviders": "kubernetes"
+}
