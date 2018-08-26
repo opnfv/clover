@@ -1,0 +1,36 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: sample-backend-canary
+  name: sample-backend-canary
+  namesapce: __NAMESPACE_CANARY__
+spec:
+  ports:
+  - name: 8080-8080
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: clover-sample
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: sample-frontend-canary
+  name: sample-frontend-canary
+  namesapce: __NAMESPACE_CANARY__
+spec:
+  ports:
+  - name: 80-80
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: clover-sample
+  sessionAffinity: None
+  type: LoadBalancer
