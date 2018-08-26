@@ -5,8 +5,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"errors"
 	"html/template"
 	"io/ioutil"
+	"net"
 	"net/http"
 	"net/http/httputil"
 
@@ -117,10 +119,53 @@ func makeRequest(r *http.Request, cs commonService) []byte {
 	return body
 }
 
+func externalIP() (string, error) {
+	ifaces, err := net.Interfaces()
+	if err != nil {
+		return "", err
+	}
+	for _, iface := range ifaces {
+		if iface.Flags&net.FlagUp == 0 {
+			continue // interface down
+		}
+		if iface.Flags&net.FlagLoopback != 0 {
+			continue // loopback interface
+		}
+		addrs, err := iface.Addrs()
+		if err != nil {
+			return "", err
+		}
+		for _, addr := range addrs {
+			var ip net.IP
+			switch v := addr.(type) {
+			case *net.IPNet:
+				ip = v.IP
+			case *net.IPAddr:
+				ip = v.IP
+			}
+			if ip == nil || ip.IsLoopback() {
+				continue
+			}
+			ip = ip.To4()
+			if ip == nil {
+				continue // not an ipv4 address
+			}
+			return ip.String(), nil
+		}
+	}
+	return "", errors.New("Unable to find any interface!")
+}
+
+
 func newInstance(ctx context.Context, cs commonService) *Instance {
 	var i = new(Instance)
 	if !metadata.OnGCE() {
-		i.Error = "Not running on GCE"
+                i.Error = "None"
+                i.Zone = "docker-zone"
+                i.Name = "sample-app"
+                i.Project = "sample-app"
+                i.InternalIP, _ = externalIP()
+                i.ExternalIP = i.InternalIP
 		return i
 	}
 

@@ -78,3 +78,13 @@ sudo docker run --rm \
 
 echo "Clover run functest complete!"
 ###############################################################################
+
+
+###############################################################################
+# Validating Clover sample application
+
+source "$CLOVER_BASE_DIR"/samples/scenarios/sample_app/ci/verify.sh
+
+sample_app_verify
+sample_app_cleanup
+###############################################################################
