@@ -1,0 +1,78 @@
+---
+apiVersion: extensions/v1
+kind: Deployment
+metadata:
+  labels:
+    app: clover-sample
+    cluster: sample-backend-canary
+    detail: canary
+    stack: backend
+  name: sample-backend-canary
+  namespace: __NAMESPACE_CANARY__
+spec:
+  replicas: __REPLICAS_CANARY__
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: sample
+        cluster: sample-backend-canary
+        detail: prod
+        stack: backend
+    spec:
+      containers:
+      - env:
+        - name: COMPONENT
+          value: backend
+        - name: VERSION
+          value: __IMAGE_VER__
+        image: opnfv/clover-sample-app:__IMAGE_VER__
+        name: sample-app
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+---
+apiVersion: extensions/v1
+kind: Deployment
+metadata:
+  labels:
+    app: clover-sample
+    cluster: sample-frontend-canary
+    detail: canary
+    stack: frontend
+  name: sample-frontend-canary
+  namespace: __NAMESPACE_CANARY__
+spec:
+  replicas: __REPLICAS_CANARY__
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: sample
+        cluster: sample-frontend-canary
+        detail: canary
+        stack: frontend
+    spec:
+      containers:
+      - env:
+        - name: COMPONENT
+          value: frontend
+        - name: VERSION
+          value: __IMAGE_VER__
+        - name: BACKEND_URL
+          value: http://sample-backend-canary:8080/metadata
+        image: opnfv/clover-sample-app:__IMAGE_VER__
+        name: sample-app
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
