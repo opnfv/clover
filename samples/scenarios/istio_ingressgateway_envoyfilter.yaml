@@ -1,0 +1,24 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: ext-authz
+  namespace: istio-system
+spec:
+  workloadLabels:
+    app: istio-ingressgateway
+  filters:
+  - insertPosition:
+      index: FIRST
+    listenerMatch:
+      portNumber: 80
+      listenerType: GATEWAY
+      listenerProtocol: HTTP
+    filterType: HTTP
+    filterName: "envoy.ext_authz"
+    filterConfig:
+      http_service:
+        server_uri:
+          uri: "http://modsecurity-crs.istio-system.svc.cluster.local"
+          cluster: "outbound|80||modsecurity-crs.istio-system.svc.cluster.local"
+          timeout: 0.5s
+      failure_mode_allow: false
