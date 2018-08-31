@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_62ce355c",
+        "filename": "clover/orchestration/kube_client.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 6967
+      },
+      "writtenOn": "2018-08-31T07:18:43Z",
+      "side": 1,
+      "message": "include \"one\" container?",
+      "revId": "c417b725d8bf55b2f012489f8395357abc75d806",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_c2dbc119",
+        "filename": "clover/spinnaker/halyard.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 6967
+      },
+      "writtenOn": "2018-08-31T07:18:43Z",
+      "side": 1,
+      "message": "All these are hardcoded?",
+      "revId": "c417b725d8bf55b2f012489f8395357abc75d806",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
