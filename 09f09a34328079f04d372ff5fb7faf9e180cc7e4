@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_c2f2a199",
+        "filename": "samples/services/modsecurity/docker/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6967
+      },
+      "writtenOn": "2018-08-31T07:26:18Z",
+      "side": 1,
+      "message": "Interesting... why do we need to install vim? Is that a modsecurity requirement?",
+      "revId": "09f09a34328079f04d372ff5fb7faf9e180cc7e4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
