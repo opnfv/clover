@@ -1,0 +1,49 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: uvservice
+spec:
+  selector:
+    app: uvapp
+  ports:
+    - protocol: "TCP"
+      # Port accessible inside cluster
+      port: 8081
+      # Port to forward to inside the pod
+      targetPort: 9090
+      # Port accessible outside cluster
+      nodePort: 30002
+  type: LoadBalancer
+
+
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: uvdeployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: uvapp
+    spec:
+      containers:
+        - name: uvapp
+          image: localhost:5000/clover-live-stream:latest
+          volumeMounts:
+            - mountPath: /dev/
+              name: dev-dir
+          ports:
+            - containerPort: 9090
+          args: ["720", "480", "40"]
+          securityContext:
+            privileged: true
+      volumes:
+        - name: dev-dir
+          hostPath:
+            path: /dev/
+      nodeSelector:
+        camera: yo
