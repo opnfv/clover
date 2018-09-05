@@ -66,9 +66,21 @@ def modify_proxy(stub):
 
 
 def modify_server(stub):
+    loc = []
+    val = {}
+    val['uri_match'] = "/test"
+    val['directive'] = "try_files $uri @default1"
+    val['path'] = "/test"
+    loc.append(val)
+    locations = pickle.dumps(loc)
+    files = pickle.dumps([])
     response = stub.ModifyServer(nginx_pb2.ConfigServer(
-            server_port='9180', server_name='clover-server',
-            site_root='/var/www/html', site_index='index.nginx-debian.html'))
+            server_port='9180', server_name='clover-server1',
+            upload_path_config='/upload',
+            upload_path_test='/upload_test',
+            locations=locations,
+            files=files,
+            site_root='/var/www/html', site_index='index.html'))
     print(response.message)
 
 

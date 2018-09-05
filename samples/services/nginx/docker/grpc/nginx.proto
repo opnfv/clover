@@ -36,6 +36,10 @@ message ConfigServer {
   string server_name = 2;
   string site_root = 3;
   string site_index = 4;
+  string upload_path_config = 5;
+  string locations = 6;
+  string upload_path_test = 7;
+  string files = 8;
 }
 
 message ConfigLB {
