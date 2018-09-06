@@ -1,0 +1,17 @@
+# Dependencies:
+# A storage class named 'standard' should exist
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: clover-jenkins
+  labels:
+    app: clover-jenkins
+    project: clover
+  namespace: __NAMESPACE__
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 80Gi
+  storageClassName: standard
