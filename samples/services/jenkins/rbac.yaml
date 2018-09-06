@@ -1,0 +1,19 @@
+# Dependencies:
+# A cluster role named 'cluster-admin' with
+# admin privileges. A cluster role with custom
+# permissions can be used
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: jenkins-clover-role-binding
+  labels:
+    app: jenkins
+    project: clover
+  namespace: jenkins-clover-ns
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: default
