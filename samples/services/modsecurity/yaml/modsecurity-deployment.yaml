@@ -2,6 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: modsecurity-crs
+  namespace: clover-gateway
 spec:
   replicas: 1
   selector:

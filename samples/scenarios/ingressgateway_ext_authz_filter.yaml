@@ -2,7 +2,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: EnvoyFilter
 metadata:
   name: ext-authz
-  namespace: istio-system
+  namespace: clover-gateway
 spec:
   workloadLabels:
     app: istio-ingressgateway
@@ -18,7 +18,7 @@ spec:
     filterConfig:
       http_service:
         server_uri:
-          uri: "http://modsecurity-crs.istio-system.svc.cluster.local"
-          cluster: "outbound|80||modsecurity-crs.istio-system.svc.cluster.local"
+          uri: "http://modsecurity-crs.clover-gateway.svc.cluster.local"
+          cluster: "outbound|80||modsecurity-crs.clover-gateway.svc.cluster.local"
           timeout: 0.5s
       failure_mode_allow: false
