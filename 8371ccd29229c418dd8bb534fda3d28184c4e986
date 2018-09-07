@@ -22,6 +22,30 @@
       "revId": "8371ccd29229c418dd8bb534fda3d28184c4e986",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_db45abb4",
+        "filename": "clover/controller/control/api/halyard.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5391
+      },
+      "writtenOn": "2018-09-07T08:39:31Z",
+      "side": 1,
+      "message": "The command in Dockerfile is \"RUN cp -rf  clover/clover/spinnaker/lib/ /control/api\", which will copy the whole directory \"clover/clover/spinnaker/lib/\" to \"/control/api\". The halyard_base.py will lay in directory \"/control/api/lib/halyard_base.py\". So I think the import is fine. Due to this patch don\u0027t merge, when you build the clover-controller docker image, you need modify the Dockerfile, just like \n\n\n# git diff clover/controller/docker/Dockerfile\n\n-RUN git clone https://github.com/opnfv/clover.git\n+RUN git clone https://github.com/opnfv/clover.git \u0026\u0026 cd clover \u0026\u0026 git fetch https://gerrit.opnfv.org/gerrit/clover refs/changes/25/61225/3 \u0026\u0026 git checkout FETCH_HEAD",
+      "parentUuid": "5a682502_bb4a6f25",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 31
+      },
+      "revId": "8371ccd29229c418dd8bb534fda3d28184c4e986",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
