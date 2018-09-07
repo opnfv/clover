@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_bb4a6f25",
+        "filename": "clover/controller/control/api/halyard.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7047
+      },
+      "writtenOn": "2018-09-07T05:07:56Z",
+      "side": 1,
+      "message": "There\u0027s an import error based on the path when halyard_base.py is copied in the Dockerfile. Remove the lib prefix here",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 31
+      },
+      "revId": "8371ccd29229c418dd8bb534fda3d28184c4e986",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
