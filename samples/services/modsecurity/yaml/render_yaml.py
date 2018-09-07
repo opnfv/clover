@@ -22,6 +22,7 @@ def render_yaml(args):
             image_name=args['image_name'],
             image_tag=args['image_tag'],
             deploy_name=args['deploy_name'],
+            deploy_namespace=args['deploy_namespace'],
             http_port=args['http_port'],
             paranoia_level=args['paranoia_level']
         )
@@ -48,6 +49,9 @@ if __name__ == '__main__':
     parser.add_argument(
             '--deploy_name', default='modsecurity-crs',
             help='The k8s deploy name to use')
+    parser.add_argument(
+            '--deploy_namespace', default='clover-gateway',
+            help='The k8s namespace to deploy pod and service')
     parser.add_argument(
             '--http_port', default='80',
             help='Analyze http traffic on this port')
