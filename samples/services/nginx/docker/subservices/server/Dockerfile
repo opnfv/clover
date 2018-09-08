@@ -7,7 +7,7 @@
 
 FROM ubuntu:16.04
 LABEL maintainer="Eddie Arrage" maintainer_email="eddie.arrage@huawei.com"
-LABEL version="0.1" description="Clover - Nginx HTTP Server"
+LABEL version="0.2" description="Clover - Nginx HTTP Server"
 
 RUN \
     apt-get update && apt-get install -y \

@@ -20,7 +20,7 @@ RUN \
     python-pip \
 && \
 # Install required python packages
-    python -m pip install grpcio redis jinja2 protobuf
+    python -m pip install grpcio redis jinja2 protobuf psutil
 
 COPY /process /process
 COPY /grpc /grpc
