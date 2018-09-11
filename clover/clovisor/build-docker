@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+# Copyright (c) Authors of Clover
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+if [ -z "$1" ]
+  then
+    kernel_ver=`uname -r`
+  else
+    kernel_ver=$1
+fi
+cp bin/clovisor .
+docker build --build-arg TARGET_KERNEL_VER=$kernel_ver -t clovisor .
+docker tag clovisor localhost:5000/clovisor
+docker push localhost:5000/clovisor
