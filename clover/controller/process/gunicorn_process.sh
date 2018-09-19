@@ -8,4 +8,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 #
 
-gunicorn --bind 0.0.0.0:8000 --chdir /control wsgi
+# it take a long time to add kubernetes. So I increse the timeout
+# and workers
+
+gunicorn --bind 0.0.0.0:8000 -t 1200 -w 5 --chdir /control wsgi

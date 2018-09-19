@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
 
 # Install required python packages
 RUN python -m pip install gunicorn flask \
-    grpcio protobuf jinja2 redis
+    grpcio protobuf jinja2 redis requests
 
 COPY /control /control
 COPY /process /process
@@ -35,6 +35,7 @@ RUN cp clover/clover/collector/grpc/collector_pb2_grpc.py /control/api
 RUN cp clover/clover/collector/grpc/collector_pb2.py /control/api
 RUN cp clover/clover/tools/jmeter/jmeter-master/grpc/jmeter_pb2_grpc.py /control/api
 RUN cp clover/clover/tools/jmeter/jmeter-master/grpc/jmeter_pb2.py /control/api
+RUN cp -rf  clover/clover/spinnaker/lib/ /control/api
 RUN rm -rf /grpc_temp
 
 WORKDIR /process

@@ -9,6 +9,7 @@ from flask import Flask, request, jsonify
 from views.dashboard import simple_page
 from api.collector import collector
 from api.snort import snort
+from api.halyard import halyard
 from api.nginx import nginx
 from api.jmeter import jmeter
 from api.file_upload import file_upload
@@ -23,6 +24,7 @@ try:
     application.register_blueprint(simple_page)
     application.register_blueprint(collector)
     application.register_blueprint(snort)
+    application.register_blueprint(halyard)
     application.register_blueprint(nginx)
     application.register_blueprint(jmeter)
     application.register_blueprint(file_upload)
