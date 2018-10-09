@@ -7,6 +7,7 @@
 
 import functest_kubernetes.k8stest as k8stest
 
+import clover.servicemesh.validate as istio_validate
 
 class K8sCloverTest(k8stest.K8sTesting):
     """Clover test suite"""
@@ -18,9 +19,9 @@ class K8sCloverTest(k8stest.K8sTesting):
         self.check_envs()
 
     def run_kubetest(self):
-        success = True
+        success = istio_validate.validateDeploy()
         if success:
             self.result = 100
-        elif failure:
+        else:
             self.result = 0
 
