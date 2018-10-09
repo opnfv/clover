@@ -42,39 +42,5 @@ MASTER_NODE_KEY=$(vagrant ssh-config $MASTER_NODE_NAME | awk '/IdentityFile /{pr
 ssh $SSH_OPTIONS -i $MASTER_NODE_KEY ${MASTER_NODE_USER}@${MASTER_NODE_HOST} rm -rf clover
 scp $SSH_OPTIONS -i $MASTER_NODE_KEY -r $CLOVER_BASE_DIR ${MASTER_NODE_USER}@${MASTER_NODE_HOST}:clover
 
-# Run test
-ssh $SSH_OPTIONS -i $MASTER_NODE_KEY ${MASTER_NODE_USER}@${MASTER_NODE_HOST} ./clover/ci/test.sh
-
-echo "Clover deploy complete!"
-
-###############################################################################
-# Prepare and run functest.
-# TODO: Use jenkins to trigger functest job.
-
-# Setup configuration file for running functest
-mkdir -p $CLOVER_WORK_DIR/functest/results
-scp $SSH_OPTIONS -i $MASTER_NODE_KEY \
-    ${MASTER_NODE_USER}@${MASTER_NODE_HOST}:.kube/config \
-    $CLOVER_WORK_DIR/functest/kube-config
-RC_FILE=$CLOVER_WORK_DIR/functest/k8.creds
-echo "export KUBERNETES_PROVIDER=local" > $RC_FILE
-KUBE_MASTER_URL=$(cat $CLOVER_WORK_DIR/functest/kube-config | grep server | awk '{print $2}')
-echo "export KUBE_MASTER_URL=$KUBE_MASTER_URL" >> $RC_FILE
-KUBE_MASTER_IP=$(echo $KUBE_MASTER_URL | awk -F'https://|:[0-9]+' '$0=$2')
-echo "export KUBE_MASTER_IP=$KUBE_MASTER_IP" >> $RC_FILE
-
-# Run functest
-sudo docker pull $FUNCTEST_IMAGE
-sudo docker run --rm \
-    -e INSTALLER_TYPE=$INSTALLER_TYPE \
-    -e NODE_NAME=$NODE_NAME \
-    -e DEPLOY_SCENARIO=$DEPLOY_SCENARIO \
-    -e BUILD_TAG=$BUILD_TAG \
-    -v $RC_FILE:/home/opnfv/functest/conf/env_file \
-    -v $CLOVER_WORK_DIR/functest/results:/home/opnfv/functest/results \
-    -v $CLOVER_WORK_DIR/functest/kube-config:/root/.kube/config \
-    $FUNCTEST_IMAGE \
-    /bin/bash -c 'run_tests -r -t all'
-
-echo "Clover run functest complete!"
-###############################################################################
+# Deploy SDC sample for Functest test
+ssh $SSH_OPTIONS -i $MASTER_NODE_KEY ${MASTER_NODE_USER}@${MASTER_NODE_HOST} ./clover/ci/sdc_setup.sh
