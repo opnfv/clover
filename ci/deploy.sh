@@ -15,7 +15,7 @@ MASTER_NODE_NAME="master"
 SSH_OPTIONS="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 K8S_ISTIO_DEPLOY_TIMEOUT=3600
 
-FUNCTEST_IMAGE="opnfv/functest-kubernetes:latest"
+FUNCTEST_IMAGE="opnfv/functest-kubernetes-features:amd64-gambia"
 INSTALLER_TYPE="container4nfv"
 DEPLOY_SCENARIO="k8-istio-clover"
 
@@ -42,8 +42,8 @@ MASTER_NODE_KEY=$(vagrant ssh-config $MASTER_NODE_NAME | awk '/IdentityFile /{pr
 ssh $SSH_OPTIONS -i $MASTER_NODE_KEY ${MASTER_NODE_USER}@${MASTER_NODE_HOST} rm -rf clover
 scp $SSH_OPTIONS -i $MASTER_NODE_KEY -r $CLOVER_BASE_DIR ${MASTER_NODE_USER}@${MASTER_NODE_HOST}:clover
 
-# Run test
-ssh $SSH_OPTIONS -i $MASTER_NODE_KEY ${MASTER_NODE_USER}@${MASTER_NODE_HOST} ./clover/ci/test.sh
+# Deploy SDC sample for Functest test
+ssh $SSH_OPTIONS -i $MASTER_NODE_KEY ${MASTER_NODE_USER}@${MASTER_NODE_HOST} ./clover/ci/sdc_setup.sh
 
 echo "Clover deploy complete!"
 
@@ -62,6 +62,9 @@ KUBE_MASTER_URL=$(cat $CLOVER_WORK_DIR/functest/kube-config | grep server | awk 
 echo "export KUBE_MASTER_URL=$KUBE_MASTER_URL" >> $RC_FILE
 KUBE_MASTER_IP=$(echo $KUBE_MASTER_URL | awk -F'https://|:[0-9]+' '$0=$2')
 echo "export KUBE_MASTER_IP=$KUBE_MASTER_IP" >> $RC_FILE
+
+# Restart docker service in case Container4NFV CI job delete docker0 bridge
+systemctl restart docker
 
 # Run functest
 sudo docker pull $FUNCTEST_IMAGE
