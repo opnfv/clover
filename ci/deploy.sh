@@ -42,8 +42,8 @@ MASTER_NODE_KEY=$(vagrant ssh-config $MASTER_NODE_NAME | awk '/IdentityFile /{pr
 ssh $SSH_OPTIONS -i $MASTER_NODE_KEY ${MASTER_NODE_USER}@${MASTER_NODE_HOST} rm -rf clover
 scp $SSH_OPTIONS -i $MASTER_NODE_KEY -r $CLOVER_BASE_DIR ${MASTER_NODE_USER}@${MASTER_NODE_HOST}:clover
 
-# Run test
-ssh $SSH_OPTIONS -i $MASTER_NODE_KEY ${MASTER_NODE_USER}@${MASTER_NODE_HOST} ./clover/ci/test.sh
+# Deploy SDC sample for Functest test
+ssh $SSH_OPTIONS -i $MASTER_NODE_KEY ${MASTER_NODE_USER}@${MASTER_NODE_HOST} ./clover/ci/sdc_setup.sh
 
 echo "Clover deploy complete!"
 
