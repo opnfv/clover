@@ -22,6 +22,30 @@
       "revId": "19ddb0bf58fb46a330ce719fa18088fbc9c0f9bd",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_8723a804",
+        "filename": "samples/services/jenkins/resources/svc-agent.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6741
+      },
+      "writtenOn": "2018-10-10T09:44:16Z",
+      "side": 1,
+      "message": "That will expose the slave listener port externally.\nRef: https://gerrit.opnfv.org/gerrit/#/c/61939/4/samples/services/jenkins/resources/svc.yaml@18\n\nAlso, the master and agent services are created as two different services in Helm charts for Jenkins:\nhttps://github.com/helm/charts/tree/master/stable/jenkins/templates\n\nI will merge the two services if that is the right approach.",
+      "parentUuid": "5a682502_272d7447",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 19
+      },
+      "revId": "19ddb0bf58fb46a330ce719fa18088fbc9c0f9bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
