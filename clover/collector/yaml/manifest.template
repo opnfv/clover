@@ -5,6 +5,7 @@ metadata:
   name: {{ deploy_name }}
   labels:
     app: {{ deploy_name }}
+  namespace: clover-system
 spec:
   template:
     metadata:
@@ -27,6 +28,7 @@ metadata:
   name: {{ deploy_name }}
   labels:
     app: {{ deploy_name }}
+  namespace: clover-system
 spec:
   ports:
   - port: {{ grpc_port }}

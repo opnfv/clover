@@ -36,6 +36,7 @@ metadata:
   labels:
     app: cassandra
   name: cassandra
+  namespace: clover-system
 spec:
   clusterIP: None
   ports:
@@ -49,6 +50,7 @@ metadata:
   name: cassandra
   labels:
     app: cassandra
+  namespace: clover-system
 spec:
   serviceName: cassandra
   replicas: 1
@@ -76,18 +78,18 @@ spec:
           name: cql
         resources:
           limits:
-            cpu: "500m"
-            memory: 1Gi
+            cpu: "1000m"
+            memory: 5Gi
           requests:
-           cpu: "500m"
-           memory: 1Gi
+           cpu: "1000m"
+           memory: 5Gi
         env:
           - name: MAX_HEAP_SIZE
             value: 512M
           - name: HEAP_NEWSIZE
             value: 100M
           - name: CASSANDRA_SEEDS
-            value: "cassandra-0.cassandra.default.svc.cluster.local"
+            value: "cassandra-0.cassandra.clover-system.svc.cluster.local"
           - name: CASSANDRA_CLUSTER_NAME
             value: "MyCassandraDemo"
           - name: CASSANDRA_DC
