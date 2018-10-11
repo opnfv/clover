@@ -1,0 +1,9 @@
+server_port: "9180"
+server_name: "http-lb-v1"
+lb_name: "http-lb-v1.default"
+lb_group: "cloverlb"
+lb_path: "/"
+lb_list:
+    - url: "clover-server1:9180"
+    - url: "clover-server2:9180"
+    - url: "clover-server3:9180"
