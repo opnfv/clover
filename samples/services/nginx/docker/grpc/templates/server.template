@@ -116,7 +116,7 @@ http {
             }
 
             location @return_config {
-                proxy_pass http://clover-controller:80;
+                proxy_pass http://clover-controller.clover-system:80;
                 proxy_http_version 1.1;
             }
 
