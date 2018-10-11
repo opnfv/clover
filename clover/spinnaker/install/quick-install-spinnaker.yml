@@ -227,7 +227,7 @@ data:
       timezone: America/Los_Angeles
       ci:
         jenkins:
-          enabled: true
+          enabled: false
           masters: []
         travis:
           enabled: false
