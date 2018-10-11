@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_cd73ff4b",
+        "filename": "clover/clovisor/src/ebpf/session_tracking.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 7047
+      },
+      "writtenOn": "2018-10-11T21:41:48Z",
+      "side": 1,
+      "message": "some whitespace in this file...",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 4
+      },
+      "revId": "64ffef2d483c8323ca0d64556b28bcc6934e8537",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_ed76bb3d",
+        "filename": "clover/clovisor/src/redis.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7047
+      },
+      "writtenOn": "2018-10-11T21:41:48Z",
+      "side": 1,
+      "message": "We should try to finalize our redis deployment approach. We currently have a yaml defined at clover/clover/tools/yaml/redis.yaml in the default namespace. The same yaml is also included in the SDC deployment yaml\n\nclover-controller and clover-collector (in clover-system) both use redis (currently in default) and we have snort-ids writing alerts to redis (in default). This is an example of a service that will need to be used by services in clover-system and also potentially by our sample services that might be in other namespaces.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 3
+      },
+      "revId": "64ffef2d483c8323ca0d64556b28bcc6934e8537",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
