@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a682502_2d05537a",
+        "filename": "samples/services/jenkins/deploy.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7047
+      },
+      "writtenOn": "2018-10-12T01:07:05Z",
+      "side": 1,
+      "message": "Can we make the default namespace \u0027clover-cd\u0027? Or something else along those lines. It would be great to align the namespace here with Tianwei\u0027s spinnaker patch. He uses the namespace \u0027spinnaker\u0027.",
+      "range": {
+        "startLine": 12,
+        "startChar": 12,
+        "endLine": 12,
+        "endChar": 26
+      },
+      "revId": "bef0a15457857e0911f9254eaccbdc4faa8483f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_0de337da",
+        "filename": "samples/services/jenkins/resources/deployment.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7047
+      },
+      "writtenOn": "2018-10-12T01:07:05Z",
+      "side": 1,
+      "message": "Can you make this clover-jenkins? It\u0027s just to stay consistent with what we already have.",
+      "range": {
+        "startLine": 4,
+        "startChar": 8,
+        "endLine": 4,
+        "endChar": 22
+      },
+      "revId": "bef0a15457857e0911f9254eaccbdc4faa8483f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_add163fd",
+        "filename": "samples/services/jenkins/resources/rbac.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7047
+      },
+      "writtenOn": "2018-10-12T01:07:05Z",
+      "side": 1,
+      "message": "Does the deployment need an RBAC?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 15
+      },
+      "revId": "bef0a15457857e0911f9254eaccbdc4faa8483f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_4ded2fc3",
+        "filename": "samples/services/jenkins/resources/svc-agent.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7047
+      },
+      "writtenOn": "2018-10-12T01:07:05Z",
+      "side": 1,
+      "message": "clover-jenkins-agent",
+      "range": {
+        "startLine": 4,
+        "startChar": 8,
+        "endLine": 4,
+        "endChar": 32
+      },
+      "revId": "bef0a15457857e0911f9254eaccbdc4faa8483f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_4d824f50",
         "filename": "samples/services/jenkins/resources/svc-agent.yaml",
         "patchSetId": 5
@@ -13,6 +105,29 @@
       "writtenOn": "2018-10-11T10:38:26Z",
       "side": 1,
       "message": "@wutianwei, type changed to \u0027LoadBalancer\u0027",
+      "revId": "bef0a15457857e0911f9254eaccbdc4faa8483f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_6de8ebb4",
+        "filename": "samples/services/jenkins/resources/svc.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7047
+      },
+      "writtenOn": "2018-10-12T01:07:05Z",
+      "side": 1,
+      "message": "clover-jenkins",
+      "range": {
+        "startLine": 4,
+        "startChar": 8,
+        "endLine": 4,
+        "endChar": 26
+      },
       "revId": "bef0a15457857e0911f9254eaccbdc4faa8483f4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
