@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_3bee2d89",
+        "filename": "samples/services/jenkins/resources/rbac.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6741
+      },
+      "writtenOn": "2018-10-13T12:29:57Z",
+      "side": 1,
+      "message": "I have just realized that I haven\u0027t applied rbac.yaml in deploy.sh, and creation of Jenkins slaves are working. Doubled checked it with my latest patch as well.\n\nI think it is because the default service account already has the required permissions. IMO in this scenario RBAC is not required but if we use a new service account for Jenkins then we have to cater for the required permissions using RBAC. Should I delete this file or create a new service account with the above role binding that gets attached to Jenkins pod?",
+      "parentUuid": "5a682502_3bd74dc3",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 15
+      },
+      "revId": "bef0a15457857e0911f9254eaccbdc4faa8483f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_4ded2fc3",
         "filename": "samples/services/jenkins/resources/svc-agent.yaml",
         "patchSetId": 5
