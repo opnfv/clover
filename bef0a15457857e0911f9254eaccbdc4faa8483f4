@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_db93b9f8",
+        "filename": "samples/services/jenkins/resources/rbac.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6741
+      },
+      "writtenOn": "2018-10-13T12:53:38Z",
+      "side": 1,
+      "message": "Update: Tried with a new service account named \u0027clover-jenkins\u0027 without setting up RBAC for the account and Jenkins was still able to create slave (Taking back my previous words)\n\nI think the rbac.yaml is not required then, should I remove it? Please share if you have any inputs",
+      "parentUuid": "5a682502_3bee2d89",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 15
+      },
+      "revId": "bef0a15457857e0911f9254eaccbdc4faa8483f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_4ded2fc3",
         "filename": "samples/services/jenkins/resources/svc-agent.yaml",
         "patchSetId": 5
