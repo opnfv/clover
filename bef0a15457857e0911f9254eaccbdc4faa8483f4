@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_9bdb01ed",
+        "filename": "samples/services/jenkins/deploy.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 6741
+      },
+      "writtenOn": "2018-10-13T11:25:42Z",
+      "side": 1,
+      "message": "Changed it to \u0027clover-cd\u0027",
+      "parentUuid": "5a682502_2d05537a",
+      "range": {
+        "startLine": 12,
+        "startChar": 12,
+        "endLine": 12,
+        "endChar": 26
+      },
+      "revId": "bef0a15457857e0911f9254eaccbdc4faa8483f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_0de337da",
         "filename": "samples/services/jenkins/resources/deployment.yaml",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-12T01:07:05Z",
       "side": 1,
       "message": "Can you make this clover-jenkins? It\u0027s just to stay consistent with what we already have.",
+      "range": {
+        "startLine": 4,
+        "startChar": 8,
+        "endLine": 4,
+        "endChar": 22
+      },
+      "revId": "bef0a15457857e0911f9254eaccbdc4faa8483f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_fbccb537",
+        "filename": "samples/services/jenkins/resources/deployment.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 6741
+      },
+      "writtenOn": "2018-10-13T11:25:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_0de337da",
       "range": {
         "startLine": 4,
         "startChar": 8,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_3bd74dc3",
+        "filename": "samples/services/jenkins/resources/rbac.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6741
+      },
+      "writtenOn": "2018-10-13T11:25:42Z",
+      "side": 1,
+      "message": "Since Jenkins will be creating slaves on K8s cluster so it needs permission to create and delete the slaves for an RBAC enabled cluster. Do you think I should use a RoleBinding instead of ClusterRoleBinding here? Using a rolebinding will limit Jenkins to \u0027clover-cd\u0027 namespace only",
+      "parentUuid": "5a682502_add163fd",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 15
+      },
+      "revId": "bef0a15457857e0911f9254eaccbdc4faa8483f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_4ded2fc3",
         "filename": "samples/services/jenkins/resources/svc-agent.yaml",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2018-10-12T01:07:05Z",
       "side": 1,
       "message": "clover-jenkins-agent",
+      "range": {
+        "startLine": 4,
+        "startChar": 8,
+        "endLine": 4,
+        "endChar": 32
+      },
+      "revId": "bef0a15457857e0911f9254eaccbdc4faa8483f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_5bd209d3",
+        "filename": "samples/services/jenkins/resources/svc-agent.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 6741
+      },
+      "writtenOn": "2018-10-13T11:25:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_4ded2fc3",
       "range": {
         "startLine": 4,
         "startChar": 8,
@@ -122,6 +218,30 @@
       "writtenOn": "2018-10-12T01:07:05Z",
       "side": 1,
       "message": "clover-jenkins",
+      "range": {
+        "startLine": 4,
+        "startChar": 8,
+        "endLine": 4,
+        "endChar": 26
+      },
+      "revId": "bef0a15457857e0911f9254eaccbdc4faa8483f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_7bd8a5ef",
+        "filename": "samples/services/jenkins/resources/svc.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 6741
+      },
+      "writtenOn": "2018-10-13T11:25:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_6de8ebb4",
       "range": {
         "startLine": 4,
         "startChar": 8,
