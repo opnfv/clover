@@ -5,7 +5,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 
-from flask import Blueprint, request, jsonify, Response
+from flask import Blueprint, request, Response
 import grpc
 import pickle
 import collector_pb2
@@ -17,13 +17,13 @@ import logging
 collector = Blueprint('collector', __name__)
 
 grpc_port = '50054'
-pod_name = 'clover-collector'
+pod_name = 'clover-collector.clover-system'
 collector_grpc = pod_name + ':' + grpc_port
 channel = grpc.insecure_channel(collector_grpc)
 stub = collector_pb2_grpc.ControllerStub(channel)
-CASSANDRA_HOSTS = pickle.dumps(['cassandra.default'])
+CASSANDRA_HOSTS = pickle.dumps(['cassandra.clover-system'])
 
-HOST_IP = 'redis'
+HOST_IP = 'redis.default'
 
 
 @collector.route("/collector/init")
@@ -62,7 +62,7 @@ def start():
         p = request.json
         if not p:
             sample_interval = '5'
-            t_host = 'jaeger-deployment.istio-system'
+            t_host = 'tracing.istio-system'
             t_port = '16686'
             m_host = 'prometheus.istio-system'
             m_port = '9090'
@@ -103,27 +103,36 @@ def stop():
     return response.message
 
 
-@collector.route("/collector/stats", methods=['GET', 'POST'])
-def stats():
+@collector.route("/collector/set", methods=['GET', 'POST'])
+def set_collector():
     try:
         p = request.json
-        if not p:
-            stat_type = 'toplevel'
-        else:
-            stat_type = p['stat_type']
         r = redis.StrictRedis(host=HOST_IP, port=6379, db=0)
-        content = {}
-        content['proxy_rt'] = r.get('proxy_rt')
-        content['trace_count'] = r.get('trace_count')
-        content['span_urls'] = list(r.smembers('span_urls'))
-        response = jsonify(content)
+        del_keys = ['visibility_services', 'metric_prefixes',
+                    'metric_suffixes', 'custom_metrics']
+        for dk in del_keys:
+            r.delete(dk)
+
+        try:
+            for service in p['services']:
+                r.sadd('visibility_services', service['name'])
+        except (KeyError, ValueError) as e:
+            logging.debug(e)
+            return Response(
+                         "Specify at least one service to track", status=400)
+        if p['metric_prefixes'] and p['metric_suffixes']:
+            for prefix in p['metric_prefixes']:
+                r.sadd('metric_prefixes', prefix['prefix'])
+            for suffix in p['metric_suffixes']:
+                r.sadd('metric_suffixes', suffix['suffix'])
+        if p['custom_metrics']:
+            for metric in p['custom_metrics']:
+                r.sadd('custom_metrics', metric['metric'])
+
     except Exception as e:
         logging.debug(e)
-        if e.__class__.__name__ == "_Rendezvous":
-            return Response("Error connecting via gRPC", status=400)
-        else:
-            return Response("Error getting visibility stats", status=400)
-    return response
+        return Response("Error setting visibility config", status=400)
+    return Response("Updated visibility config", status=200)
 
 
 @collector.route("/collector/test")
