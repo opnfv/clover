@@ -15,7 +15,6 @@ class K8sCloverTest(k8stest.K8sTesting):
         if "case_name" not in kwargs:
             kwargs.get("case_name", 'clover_k8s')
         super(K8sCloverTest, self).__init__(**kwargs)
-        self.check_envs()
 
     def run_kubetest(self):
         success = True
@@ -23,4 +22,3 @@ class K8sCloverTest(k8stest.K8sTesting):
             self.result = 100
         elif failure:
             self.result = 0
-
