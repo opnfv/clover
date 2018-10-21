@@ -1,0 +1,16 @@
+server_port: "9180"
+server_name: "clover-server1"
+site_root: "/var/www/html"
+site_index: index.html
+upload_path_config: "/upload"
+upload_path_test: "/upload_test"
+locations:
+    - uri_match: "/clover/testurl"
+      directive: "try_files $uri @default2"
+      path: "/clover/testurl"
+    - uri_match: "/test"
+      directive: "try_files $uri @default1"
+      path: "/test"
+files:
+    - src_file: "/var/www/html/upload/0000000001"
+      dest_file: "var/www/html/clover/testurl/file1.png"
