@@ -8,8 +8,7 @@
 import redis
 import logging
 
-REDIS_HOST = 'redis'
-# REDIS_HOST = '10.244.0.85'
+REDIS_HOST = 'redis.default'
 
 
 class RedisOps:
@@ -27,11 +26,16 @@ class RedisOps:
         for s in service_names:
             self.r.sadd(skey, s)
 
+    def set_tracing_services(self, services, skey='tracing_services'):
+        self.r.delete(skey)
+        for s in services:
+            self.r.sadd(skey, s)
+
     def init_metrics(self, pkey='metric_prefixes', skey='metric_suffixes'):
-        metric_prefixes = ['envoy_cluster_out_', 'envoy_cluster_in_']
+        metric_prefixes = ['envoy_cluster_outbound_', 'envoy_cluster_inbound_']
         metric_suffixes = [
-            '_default_svc_cluster_local_http_internal_upstream_rq_2xx',
-            '_default_svc_cluster_local_http_upstream_cx_active']
+            '_default_svc_cluster_local_upstream_rq_2xx',
+            '_default_svc_cluster_local_upstream_cx_active']
         for p in metric_prefixes:
             self.r.sadd(pkey, p)
         for s in metric_suffixes:

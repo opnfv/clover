@@ -29,7 +29,7 @@ class Controller(collector_pb2_grpc.ControllerServicer):
                             level=logging.DEBUG)
         self.collector = 0
         if init_visibility == 'set_schemas':
-            cassandra_hosts = pickle.dumps(['cassandra.default'])
+            cassandra_hosts = pickle.dumps(['cassandra.clover-system'])
             self.InitVisibility(collector_pb2.ConfigCassandra(
                cassandra_port=9042, cassandra_hosts=cassandra_hosts), "")
 
