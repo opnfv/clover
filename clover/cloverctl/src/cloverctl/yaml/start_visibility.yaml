@@ -1,0 +1,5 @@
+sample_interval: "2"
+t_host: tracing.istio-system
+t_port: "80"
+m_port: "9090"
+m_host: prometheus.istio-system

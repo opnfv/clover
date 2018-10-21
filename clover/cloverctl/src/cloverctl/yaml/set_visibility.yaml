@@ -1,0 +1,13 @@
+services:
+    - name: proxy_access_control
+    - name: clover_server1
+    - name: clover_server2
+    - name: clover_server3
+metric_prefixes:
+    - prefix: envoy_cluster_outbound_9180__
+    - prefix: envoy_cluster_inbound_9180__
+metric_suffixes:
+    - suffix: _default_svc_cluster_local_upstream_rq_2xx
+    - suffix: _default_svc_cluster_local_upstream_cx_active
+custom_metrics:
+    - metric: envoy_tracing_zipkin_spans_sent
