@@ -8,6 +8,7 @@
 from flask import Flask, request, jsonify
 from views.dashboard import simple_page
 from api.collector import collector
+from api.visibility_api import visibility_api
 from api.snort import snort
 from api.halyard import halyard
 from api.nginx import nginx
@@ -23,6 +24,7 @@ try:
     # Register blueprints
     application.register_blueprint(simple_page)
     application.register_blueprint(collector)
+    application.register_blueprint(visibility_api)
     application.register_blueprint(snort)
     application.register_blueprint(halyard)
     application.register_blueprint(nginx)

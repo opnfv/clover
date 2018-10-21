@@ -28,7 +28,7 @@ func init() {
 }
 
 func clearCollector() {
-    url := controllerIP + "/collector/truncate"
+    url := controllerIP + "/visibility/clear"
 
     resp, err := resty.R().
     Get(url)

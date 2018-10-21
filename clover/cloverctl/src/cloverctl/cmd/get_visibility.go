@@ -13,23 +13,38 @@ import (
     "github.com/spf13/cobra"
 )
 
+var VisibilityStat string
+var VisibilityConfig string
 
-var visibilitystatsCmd = &cobra.Command{
+var visibilitygetCmd = &cobra.Command{
     Use:   "visibility",
-    Short: "Get toplevel visibility stats",
+    Short: "Get visibility config & stats",
     Long: ``,
     Run: func(cmd *cobra.Command, args []string) {
-        statsCollector()
+        getVisibility()
     },
 }
 
 func init() {
-    getCmd.AddCommand(visibilitystatsCmd)
-    //visibilitystartCmd.PersistentFlags().StringVarP(&cloverFile, "f", "f", "", "Input yaml file with test plan params")
+    getCmd.AddCommand(visibilitygetCmd)
+    visibilitygetCmd.PersistentFlags().StringVarP(&VisibilityStat, "stat", "s", "", "Visibility stats type to get")
+    visibilitygetCmd.PersistentFlags().StringVarP(&VisibilityConfig, "conf", "c", "", "Visibility config type to get")
 }
 
-func statsCollector() {
-    url := controllerIP + "/collector/stats"
+func getVisibility() {
+
+    url_prefix := "/visibility/get/"
+    get_data := "all"
+    response_prefix := "Config"
+    if VisibilityStat != "" {
+        url_prefix = "/visibility/get/stats/"
+        get_data =  VisibilityStat
+        response_prefix = "Stat"
+    } else if VisibilityConfig != "" {
+        get_data =  VisibilityConfig
+    }
+
+    url := controllerIP + url_prefix + get_data
 
     resp, err := resty.R().
     SetHeader("Accept", "application/json").
@@ -37,5 +52,5 @@ func statsCollector() {
     if err != nil {
         panic(err.Error())
     }
-    fmt.Printf("\nProxy Response Time: %v\n", resp)
+    fmt.Printf("\n%s %s: %v\n", response_prefix, get_data, resp)
 }
