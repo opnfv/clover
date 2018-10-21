@@ -55,7 +55,7 @@ def get_podip(pod_name):
 
 def init_visibility(stub):
     try:
-        cassandra_hosts = pickle.dumps(['cassandra.default'])
+        cassandra_hosts = pickle.dumps(['cassandra.clover-system'])
         response = stub.InitVisibility(collector_pb2.ConfigCassandra(
             cassandra_hosts=cassandra_hosts, cassandra_port=9042))
     except Exception as e:
@@ -65,7 +65,7 @@ def init_visibility(stub):
 
 def clean_visibility(stub):
     try:
-        cassandra_hosts = pickle.dumps(['cassandra.default'])
+        cassandra_hosts = pickle.dumps(['cassandra.clover-system'])
         schemas = pickle.dumps(['spans', 'traces', 'metrics'])
         response = stub.TruncateVisibility(collector_pb2.Schemas(
             schemas=schemas, cassandra_hosts=cassandra_hosts,
@@ -77,7 +77,7 @@ def clean_visibility(stub):
 
 def start_collector(stub):
     try:
-        cassandra_hosts = pickle.dumps(['cassandra.default'])
+        cassandra_hosts = pickle.dumps(['cassandra.clover-system'])
         response = stub.StartCollector(collector_pb2.ConfigCollector(
             t_port='16686', t_host='jaeger-deployment.istio-system',
             m_port='9090', m_host='prometheus.istio-system',
