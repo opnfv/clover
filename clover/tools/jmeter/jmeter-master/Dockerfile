@@ -7,7 +7,7 @@
 
 FROM java:8
 
-RUN wget http://apache.mirrors.hoobly.com//jmeter/binaries/apache-jmeter-4.0.tgz
+RUN wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-4.0.tgz
 RUN tar -xvzf apache-jmeter-4.0.tgz
 RUN rm apache-jmeter-4.0.tgz
 RUN mv apache-jmeter-4.0 /jmeter
