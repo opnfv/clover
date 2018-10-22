@@ -1,0 +1,49 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: clover-spark
+  namespace: clover-system
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: clover-spark-default
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: clover-system
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: clover-spark
+subjects:
+  - kind: ServiceAccount
+    name: clover-spark
+    namespace: clover-system
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: clover-spark-submit
+  namespace: clover-system
+  labels:
+    app: clover-spark
+spec:
+  template:
+    metadata:
+      labels:
+        app: clover-spark
+    spec:
+      containers:
+        - name: clover-spark
+          image: localhost:5000/clover-spark-submit:latest
