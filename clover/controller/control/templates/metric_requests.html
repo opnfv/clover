@@ -1,0 +1,10 @@
+{% for m_name, m_count in metric_list.iteritems() %}
+    <div class="large-3 cell">&nbsp;</div>
+    <div class="large-5 medium-3 cell">
+        {{ m_name }}
+    </div>
+    <div class="large-3 medium-3 cell">
+        {{ m_count }}
+    </div>
+    <div class="large-1 cell">&nbsp;</div>
+{% endfor %}
