@@ -1,0 +1,31 @@
+<!doctype html>
+
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/foundation.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.css') }}">
+        <script type=text/javascript src="{{
+        url_for('static', filename='js/foundation/jquery.js') }}">
+        </script>
+        <script type=text/javascript src="{{
+        url_for('static', filename='js/jquery-ui.min.js') }}">
+        </script>
+         <script type=text/javascript src="{{
+        url_for('static', filename='js/foundation/foundation.min.js') }}">
+        </script>
+        {% block head %}
+        {% endblock %}
+
+    </head>
+    <body>
+        {% include "header.html" %}
+
+        <div style="text-align:center;">
+            <h4>{{ view_title  }}</h4>
+        </div>
+        {% block content %}{% endblock %}
+
+    </body>
+</html>
