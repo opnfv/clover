@@ -1,0 +1,37 @@
+<div class="grid-x">
+    <div class="large-8 medium-3 cell clover-portlet small-offset-2">
+
+        <div class="clover-title"><h4>Visibility Controls</h4></div>
+        <div class="switch large">
+            <input class="switch-input" id="visibilitySwitch" type="checkbox" name="visibilitySwitch" checked>
+            <label class="switch-paddle" for="visibilitySwitch" style="margin-right: 10px;">
+                <span class="show-for-sr">Control Visibility</span>
+                <span class="switch-active" aria-hidden="true">On</span>
+                <span class="switch-inactive" aria-hidden="true">Off</span>
+            </label>
+            <button type="button" id="clear_visibility" class="button" style="margin-top: -16px;">Clear</button>
+        </div>
+
+        <h5>Discovered Services</h5>
+        <div class="">
+            <ol id="visibility_selected">
+                {% for service in tracing_services %}
+                    <li class="ui-widget-content">{{ service }}</li>
+                {% endfor %}
+            </ol>
+        </div>
+
+        <div style="clear:left;"></div>
+        <div id="visibility_accordion">
+            <h5>Visibility Services</h5>
+            <div class="vservices">
+                <ol id="vservices">
+                    {% for service in vservices %}
+                        <li class="ui-widget-content">{{ service }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+
+    </div>
+</div>
