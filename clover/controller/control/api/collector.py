@@ -108,26 +108,31 @@ def set_collector():
     try:
         p = request.json
         r = redis.StrictRedis(host=HOST_IP, port=6379, db=0)
-        del_keys = ['visibility_services', 'metric_prefixes',
-                    'metric_suffixes', 'custom_metrics']
-        for dk in del_keys:
-            r.delete(dk)
 
         try:
-            for service in p['services']:
-                r.sadd('visibility_services', service['name'])
+            if p['services']:
+                r.delete('visibility_services')
+                for service in p['services']:
+                    r.sadd('visibility_services', service['name'].replace('-', '_'))
         except (KeyError, ValueError) as e:
             logging.debug(e)
             return Response(
                          "Specify at least one service to track", status=400)
-        if p['metric_prefixes'] and p['metric_suffixes']:
-            for prefix in p['metric_prefixes']:
-                r.sadd('metric_prefixes', prefix['prefix'])
-            for suffix in p['metric_suffixes']:
-                r.sadd('metric_suffixes', suffix['suffix'])
-        if p['custom_metrics']:
-            for metric in p['custom_metrics']:
-                r.sadd('custom_metrics', metric['metric'])
+        try:
+            if p['metric_prefixes'] and p['metric_suffixes']:
+                del_keys = ['metric_prefixes', 'metric_suffixes']
+                for dk in del_keys:
+                    r.delete(dk)
+                for prefix in p['metric_prefixes']:
+                    r.sadd('metric_prefixes', prefix['prefix'])
+                for suffix in p['metric_suffixes']:
+                    r.sadd('metric_suffixes', suffix['suffix'])
+            if p['custom_metrics']:
+                r.delete('custom_metrics')
+                for metric in p['custom_metrics']:
+                    r.sadd('custom_metrics', metric['metric'])
+        except Exception as e:
+            logging.debug(e)
 
     except Exception as e:
         logging.debug(e)
