@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: modsecurity-crs
-          image: clover/clover-ns-modsecurity-crs
+          image: opnfv/clover-ns-modsecurity-crs
           ports:
             - containerPort: 80
           env:
