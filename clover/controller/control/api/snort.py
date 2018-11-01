@@ -15,12 +15,12 @@ import redis
 snort = Blueprint('snort', __name__)
 
 grpc_port = '50052'
-pod_name = 'snort-ids'
+pod_name = 'snort-ids.default'
 snort_grpc = pod_name + ':' + grpc_port
 channel = grpc.insecure_channel(snort_grpc)
 stub = snort_pb2_grpc.ControllerStub(channel)
 
-HOST_IP = 'redis'
+HOST_IP = 'redis.default'
 
 
 @snort.route("/snort/addrule", methods=['GET', 'POST'])

@@ -1,0 +1,22 @@
+.vtoplevel {
+    font-size: 22px;
+}
+
+.bbb {
+    color: #1779ba;
+}
+
+.clover-title {
+    background-color: #f6f6f6;
+}
+
+.clover-portlet {
+    border: 1px solid #e6e6e6;
+}
+
+
+#feedback { font-size: 1.4em; }
+#visibility_selected .ui-selecting { background: #14679e; }
+#visibility_selected .ui-selected { background: #1779ba; color: white; }
+#visibility_selected { list-style-type: none; margin: 0; padding: 0; width: 100%; }
+#visibility_selected li { margin: 3px; float: left; padding: 4px;}
