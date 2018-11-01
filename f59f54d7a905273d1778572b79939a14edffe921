@@ -1,0 +1,7 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Stephen Wong <stephen.kf.wong@gmail.com>
+Submitted-by: Stephen Wong <stephen.kf.wong@gmail.com>
+Submitted-at: Thu, 01 Nov 2018 17:09:15 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/64183
+Project: clover
+Branch: refs/heads/stable/gambia
