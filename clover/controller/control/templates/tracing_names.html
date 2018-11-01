@@ -1,0 +1,33 @@
+<h4>Tracing Name Parameters</h4>
+<ul class="accordion" data-accordion data-multi-expand="true">
+    <li class="accordion-item is-active" data-accordion-item>
+        <a class="accordion-title">Operation Names</a>
+        <div class="accordion-content" data-tab-content>
+            <div class="op_names">
+                {% for op in op_names %}
+                    {{ op }}<br>
+                {% endfor %}
+            </div>
+        </div>
+    </li>
+    <li class="accordion-item" data-accordion-item>
+        <a class="accordion-title">Node IDs</a>
+        <div class="accordion-content" data-tab-content>
+            <div class="node_ids">
+                {% for node in node_ids %}
+                    {{ node }}<br>
+                {% endfor %}
+            </div>
+        </div>
+    </li>
+    <li class="accordion-item" data-accordion-item>
+        <a class="accordion-title">Upstream Cluster</a>
+        <div class="accordion-content" data-tab-content>
+            <div class="upstream_clusters">
+                {% for up in upstream_cluster %}
+                    {{ up }}<br>
+                {% endfor %}
+            </div>
+        </div>
+    </li>
+</ul>

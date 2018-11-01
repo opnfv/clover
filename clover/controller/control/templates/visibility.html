@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<script type=text/javascript src="{{
+url_for('static', filename='js/visibility.js') }}">
+</script>
+<script type=text/javascript src="{{
+url_for('static', filename='js/graphing/candela.min.js') }}">
+</script>
+<script type=text/javascript src="{{
+url_for('static', filename='js/graphing/plotly-latest.min.js') }}">
+</script>
+
+{% endblock %}
+
+{% block title %}Visibility Dashboard{% endblock %}
+
+{% block content %}
+
+    <div style="text-align:center;">
+
+        {% include "visibility_controls.html" %}
+
+        <br>
+
+        <div class="grid-x">
+            {% include "rt_system_counts.html" %}
+            {% include "request_counts.html" %}
+
+            <div class="large-4 medium-3 cell clover-portlet small-offset-2">
+                <h5>Per Service/URL Counts</h5>
+                <div class="span_node_urls_all">
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="grid-x grid-padding-x">
+            <div class="large-8 medium-3 cell small-offset-2">
+                {% include "http_details.html" %}
+                <br>
+                {% include "tracing_names.html" %}
+             </div>
+        </div>
+
+        <br>
+
+        <div class="grid-x">
+            <div class="large-8 medium-3 cell clover-portlet small-offset-2">
+                <div class="clover-title"><h4>Monitoring Metrics</h4></div>
+            </div>
+        </div>
+
+        <div class="grid-x service_metrics">
+            {% include "metric_requests.html" %}
+        </div>
+
+        <br>
+
+        <div class="grid-x grid-padding-x" id="metrics_graphs">
+        </div>
+
+    </div>
+
+{% endblock %}

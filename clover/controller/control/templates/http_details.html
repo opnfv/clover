@@ -1,0 +1,30 @@
+<h4>HTTP Details</h4>
+<ul class="tabs" data-tabs id="example-tabs">
+    <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">User-Agents</a></li>
+    <li class="tabs-title"><a href="#panel2">Request URLs</a></li>
+    <li class="tabs-title"><a href="#panel3">Status Codes</a></li>
+</ul>
+<div class="tabs-content" data-tabs-content="example-tabs">
+    <div class="tabs-panel is-active" id="panel1">
+            <div class="user_agents">
+            {% for ua in user_agents %}
+                {{ ua }}<br>
+            {% endfor %}
+            </div>
+    </div>
+    <div class="tabs-panel" id="panel2">
+            <div class="request_urls">
+            {% for url in request_urls %}
+                {{ url }}<br>
+            {% endfor %}
+            </div>
+    </div>
+    <div class="tabs-panel" id="panel3">
+            <div class="status_codes">
+            {% for code in status_codes %}
+                {{ code }}<br>
+            {% endfor %}
+            </div>
+    </div>
+</div>
+
