@@ -7,7 +7,7 @@ metadata:
     app: {{ deploy_name }}
 spec:
 {%- if replica_count %}
-  replicas: 3{% endif %}
+  replicas: {{ replica_count }}{% endif %}
   template:
     metadata:
       labels:

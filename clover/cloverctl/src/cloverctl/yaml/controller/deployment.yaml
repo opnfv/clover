@@ -1,0 +1,23 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: clover-controller
+  namespace: clover-system
+  labels:
+    app: "clover-controller"
+spec:
+  template:
+    metadata:
+      labels:
+        app: "clover-controller"
+    spec:
+      containers:
+        - name: clover-controller
+          image: opnfv/clover-controller:latest
+          ports:
+           - containerPort: 50052
+           - containerPort: 50054
+           - containerPort: 6379
+           - containerPort: 9042
+           - containerPort: 80
