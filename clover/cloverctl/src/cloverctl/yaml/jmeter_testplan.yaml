@@ -1,11 +1,14 @@
 load_spec:
-    num_threads: 1
-    loops: 1
+    num_threads: 5
+    loops: 2
     ramp_time: 60
+    duration: 80
 url_list:
     - name: url1
       url: http://proxy-access-control.default:9180
       method: GET
+      user-agent: chrome
     - name: url2
       url: http://proxy-access-control.default:9180
       method: GET
+      user-agent: safari

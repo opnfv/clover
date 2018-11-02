@@ -29,8 +29,10 @@ message ConfigJmeter {
   string url_names = 3;
   string url_protocols = 4;
   string url_methods = 5;
-  string loops = 6;
-  string ramp_time = 7;
+  string url_agents = 6;
+  string loops = 7;
+  string ramp_time = 8;
+  string duration = 9;
 }
 
 message JmeterReply {

@@ -16,29 +16,34 @@ import logging
 jmeter = Blueprint('jmeter', __name__)
 
 grpc_port = '50054'
-pod_name = 'clover-jmeter-master'
+pod_name = 'clover-jmeter-master.default'
 jmeter_grpc = pod_name + ':' + grpc_port
 channel = grpc.insecure_channel(jmeter_grpc)
 stub = jmeter_pb2_grpc.ControllerStub(channel)
 
 
 @jmeter.route("/jmeter/gen", methods=['GET', 'POST'])
+@jmeter.route("/jmeter/create", methods=['GET', 'POST'])
 def gentest():
     try:
         p = request.json
         u_list = []
         u_names = []
         u_methods = []
+        u_agents = []
         try:
             for u in p['url_list']:
                 u_list.append(u['url'])
                 u_names.append(u['name'])
                 u_methods.append(u['method'])
+                u_agents.append(u['user-agent'])
             url_list = pickle.dumps(u_list)
             url_names = pickle.dumps(u_names)
             url_methods = pickle.dumps(u_methods)
+            url_agents = pickle.dumps(u_agents)
             num_threads = p['load_spec']['num_threads']
             ramp_time = p['load_spec']['ramp_time']
+            duration = p['load_spec']['duration']
             loops = p['load_spec']['loops']
         except (KeyError, ValueError) as e:
             logging.debug(e)
@@ -46,7 +51,7 @@ def gentest():
         response = stub.GenTest(jmeter_pb2.ConfigJmeter(
             url_list=url_list, url_names=url_names, url_methods=url_methods,
             num_threads=str(num_threads), ramp_time=str(ramp_time),
-            loops=str(loops)))
+            url_agents=url_agents, duration=str(duration), loops=str(loops)))
     except Exception as e:
         logging.debug(e)
         if e.__class__.__name__ == "_Rendezvous":
