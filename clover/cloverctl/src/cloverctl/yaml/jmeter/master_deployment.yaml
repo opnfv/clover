@@ -1,0 +1,21 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: clover-jmeter-master
+  labels:
+    app: clover-jmeter-master
+spec:
+  template:
+    metadata:
+      labels:
+        app: clover-jmeter-master
+    spec:
+      containers:
+        - name: clover-jmeter-master
+          image: kube1-node1:5000/clover-jmeter-master:latest
+          ports:
+           - containerPort: 50054
+           - containerPort: 1099
+           - containerPort: 80
+           - containerPort: 443

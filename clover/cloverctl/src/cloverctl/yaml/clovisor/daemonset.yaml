@@ -1,0 +1,28 @@
+---
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: clovisor
+  namespace: clovisor
+spec:
+  selector:
+    matchLabels:
+      app: clovisor
+  template:
+    metadata:
+      name: clovisor
+      labels:
+        app: clovisor
+    spec:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+      - name: clovisor
+        image: localhost:5000/clovisor
+        securityContext:
+          privileged: true
+        env:
+        - name: MY_NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
