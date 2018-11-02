@@ -23,7 +23,7 @@
         <longProp name="ThreadGroup.start_time">1385457190000</longProp>
         <longProp name="ThreadGroup.end_time">1385457190000</longProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">60</stringProp>
+        <stringProp name="ThreadGroup.duration">{{ duration }}</stringProp>
         <stringProp name="ThreadGroup.delay"/>
         <boolProp name="ThreadGroup.delayedStart">true</boolProp>
       </ThreadGroup>
@@ -49,7 +49,17 @@
           <stringProp name="HTTPSampler.embedded_url_re"/>
           <stringProp name="HTTPSampler.implementation"/>
         </HTTPSampler>
+        <hashTree>
+         <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+           <collectionProp name="HeaderManager.headers">
+             <elementProp name="" elementType="Header">
+               <stringProp name="Header.name">User-Agent</stringProp>
+               <stringProp name="Header.value">{{ url_agents[loop.index0] }}</stringProp>
+             </elementProp>
+           </collectionProp>
+         </HeaderManager>
         <hashTree/>
+        </hashTree>
         {%- endfor %}
 
 

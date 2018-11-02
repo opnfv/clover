@@ -37,6 +37,7 @@ class Controller(jmeter_pb2_grpc.ControllerServicer):
             template_file = 'tests/jmx.template'
             unames = pickle.loads(r.url_names)
             umethods = pickle.loads(r.url_methods)
+            uagents = pickle.loads(r.url_agents)
             ulist = []
             for url in pickle.loads(r.url_list):
                 u = urlparse(url)
@@ -58,7 +59,9 @@ class Controller(jmeter_pb2_grpc.ControllerServicer):
                 num_threads=r.num_threads,
                 url_names=unames,
                 url_methods=umethods,
+                url_agents=uagents,
                 ramp_time=r.ramp_time,
+                duration=r.duration,
                 loops=r.loops,
                 url_list=ulist
             )

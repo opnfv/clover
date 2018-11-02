@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='jmeter.proto',
   package='jmeter',
   syntax='proto3',
-  serialized_pb=_b('\n\x0cjmeter.proto\x12\x06jmeter\"F\n\nTestParams\x12\x12\n\nnum_slaves\x18\x01 \x01(\t\x12\x11\n\ttest_plan\x18\x02 \x01(\t\x12\x11\n\tslave_ips\x18\x03 \x01(\t\"\x96\x01\n\x0c\x43onfigJmeter\x12\x10\n\x08url_list\x18\x01 \x01(\t\x12\x13\n\x0bnum_threads\x18\x02 \x01(\t\x12\x11\n\turl_names\x18\x03 \x01(\t\x12\x15\n\rurl_protocols\x18\x04 \x01(\t\x12\x13\n\x0burl_methods\x18\x05 \x01(\t\x12\r\n\x05loops\x18\x06 \x01(\t\x12\x11\n\tramp_time\x18\x07 \x01(\t\"\x1e\n\x0bJmeterReply\x12\x0f\n\x07message\x18\x01 \x01(\t\",\n\x08JResults\x12\x10\n\x08r_format\x18\x01 \x01(\t\x12\x0e\n\x06r_file\x18\x02 \x01(\t2\xb3\x01\n\nController\x12\x36\n\x07GenTest\x12\x14.jmeter.ConfigJmeter\x1a\x13.jmeter.JmeterReply\"\x00\x12\x36\n\tStartTest\x12\x12.jmeter.TestParams\x1a\x13.jmeter.JmeterReply\"\x00\x12\x35\n\nGetResults\x12\x10.jmeter.JResults\x1a\x13.jmeter.JmeterReply\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x0cjmeter.proto\x12\x06jmeter\"F\n\nTestParams\x12\x12\n\nnum_slaves\x18\x01 \x01(\t\x12\x11\n\ttest_plan\x18\x02 \x01(\t\x12\x11\n\tslave_ips\x18\x03 \x01(\t\"\xbc\x01\n\x0c\x43onfigJmeter\x12\x10\n\x08url_list\x18\x01 \x01(\t\x12\x13\n\x0bnum_threads\x18\x02 \x01(\t\x12\x11\n\turl_names\x18\x03 \x01(\t\x12\x15\n\rurl_protocols\x18\x04 \x01(\t\x12\x13\n\x0burl_methods\x18\x05 \x01(\t\x12\x12\n\nurl_agents\x18\x06 \x01(\t\x12\r\n\x05loops\x18\x07 \x01(\t\x12\x11\n\tramp_time\x18\x08 \x01(\t\x12\x10\n\x08\x64uration\x18\t \x01(\t\"\x1e\n\x0bJmeterReply\x12\x0f\n\x07message\x18\x01 \x01(\t\",\n\x08JResults\x12\x10\n\x08r_format\x18\x01 \x01(\t\x12\x0e\n\x06r_file\x18\x02 \x01(\t2\xb3\x01\n\nController\x12\x36\n\x07GenTest\x12\x14.jmeter.ConfigJmeter\x1a\x13.jmeter.JmeterReply\"\x00\x12\x36\n\tStartTest\x12\x12.jmeter.TestParams\x1a\x13.jmeter.JmeterReply\"\x00\x12\x35\n\nGetResults\x12\x10.jmeter.JResults\x1a\x13.jmeter.JmeterReply\"\x00\x62\x06proto3')
 )
 
 
@@ -113,15 +113,29 @@ _CONFIGJMETER = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='loops', full_name='jmeter.ConfigJmeter.loops', index=5,
+      name='url_agents', full_name='jmeter.ConfigJmeter.url_agents', index=5,
       number=6, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='ramp_time', full_name='jmeter.ConfigJmeter.ramp_time', index=6,
+      name='loops', full_name='jmeter.ConfigJmeter.loops', index=6,
       number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='ramp_time', full_name='jmeter.ConfigJmeter.ramp_time', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='duration', full_name='jmeter.ConfigJmeter.duration', index=8,
+      number=9, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -139,7 +153,7 @@ _CONFIGJMETER = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=97,
-  serialized_end=247,
+  serialized_end=285,
 )
 
 
@@ -169,8 +183,8 @@ _JMETERREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=249,
-  serialized_end=279,
+  serialized_start=287,
+  serialized_end=317,
 )
 
 
@@ -207,8 +221,8 @@ _JRESULTS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=281,
-  serialized_end=325,
+  serialized_start=319,
+  serialized_end=363,
 )
 
 DESCRIPTOR.message_types_by_name['TestParams'] = _TESTPARAMS
@@ -253,8 +267,8 @@ _CONTROLLER = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   options=None,
-  serialized_start=328,
-  serialized_end=507,
+  serialized_start=366,
+  serialized_end=545,
   methods=[
   _descriptor.MethodDescriptor(
     name='GenTest',
