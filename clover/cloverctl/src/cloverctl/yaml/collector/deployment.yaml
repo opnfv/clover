@@ -1,0 +1,23 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: clover-collector
+  labels:
+    app: clover-collector
+  namespace: clover-system
+spec:
+  template:
+    metadata:
+      labels:
+        app: clover-collector
+    spec:
+      containers:
+        - name: clover-collector
+          image: localhost:5000/clover-collector:latest
+          ports:
+           - containerPort: 50054
+           - containerPort: 6379
+           - containerPort: 9090
+           - containerPort: 16686
+           - containerPort: 9042
