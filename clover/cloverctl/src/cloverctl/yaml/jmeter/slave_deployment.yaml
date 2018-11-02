@@ -1,0 +1,21 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: clover-jmeter-slave
+  labels:
+    app: clover-jmeter-slave
+spec:
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: clover-jmeter-slave
+    spec:
+      containers:
+        - name: clover-jmeter-slave
+          image: opnfv/clover-jmeter-slave:latest
+          ports:
+           - containerPort: 1099
+           - containerPort: 80
+           - containerPort: 443
