@@ -1,0 +1,17 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: clover-spark-submit
+  namespace: clover-system
+  labels:
+    app: clover-spark
+spec:
+  template:
+    metadata:
+      labels:
+        app: clover-spark
+    spec:
+      containers:
+        - name: clover-spark
+          image: opnfv/clover-spark-submit:latest
