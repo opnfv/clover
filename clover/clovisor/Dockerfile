@@ -12,6 +12,7 @@ RUN set -ex; \
     libelf1;
 
 COPY . .
+COPY bin/clovisor .
 RUN chmod +x clovisor
 
 CMD ["./clovisor"]
