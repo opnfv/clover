@@ -42,38 +42,38 @@ object CloverSlow {
     .config("spark.cassandra.connection.port", "9042")
     .getOrCreate()
 
-    val services = redis.smembers("visibility_services")
-
     spark
     .read.cassandraFormat("spans", "visibility")
     .load()
     .createOrReplaceTempView("curspans")
 
-    if (distinct_url_service) {
-        // Get number of distinct URLs per service (node_id)
-        for (s <- services.get) {
-            val service = s.get
-            val perurl = spark.sql(
-            s"""
-                |SELECT node_id,count(distinct http_url)
-                |as urls,collect_set(http_url) as values
-                |FROM curspans
-                |WHERE node_id LIKE '%$service%'
-                |GROUP BY node_id
-            """.stripMargin)
-            for ((row) <- perurl.collect) {
-                println(row)
-                val node_id = row.get(0)
-                val url_count  = row.get(1)
-                val url_distinct  = row.getList(2).toString
-                redis.hmset(service, Map("node_id" -> node_id,
-                                         "url_count" -> url_count,
-                                         "url_distinct" -> url_distinct))
+    for(  x <- 1 to 500 ) {
+
+        val services = redis.smembers("visibility_services")
+
+        if (distinct_url_service) {
+            // Get number of distinct URLs per service (node_id)
+            for (s <- services.get) {
+                val service = s.get
+                val perurl = spark.sql(
+                s"""
+                    |SELECT node_id,count(distinct http_url)
+                    |as urls,collect_set(http_url) as values
+                    |FROM curspans
+                    |WHERE node_id LIKE '%$service%'
+                    |GROUP BY node_id
+                """.stripMargin)
+                for ((row) <- perurl.collect) {
+                    println(row)
+                    val node_id = row.get(0)
+                    val url_count  = row.get(1)
+                    val url_distinct  = row.getList(2).toString
+                    redis.hmset(service, Map("node_id" -> node_id,
+                                             "url_count" -> url_count,
+                                             "url_distinct" -> url_distinct))
+                }
             }
         }
-    }
-
-    for(  x <- 1 to 500 ) {
 
         if (response_times) {
             try {
