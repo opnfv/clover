@@ -12,7 +12,7 @@
 ./runner_fast.sh &
 
 IMAGE_NAME=${IMAGE_NAME:-"clover-spark:latest"}
-IMAGE_PATH=${IMAGE_PATH:-"localhost:5000"}
+IMAGE_PATH=${IMAGE_PATH:-"opnfv"}
 CLASS_NAME=${CLASS_NAME:-"CloverSlow"}
 JAR_NAME=${JAR_NAME:-"clover-spark_2.11-1.0.jar"}
 

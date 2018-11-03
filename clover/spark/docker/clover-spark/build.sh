@@ -7,7 +7,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 
-IMAGE_PATH=${IMAGE_PATH:-"kube1-node1:5000"}
+IMAGE_PATH=${IMAGE_PATH:-"localhost:5000"}
 IMAGE_NAME=${IMAGE_NAME:-"clover-spark:latest"}
 
 # Copy clover-spark jar first
