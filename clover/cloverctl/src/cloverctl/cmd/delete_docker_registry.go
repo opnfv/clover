@@ -10,14 +10,14 @@ package cmd
 import (
     "fmt"
     "encoding/json"
-
+    "os"
     "gopkg.in/resty.v1"
     "github.com/spf13/cobra"
 )
 
 var deldockerproviderCmd = &cobra.Command{
     Use:   "docker-registry",
-    Short: "delete one docker registry provider by name from spinnaker",
+    Short: "Delete one docker registry provider by name from spinnaker",
     Long: ``,
     Run: func(cmd *cobra.Command, args []string) {
         deldockerProvider()
@@ -26,12 +26,14 @@ var deldockerproviderCmd = &cobra.Command{
 
 func init() {
     providerdelCmd.AddCommand(deldockerproviderCmd)
-    deldockerproviderCmd.Flags().StringVarP(&name, "name", "n", "", "Input docker-registry account name")
+    deldockerproviderCmd.Flags().StringVarP(&name, "name", "n", "",
+                                          "Input docker-registry account name")
     deldockerproviderCmd.MarkFlagRequired("name")
 
 }
 
 func deldockerProvider() {
+    checkControllerIP()
     url := controllerIP + "/halyard/delprovider"
 
     var in = map[string]string{"name": name, "provider":"dockerRegistry"}
@@ -45,7 +47,8 @@ func deldockerProvider() {
     SetBody(out_json).
     Post(url)
     if err != nil {
-        panic(err.Error())
+        fmt.Printf("Cannot connect to controller: %v\n", err)
+        os.Exit(1)
     }
     fmt.Printf("\n%v\n", resp)
 

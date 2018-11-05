@@ -9,6 +9,7 @@ package cmd
 
 import (
     "fmt"
+    "os"
     "io/ioutil"
     "gopkg.in/resty.v1"
     "github.com/spf13/cobra"
@@ -27,31 +28,32 @@ var setvisibilitystatsCmd = &cobra.Command{
 
 func init() {
     setCmd.AddCommand(setvisibilitystatsCmd)
-    setvisibilitystatsCmd.Flags().StringVarP(&cloverFile, "file", "f", "", "Input yaml file to set visibility config")
+    setvisibilitystatsCmd.Flags().StringVarP(&cloverFile, "file", "f", "",
+                                   "Input yaml file to set visibility config")
     setvisibilitystatsCmd.MarkFlagRequired("file")
-
 }
 
 func setCollector() {
+    checkControllerIP()
     url := controllerIP + "/visibility/set"
 
     in, err := ioutil.ReadFile(cloverFile)
     if err != nil {
         fmt.Println("Please specify a valid yaml file")
-        return
+        os.Exit(1)
     }
     out_json, err := yaml.YAMLToJSON(in)
     if err != nil {
-        panic(err.Error())
+        fmt.Printf("Invalid yaml: %v\n", err)
+        os.Exit(1)
     }
     resp, err := resty.R().
     SetHeader("Content-Type", "application/json").
     SetBody(out_json).
     Post(url)
     if err != nil {
-        panic(err.Error())
+        fmt.Printf("Cannot connect to controller: %v\n", err)
+        os.Exit(1)
     }
     fmt.Printf("\n%v\n", resp)
-
-
 }

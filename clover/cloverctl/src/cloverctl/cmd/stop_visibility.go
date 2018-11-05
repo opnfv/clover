@@ -9,6 +9,7 @@ package cmd
 
 import (
     "fmt"
+    "os"
     "gopkg.in/resty.v1"
     "github.com/spf13/cobra"
 )
@@ -16,7 +17,7 @@ import (
 
 var visibilitystopCmd = &cobra.Command{
     Use:   "visibility",
-    Short: "Stop visibility data collection",
+    Short: "Stop visibility collector process",
     Long: ``,
     Run: func(cmd *cobra.Command, args []string) {
         stopCollector()
@@ -29,12 +30,14 @@ func init() {
 
 func stopCollector() {
 
+    checkControllerIP()
     url := controllerIP + "/collector/stop"
 
     resp, err := resty.R().
     Get(url)
     if err != nil {
-        panic(err.Error())
+        fmt.Printf("Cannot connect to controller: %v\n", err)
+        os.Exit(1)
     }
     fmt.Printf("\n%v\n", resp)
 }

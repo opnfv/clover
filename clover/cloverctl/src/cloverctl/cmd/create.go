@@ -14,10 +14,10 @@ import (
 
 var createCmd = &cobra.Command{
     Use:   "create",
-    Short: "Create resources including IDS rules, L7 testplans, etc.",
+    Short: "Create clover configurations and deployments",
     Long: ``,
     Run: func(cmd *cobra.Command, args []string) {
-        fmt.Println("create called")
+        fmt.Println("Incomplete command")
     },
 }
 
