@@ -17,7 +17,7 @@ var clearCmd = &cobra.Command{
     Short: "Truncate visibility tables",
     Long: ``,
     Run: func(cmd *cobra.Command, args []string) {
-        fmt.Println("clear called")
+        fmt.Println("Uncomplete command")
     },
 }
 

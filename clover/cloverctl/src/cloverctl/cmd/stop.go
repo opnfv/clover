@@ -14,10 +14,10 @@ import (
 
 var stopCmd = &cobra.Command{
     Use:   "stop",
-    Short: "Stop processes including visibility and ingress services",
+    Short: "Stop processes including visibility and sample services",
     Long: ``,
     Run: func(cmd *cobra.Command, args []string) {
-        fmt.Println("stop called")
+        fmt.Println("Incomplete command")
     },
 }
 

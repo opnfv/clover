@@ -12,7 +12,7 @@ import (
     "time"
     "io/ioutil"
     "strings"
-
+    "os"
     "gopkg.in/resty.v1"
     "github.com/ghodss/yaml"
     "github.com/spf13/cobra"
@@ -42,17 +42,19 @@ var kubeproviderCmd = &cobra.Command{
 
 func init() {
     providercreateCmd.AddCommand(kubeproviderCmd)
-    kubeproviderCmd.Flags().StringVarP(&cloverFile, "file", "f", "", "Input yaml file to add kubernetes provider")
+    kubeproviderCmd.Flags().StringVarP(&cloverFile, "file", "f", "",
+                                 "Input yaml file to add kubernetes provider")
     kubeproviderCmd.MarkFlagRequired("file")
 
 }
 
 func createProvider() {
+    checkControllerIP()
     url := controllerIP + "/halyard/addkube"
     in, err := ioutil.ReadFile(cloverFile)
     if err != nil {
-        fmt.Println("Please specify a valid rule definition yaml file")
-        return
+        fmt.Println("Please specify a valid yaml file")
+        os.Exit(1)
     }
 
     t := Kubernetes{}
@@ -73,14 +75,16 @@ func createProvider() {
     newconfig, _ := yaml.Marshal(&t)
     out_json, err := yaml.YAMLToJSON(newconfig)
     if err != nil {
-        panic(err.Error())
+        fmt.Printf("Invalid yaml: %v\n", err)
+        os.Exit(1)
     }
     resp, err := resty.R().
     SetHeader("Content-Type", "application/json").
     SetBody(out_json).
     Post(url)
     if err != nil {
-        panic(err.Error())
+        fmt.Printf("Cannot connect to controller: %v\n", err)
+        os.Exit(1)
     }
     fmt.Printf("\n%v\n", resp)
 
