@@ -17,7 +17,7 @@ var providercreateCmd = &cobra.Command{
     Short: "Add spinnaker provider",
     Long: ``,
     Run: func(cmd *cobra.Command, args []string) {
-        fmt.Println("provider called")
+        fmt.Println("Incomplete command")
     },
 }
 
@@ -26,7 +26,7 @@ var providerdelCmd = &cobra.Command{
     Short: "Delete spinnaker provider",
     Long: ``,
     Run: func(cmd *cobra.Command, args []string) {
-        fmt.Println("provider called")
+        fmt.Println("Incomplete command")
     },
 }
 
@@ -35,7 +35,7 @@ var providergetCmd = &cobra.Command{
     Short: "Get spinnaker provider",
     Long: ``,
     Run: func(cmd *cobra.Command, args []string) {
-        fmt.Println("provider called")
+        fmt.Println("Incomplete command")
     },
 }
 func init() {

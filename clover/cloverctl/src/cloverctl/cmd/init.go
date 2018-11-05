@@ -17,7 +17,7 @@ var initCmd = &cobra.Command{
     Short: "Initialize visibility schemas",
     Long: ``,
     Run: func(cmd *cobra.Command, args []string) {
-        fmt.Println("init called")
+        fmt.Println("Incomplete command")
     },
 }
 

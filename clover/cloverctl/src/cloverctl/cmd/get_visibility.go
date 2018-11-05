@@ -9,6 +9,7 @@ package cmd
 
 import (
     "fmt"
+    "os"
     "gopkg.in/resty.v1"
     "github.com/spf13/cobra"
 )
@@ -27,12 +28,15 @@ var visibilitygetCmd = &cobra.Command{
 
 func init() {
     getCmd.AddCommand(visibilitygetCmd)
-    visibilitygetCmd.PersistentFlags().StringVarP(&VisibilityStat, "stat", "s", "", "Visibility stats type to get")
-    visibilitygetCmd.PersistentFlags().StringVarP(&VisibilityConfig, "conf", "c", "", "Visibility config type to get")
+    visibilitygetCmd.PersistentFlags().StringVarP(&VisibilityStat, "stat", "s",
+                                            "", "Visibility stats type to get")
+    visibilitygetCmd.PersistentFlags().StringVarP(&VisibilityConfig, "conf",
+                                      "c", "", "Visibility config type to get")
 }
 
 func getVisibility() {
 
+    checkControllerIP()
     url_prefix := "/visibility/get/"
     get_data := "all"
     response_prefix := "Config"
@@ -50,7 +54,8 @@ func getVisibility() {
     SetHeader("Accept", "application/json").
     Get(url)
     if err != nil {
-        panic(err.Error())
+        fmt.Printf("Cannot connect to controller: %v\n", err)
+        os.Exit(1)
     }
     fmt.Printf("\n%s %s: %v\n", response_prefix, get_data, resp)
 }

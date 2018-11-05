@@ -14,10 +14,10 @@ import (
 
 var getCmd = &cobra.Command{
     Use:   "get",
-    Short: "Get information about a resource",
+    Short: "Get information about a configuration or deployment",
     Long: ``,
     Run: func(cmd *cobra.Command, args []string) {
-        fmt.Println("get called")
+        fmt.Println("Incomplete command")
     },
 }
 

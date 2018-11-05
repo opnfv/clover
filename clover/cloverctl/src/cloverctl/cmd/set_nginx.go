@@ -9,6 +9,7 @@ package cmd
 
 import (
     "fmt"
+    "os"
     "io/ioutil"
     "gopkg.in/resty.v1"
     "github.com/spf13/cobra"
@@ -36,17 +37,19 @@ var setlbCmd = &cobra.Command{
 
 func init() {
     setCmd.AddCommand(setserverCmd)
-    setserverCmd.Flags().StringVarP(&cloverFile, "file", "f", "", "Input yaml file for server config")
+    setserverCmd.Flags().StringVarP(&cloverFile, "file", "f", "",
+                                    "Input yaml file for server config")
     setserverCmd.MarkFlagRequired("file")
 
     setCmd.AddCommand(setlbCmd)
-    setlbCmd.Flags().StringVarP(&cloverFile, "file", "f", "", "Input yaml file for lb config")
+    setlbCmd.Flags().StringVarP(&cloverFile, "file", "f", "",
+                                "Input yaml file for lb config")
     setlbCmd.MarkFlagRequired("file")
-
 }
 
 func setNginx(nginx_service string) {
 
+    checkControllerIP()
     url := ""
     if nginx_service == "server" {
         url = controllerIP + "/nginx/server"
@@ -57,20 +60,20 @@ func setNginx(nginx_service string) {
     in, err := ioutil.ReadFile(cloverFile)
     if err != nil {
         fmt.Println("Please specify a valid yaml file")
-        return
+        os.Exit(1)
     }
     out_json, err := yaml.YAMLToJSON(in)
     if err != nil {
-        panic(err.Error())
+        fmt.Printf("Invalid yaml: %v\n", err)
+        os.Exit(1)
     }
     resp, err := resty.R().
     SetHeader("Content-Type", "application/json").
     SetBody(out_json).
     Post(url)
     if err != nil {
-        panic(err.Error())
+        fmt.Printf("Cannot connect to controller: %v\n", err)
+        os.Exit(1)
     }
     fmt.Printf("\n%v\n", resp)
-
-
 }

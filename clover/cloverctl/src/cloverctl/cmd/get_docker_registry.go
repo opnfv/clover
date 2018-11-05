@@ -11,7 +11,7 @@ import (
     "fmt"
     "strings"
     "encoding/json"
-
+    "os"
     "gopkg.in/resty.v1"
     "github.com/spf13/cobra"
 )
@@ -31,6 +31,7 @@ func init() {
 }
 
 func getdocker() {
+    checkControllerIP()
     url := controllerIP + "/halyard/account"
 
     var provider = map[string]string{"name": "dockerRegistry"}
@@ -44,7 +45,8 @@ func getdocker() {
     SetBody(out_json).
     Get(url)
     if err != nil {
-        panic(err.Error())
+        fmt.Printf("Cannot connect to controller: %v\n", err)
+        os.Exit(1)
     }
     if resp.StatusCode() != 200 {
        fmt.Printf("\n%v\n", resp)
