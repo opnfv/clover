@@ -42,8 +42,8 @@ The following assumptions must be met before executing the sample script:
 
 .. code-block:: bash
 
-    $ curl -L https://github.com/istio/istio/releases/download/0.6.0/istio-0.6.0-linux.tar.gz | tar xz
-    $ cd istio-0.6.0
+    $ curl -L https://github.com/istio/istio/releases/download/1.0.0/istio-1.0.0-linux.tar.gz | tar xz
+    $ cd istio-1.0.0
     $ export PATH=$PWD/bin:$PATH
 
 Environment setup
@@ -55,7 +55,7 @@ First setup the environment using the Clover source with the following commands:
 
     $ git clone https://gerrit.opnfv.org/gerrit/clover
     $ cd clover
-    $ git checkout stable/fraser
+    $ git checkout stable/gambia
     $ pip install .
     $ cd clover
 

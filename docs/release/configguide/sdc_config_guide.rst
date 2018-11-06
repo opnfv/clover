@@ -143,7 +143,7 @@ will be pulled if the tag is unspecified. To deploy the Fraser release use these
 
 .. code-block:: bash
 
-    $ docker pull opnfv/clover:opnfv-6.0.0
+    $ docker pull opnfv/clover:opnfv-7.0.0
     $ sudo docker run --rm \
     -v ~/.kube/config:/root/.kube/config \
     opnfv/clover \
@@ -160,10 +160,10 @@ Ensure Istio 0.6.0 is installed, as a prerequisite, using the following commands
 
 .. code-block:: bash
 
-    $ curl -L https://github.com/istio/istio/releases/download/0.6.0/istio-0.6.0-linux.tar.gz | tar xz
-    $ cd istio-0.6.0
+    $ curl -L https://github.com/istio/istio/releases/download/1.0.0/istio-1.0.0-linux.tar.gz | tar xz
+    $ cd istio-1.0.0
     $ export PATH=$PWD/bin:$PATH
-    $ kubectl apply -f install/kubernetes/istio.yaml
+    $ kubectl apply -f install/kubernetes/istioi-demo.yaml
 
 The above sequence of commands installs Istio with manual sidecar injection without mutual TLS
 authentication between sidecars.
@@ -278,18 +278,6 @@ to inspect the internals of the Istio service mesh.
 
 Exposing tracing and monitoring
 -------------------------------
-
-To gain insight into the service mesh, the Jaeger tracing and Prometheus monitoring tools
-can also be deployed. These tools can show how the sample functions in the service mesh.
-Using the Clover container, issue the following command to deploy these tools
-into your Kubernetes environment:
-
-.. code-block:: bash
-
-    $ sudo docker run --rm \
-    -v ~/.kube/config:/root/.kube/config \
-    opnfv/clover \
-    /bin/bash -c '/home/opnfv/repos/clover/samples/scenarios/view.sh'
 
 The Jaeger tracing UI is exposed outside of the Kubernetes cluster via any node IP in the cluster
 using the following commands **(above command already executes the two commands below)**:
