@@ -9,6 +9,7 @@ package cmd
 
 import (
     "fmt"
+    "os"
     "gopkg.in/resty.v1"
     "github.com/spf13/cobra"
 )
@@ -16,8 +17,8 @@ import (
 
 var stopidsCmd = &cobra.Command{
     Use:   "ids",
-    Short: "Stop IDS process",
-    Long: `Restart IDS process when adding custom rules`,
+    Short: "Stop snort IDS process",
+    Long: `Restart snort IDS process when adding custom rules`,
     Run: func(cmd *cobra.Command, args []string) {
         stopIDS()
     },
@@ -29,12 +30,14 @@ func init() {
 
 func stopIDS() {
 
+    checkControllerIP()
     url := controllerIP + "/snort/stop"
 
     resp, err := resty.R().
     Get(url)
     if err != nil {
-        panic(err.Error())
+        fmt.Printf("Cannot connect to controller: %v\n", err)
+        os.Exit(1)
     }
     fmt.Printf("\n%v\n", resp)
 }

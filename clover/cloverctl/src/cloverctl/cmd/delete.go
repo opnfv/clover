@@ -14,10 +14,10 @@ import (
 
 var deleteCmd = &cobra.Command{
     Use:   "delete",
-    Short: "Delete resources including clover-system services",
+    Short: "Delete configurations and clover services",
     Long: ``,
     Run: func(cmd *cobra.Command, args []string) {
-        fmt.Println("delete called")
+        fmt.Println("Incomplete command")
     },
 }
 

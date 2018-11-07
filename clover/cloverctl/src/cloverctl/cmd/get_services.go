@@ -14,7 +14,7 @@ import (
 
 var servicesCmd = &cobra.Command{
     Use:   "services",
-    Short: "Get info on Kubernetes services",
+    Short: "Get listing of Kubernetes services",
     Long: ``,
     Run: func(cmd *cobra.Command, args []string) {
         cloverkube.GetServices()
