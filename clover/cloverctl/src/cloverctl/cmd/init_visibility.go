@@ -9,6 +9,7 @@ package cmd
 
 import (
     "fmt"
+    "os"
     "gopkg.in/resty.v1"
     "github.com/spf13/cobra"
 )
@@ -16,7 +17,7 @@ import (
 
 var visibilityinitCmd = &cobra.Command{
     Use:   "visibility",
-    Short: "Init visibility data schemas",
+    Short: "Initialize visibility data schemas in cassandra",
     Long: ``,
     Run: func(cmd *cobra.Command, args []string) {
         initCollector()
@@ -28,14 +29,15 @@ func init() {
 }
 
 func initCollector() {
+
+    checkControllerIP()
     url := controllerIP + "/collector/init"
 
     resp, err := resty.R().
     Get(url)
     if err != nil {
-        panic(err.Error())
+        fmt.Printf("Cannot connect to controller: %v\n", err)
+        os.Exit(1)
     }
     fmt.Printf("\n%v\n", resp)
 }
-
-
