@@ -19,3 +19,4 @@ Clover Configuration Guide
    visibility_config_guide.rst
    modsecurity_config_guide.rst
    spinnaker_config_guide.rst
+   clovisor_config_guide.rst
