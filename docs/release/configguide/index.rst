@@ -14,3 +14,4 @@ OPNFV Clover Configuration Guides
 
    sdc_config_guide.rst
    a_b_config_guide.rst
+   clovisor_config_guide.rst
