@@ -15,6 +15,7 @@ Description
 
 Clover Gambia builds on previous release to further enhance the toolset for
 cloud native network functions operations. The two emphasis on the release are:
+
 #. Integration of Spinnaker to support continuous delivery
 #. Centralizing Operational Data for Visibility
 
