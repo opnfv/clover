@@ -10,6 +10,7 @@ OPNFV Clover Design Specification
 .. toctree::
    :maxdepth: 1
 
+   clovisor
    logging
    monitoring
    tracing
