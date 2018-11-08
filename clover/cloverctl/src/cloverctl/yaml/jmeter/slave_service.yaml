@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: clover-jmeter-slave
+  labels:
+    app: clover-jmeter-slave
+spec:
+  ports:
+  - port: 1099
+    name: rmi
+  - port: 80
+    name: http
+  - port: 443
+    name: https
+  selector:
+    app: clover-jmeter-slave
