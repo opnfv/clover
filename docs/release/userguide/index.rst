@@ -3,9 +3,11 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Authors of Clover
 
-=================================
-OPNFV Clover User Guide
-=================================
+.. _clover_userguide:
+
+=================
+Clover User Guide
+=================
 
 .. toctree::
    :maxdepth: 1
