@@ -15,7 +15,7 @@ the Clover Gambia release.
 Overview
 =========
 
-Apache JMeter is a mature, open source application that supports web client emulation. Its
+`Apache JMeter`_ is a mature, open source application that supports web client emulation. Its
 functionality has been integrated into the Clover project to allow various CI validations
 and performance tests to be performed. The system under test can either be REST services/APIs
 directly or a set of L7 network services. In the latter scenario, Clover nginx servers may
@@ -77,7 +77,7 @@ the command shown below::
 
     $ cloverctl create system validation -t latest
 
-The Clover CLI will add master/slave pods to the  k8s cluster in the default namespace.
+The Clover CLI will add master/slave pods to the k8s cluster in the default namespace.
 
 The JMeter master/slave docker images will automatically be pulled from the OPNFV public
 Dockerhub registry. Deployments and respective services will be created with three slave
@@ -147,7 +147,7 @@ Creating a test plan
 --------------------
 
 To employ a test plan that can be used against the :ref:`sdc_config_guide` sample, navigate to
- cloverctl yaml directory and use the sample named 'jmeter_testplan.yaml', which is shown below.
+cloverctl yaml directory and use the sample named 'jmeter_testplan.yaml', which is shown below.
 
 .. code-block:: bash
 
@@ -296,3 +296,5 @@ in the k8s cluster.
     $ docker rmi opnfv/clover-jmeter-master
     $ docker rmi opnfv/clover-jmeter-slave
     $ docker rmi opnfv/clover-controller
+
+.. _Apache JMeter: https://jmeter.apache.org/
