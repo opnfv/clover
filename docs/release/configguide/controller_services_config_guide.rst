@@ -44,10 +44,6 @@ The **clover-controller** service provides the following functions:
    Clover visibility services. It presents analyzed visibility data and provides basic controls
    such as selecting which user services visibility will track.
 
-.. image:: imgs/controller_services.png
-    :align: center
-    :scale: 100%
-
 The **cloverctl** CLI command syntax is similar to k8s kubectl or istio istioctl CLI tools, using
 a <verb> <noun> convention.
 
@@ -105,6 +101,8 @@ namespace:
 
     NAMESPACE      NAME                                    READY      STATUS
     clover-system  clover-controller-74d8596bb5-jczqz      1/1        Running
+
+.. _exposing_clover_controller:
 
 Exposing clover-controller
 ==========================
