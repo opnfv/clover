@@ -3,7 +3,7 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Authors of Clover
 
-.. _clover_userguide:
+.. _clover-userguide:
 
 =================
 Clover User Guide
