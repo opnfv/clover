@@ -1,0 +1,9 @@
+sid: "10000001"
+protocol: icmp
+dest_port: any
+dest_ip: $HOME_NET
+src_port: any
+src_ip: any
+msg: icmp_test
+rev: "001"
+content: ''
