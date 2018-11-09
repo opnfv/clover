@@ -106,6 +106,8 @@ namespace:
     NAMESPACE      NAME                                    READY      STATUS
     clover-system  clover-controller-74d8596bb5-jczqz      1/1        Running
 
+.. _exposing_clover_controller:
+
 Exposing clover-controller
 ==========================
 
