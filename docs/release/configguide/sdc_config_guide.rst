@@ -119,7 +119,7 @@ The following assumptions must be met before continuing on to deployment:
  * Ubuntu 16.04 was used heavily for development and is advised for greenfield deployments.
  * Installation of Docker has already been performed. It's preferable to install Docker CE.
  * Installation of Kubernetes has already been performed. The installation in this guide was
-   executed in a single-node Kubernetes cluster on a modest virtual machine.
+   executed in a single-node Kubernetes cluster.
  * Installation of a pod network that supports the Container Network Interface (CNI). It is
    recommended to use flannel, as most development work employed this network add-on. Success
    using Weave Net as the CNI plugin has also been reported.
@@ -175,21 +175,21 @@ within the samples directory as shown below:
 
     $ git clone https://gerrit.opnfv.org/gerrit/clover
     $ cd clover/samples/scenarios
-    $ git checkout stable/fraser
+    $ git checkout stable/gambia
 
 To deploy the sample in the default Kubernetes namespace, use the following command for Istio
 manual sidecar injection:
 
 .. code-block:: bash
 
-    $ kubectl apply -f <(istioctl kube-inject --debug -f service_delivery_controller_opnfv.yaml)
+    $ istioctl kube-inject -f service_delivery_controller_opnfv.yaml | kubectl apply -f -
 
 To deploy in another namespace, use the '-n' option. An example namespace of 'sdc' is shown below:
 
 .. code-block:: bash
 
     $ kubectl create namespace sdc
-    $ kubectl apply -n sdc -f <(istioctl kube-inject --debug -f service_delivery_controller_opnfv.yaml)
+    $ istioctl kube-inject -f service_delivery_controller_opnfv.yaml | kubectl apply -n sdc -f -
 
 When using the above SDC manifest, all required docker images will automatically be pulled
 from the OPNFV public Dockerhub registry. An example of using a Docker local registry is also
@@ -226,11 +226,20 @@ The result of the Istio deployment must include the following pods:
 
 .. code-block:: bash
 
-    $ NAMESPACE    NAME                               READY     STATUS
-    istio-system   istio-ca-59f6dcb7d9-9frgt          1/1       Running
-    istio-system   istio-ingress-779649ff5b-mcpgr     1/1       Running
-    istio-system   istio-mixer-7f4fd7dff-mjpr8        3/3       Running
-    istio-system   istio-pilot-5f5f76ddc8-cglxs       2/2       Running
+    $ NAMESPACE    NAME                                             READY     STATUS
+    istio-system   grafana-6995b4fbd7-pjgbh                         1/1       Running
+    istio-system   istio-citadel-54f4678f86-t2dng                   1/1       Running
+    istio-system   istio-egressgateway-5d7f8fcc7b-hs7t4             1/1       Running
+    istio-system   istio-galley-7bd8b5f88f-wtrdv                    1/1       Running
+    istio-system   istio-ingressgateway-6f58fdc8d7-vqwzj            1/1       Running
+    istio-system   istio-pilot-d99689994-b48nz                      2/2       Running
+    istio-system   istio-policy-766bf4bd6d-l89vx                    2/2       Running
+    istio-system   istio-sidecar-injector-85ccf84984-xpmxp          1/1       Running
+    istio-system   istio-statsd-prom-bridge-55965ff9c8-q25rk        1/1       Running
+    istio-system   istio-telemetry-55b6b5bbc7-qrg28                 2/2       Running
+    istio-system   istio-tracing-77f9f94b98-zljrt                   1/1       Running
+    istio-system   prometheus-7456f56c96-zjd29                      1/1       Running
+    istio-system   servicegraph-684c85ffb9-9h6p7                    1/1       Running
 
 .. _sdc_ingress_port:
 
@@ -241,19 +250,66 @@ To determine how incoming http traffic on port 80 will be translated, use the fo
 
 .. code-block:: bash
 
-    $ kubectl get svc -n istio-system
-    NAME                TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)
-    istio-ingress       LoadBalancer   10.104.208.165   <pending>     80:32410/TCP,443:31045/TCP
+    $ kubectl get svc -n istio-system | grep LoadBalancer
+    NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)
+    istio-ingressgateway   LoadBalancer   10.111.40.165    <pending>     80:32410/TCP,443:31390/TCP
 
 **Note, the CLUSTER-IP of the service will be unused in this example since load balancing service
 types are unsupported in this configuration. It is normal for the EXTERNAL-IP to show status
 <pending> indefinitely**
 
-In this example, traffic arriving on port 32410 will flow to istio-ingress. The
-istio-ingress service will route traffic to the **proxy-access-control** service based on a
-configured ingress rule, which defines a gateway for external traffic to enter
-the Istio service mesh. This makes the traffic management and policy features of Istio available
-for edge services.
+In this example, traffic arriving on port 32410 will flow to istio-ingressgateway. The
+istio-ingressgateway service will route traffic to the **proxy-access-control** service based on
+configured Istio ``Gateway`` and ``VirtualService`` resources, which are shown below. The
+``Gateway`` defines a gateway for external traffic to enter the Istio service mesh based on
+incoming protocol, port and domain (``hosts:`` section currently using wildcard). The
+``VirtualService`` associates to a particular ``Gateway`` (sdc-gateway here) and allows for route
+rules to be setup. In the example below, any URL with prefix '/' will be routed to the service
+**proxy-access-control** on port 9180. Additionally, ingress traffic can be mirrored by
+adding a directive to the ``VirtualService`` definition. Below, all matching traffic will be
+mirrored to the **snort-ids** (duplicating internal mirroring performed by the
+**proxy-access-control** for illustrative purposes)
+
+This allows the traffic management and policy features of Istio available to external services and
+clients.
+
+.. code-block:: bash
+
+    apiVersion: networking.istio.io/v1alpha3
+    kind: Gateway
+    metadata:
+      name: sdc-gateway
+    spec:
+      selector:
+        istio: ingressgateway # use istio default controller
+      servers:
+      - port:
+          number: 80
+          name: http
+          protocol: HTTP
+        hosts:
+        - "*"
+    ---
+    apiVersion: networking.istio.io/v1alpha3
+    kind: VirtualService
+    metadata:
+      name: sdcsample
+    spec:
+      hosts:
+      - "*"
+      gateways:
+      - sdc-gateway
+      http:
+      - match:
+        - uri:
+            prefix: /
+        route:
+        - destination:
+            host: proxy-access-control
+            port:
+              number: 9180
+        mirror:
+          host: snort-ids
 
 Using the sample
 ================
@@ -268,6 +324,8 @@ flannel CNI IP address, as shown below:
 
     $ wget http://10.244.0.1:32410/
     $ curl http://10.244.0.1:32410/
+
+An IP address of a node within the Kubernetes cluster may also be employed.
 
 An HTTP response will be returned as a result of the wget or curl command, if the SDC sample
 is operating correctly. However, the visibility into what services were accessed within
@@ -284,9 +342,9 @@ using the following commands **(above command already executes the two commands 
 
 .. code-block:: bash
 
-    $ kubectl expose -n istio-system deployment jaeger-deployment --port=16686 --type=NodePort
+    $ kubectl expose -n istio-system deployment istio-tracing --port=16686 --type=NodePort
 
-Likewise, the Promethues monitoring UI is exposed with the following command:
+Likewise, the Prometheus monitoring UI is exposed with the following command:
 
 .. code-block:: bash
 
@@ -297,9 +355,9 @@ following command:
 
 .. code-block:: bash
 
-    $ kubectl get svc --all-namespaces
+    $ kubectl get svc -n istio-system | grep NodePort
     NAMESPACE      NAME              TYPE      CLUSTER-IP   EXTERNAL-IP   PORT(S)
-    istio-system   jaeger-deployment NodePort  10.105.94.85 <none>        16686:32174/TCP
+    istio-system   istio-tracing     NodePort  10.105.94.85 <none>        16686:32174/TCP
     istio-system   prometheus        NodePort  10.97.74.230 <none>        9090:32708/TCP
 
 In the example above, the Jaeger tracing web-based UI will be available on port 32174 and
@@ -309,12 +367,27 @@ URLs for Jaeger and Prometheus respectively::
     http://<node IP>:32174
     http://<node IP>:32708
 
-Where node IP is an IP from one of the Kubernetes cluster node(s).
+Where node IP is an IP of one of the Kubernetes cluster node(s) on a CNI IP address.
+Alternatively, the tracing and monitoring services can be exposed with a LoadBalancer
+service if supported by your Kubernetes cluster (such as GKE), as shown below for tracing::
+
+    kind: Service
+    apiVersion: v1
+    metadata:
+      name: istio-tracing
+    spec:
+      selector:
+        app: jaeger
+      ports:
+      - name: http
+        protocol: TCP
+        port: 80
+        targetPort: 16686
+      type: LoadBalancer
 
 .. image:: imgs/sdc_tracing.png
     :align: center
     :scale: 100%
-
 
 The diagram above shows the Jaeger tracing UI after traces have been fetched for the
 **proxy-access-control** service. After executing an HTTP request using the simple curl/wget
@@ -324,8 +397,9 @@ the drop-down and click the ``Find Traces`` button at the bottom of the left con
 The blue box denotes what should be displayed for the services that were involved in
 handling the request including:
 
- * istio-ingress
+ * istio-ingressgateway
  * proxy-access-control
+ * snort-ids
  * http-lb
  * clover-server1 OR clover-server2 OR clover-server3
 
@@ -610,9 +684,8 @@ was installed from source and use the following command:
 
 .. code-block:: bash
 
-    $ cd istio-0.6.0
-    $ kubectl delete -f install/kubernetes/istio.yaml
-
+    $ cd istio-1.0.0
+    $ kubectl delete -f install/kubernetes/istio-demo.yaml
 
 Uninstall from Docker environment
 =================================
@@ -628,15 +701,13 @@ The OPNFV docker images can be removed with the following commands:
     $ docker rmi opnfv/clover
 
 If deployment was performed with the Clover container, the first four images above will not
-be present. The Redis, Prometheus and Jaeger docker images can be removed with the following
-commands, if deployed from source:
+be present. The Redis docker images can be removed with the following commands, if deployed
+from source:
 
 .. code-block:: bash
 
     $ docker rmi k8s.gcr.io/redis
     $ docker rmi kubernetes/redis
-    $ docker rmi prom/prometheus
-    $ docker rmi jaegertracing/all-in-one
 
 If docker images were built locally, they can be removed with the following commands:
 
