@@ -16,7 +16,7 @@ RUN \
     yum install -y \
 # Core snort install elements
     https://www.snort.org/downloads/snort/daq-2.0.6-1.f21.x86_64.rpm \
-    https://www.snort.org/downloads/snort/snort-2.9.11.1-1.f25.x86_64.rpm \
+    https://www.snort.org/downloads/snort/snort-2.9.12-1.f27.x86_64.rpm \
 # Debug packages that aren't required for normal operation
     wget libdnet net-tools iputils procps \
     python-pip \
