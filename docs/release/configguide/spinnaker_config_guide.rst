@@ -240,3 +240,66 @@ Deleting the kubernetes provider in spinnaker:
 .. code-block:: bash
 
     $ cloverctl delete provider kubernetes -n my-kubernetes
+
+Deploy Helm Charts
+==================
+
+Currently, spinnaker support to deploy applications with the helm chart. More information please refer to `Deploy Helm Charts <https://www.spinnaker.io/guides/user/kubernetes-v2/deploy-helm/>`_.
+
+Upload helm charts to artifacts
+-------------------------------
+
+Before doing this, please package the helm chart first. how to package the chart, refer to `helm documentation <https://docs.helm.sh/helm/#helm_package>`_.
+
+.. code-block:: bash
+
+    $ wget https://dl.minio.io/client/mc/release/linux-amd64/mc
+    $ chmod +x mc
+    $ ./mc config host add my_minio  http://{minio-service-ip}:9000 dont-use-this for-production S3v4
+    $ ./mc mb my_minio/s3-account
+    $ ./mc cp test-0.1.0.tgz my_minio/s3-account/test-0.1.0.tgz
+
+**NOTE:** the minio-service-ip is 10.233.21.175 in this example
+
+Configure Pipeline
+------------------
+
+This pipeline include three stages,configuration, bake and deploy.
+
+Configuration stage
+:::::::::::::::::::
+
+We can configure Automated triggers and expected artifacts in this stage.
+We just declare expected artifacts and trigger the pipeline manually.
+
+.. image:: imgs/spinnaker-expected-artifacts.png
+     :align: center
+     :scale: 100%
+
+**NOTE:** We need to enable "Use Default Artifact", when we need trigger the pipeline manually
+
+Bake Manifest stage
+:::::::::::::::::::
+
+For example, we have a test "Bake(Manifest)" stage below
+
+.. image:: imgs/spinnaker-bake.png
+     :align: center
+     :scale: 100%
+
+Spinnaker has automatically created an embedded/base64 artifact that is bound when the stage completes, representing the fully baked manifest set to be deployed downstream.
+
+.. image:: imgs/spinnaker-produces-artifact.png
+     :align: center
+     :scale: 100%
+
+Deploy Manifest stage
+:::::::::::::::::::::
+
+After the chart was baked by helm, we can configure a "Deploy(Manifest)" stage to deploy the manifest produced by previous stage as shown below.
+
+.. image:: imgs/spinnaker-deploy.png
+     :align: center
+     :scale: 100%
+
+Once this pipeline runs completely, you can see every resource in your Helm chart get deployed.

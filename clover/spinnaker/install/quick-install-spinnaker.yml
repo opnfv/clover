@@ -69,6 +69,9 @@ spec:
       mountPath: /home/spinnaker/staging/.hal/default/service-settings/fiat.yml
       subPath: fiat.yml
     - name: halconfig
+      mountPath: /home/spinnaker/staging/.hal/default/service-settings/clouddriver.yml
+      subPath: clouddriver.yml
+    - name: halconfig
       mountPath: /home/spinnaker/staging/.hal/default/profiles/front50-local.yml
       subPath: front50-local.yml
   volumes:
@@ -112,11 +115,15 @@ data:
     host: 0.0.0.0
     env:
       API_HOST: http://spin-gate.spinnaker:8084/
+  clouddriver.yml: |
+    env:
+      AWS_ACCESS_KEY_ID: dont-use-this
+      AWS_SECRET_ACCESS_KEY: for-production
   config: |
     currentDeployment: default
     deploymentConfigurations:
     - name: default
-      version: 1.7.0
+      version: 1.10.5
       providers:
         appengine:
           enabled: false
@@ -211,6 +218,7 @@ data:
         chaos: false
         entityTags: false
         jobs: false
+        artifacts: true
       metricStores:
         datadog:
           enabled: false
@@ -273,6 +281,12 @@ data:
         http:
           enabled: false
           accounts: []
+        s3:
+          enabled: true
+          accounts:
+          - name: s3-account
+            apiEndpoint: http://minio-service.spinnaker:9000
+            apiRegion: clover
       pubsub:
         google:
           enabled: false
