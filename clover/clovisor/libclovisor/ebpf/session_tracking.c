@@ -17,6 +17,7 @@
 #define MAX_SESSION_TABLE_ENTRIES 8192
 
 typedef enum {
+    UNDEFINED = 0,
     HTTP = 1,
     HTTP2 = 2,
     TCP = 3,
@@ -145,24 +146,37 @@ static inline app_proto_t ingress_tcp_parsing(struct tcphdr *tcp_hdr,
     unsigned short dest_port = htons(tcp_hdr->dest);
     egress_match_t egress_match = {};
     policy_action_t *policy_ptr = NULL;
+    app_proto_t ret = TCP;
 
     unsigned int *proto = dports2proto.lookup(&dest_port);
     if (proto != NULL) {
+        /*
         if (tcp_hdr->syn && !tcp_hdr->ack) {
-            return TCP;
+            return ret;
         }
+        */
+        ret = HTTP;
         if (tcp_hdr->fin || tcp_hdr->rst) {
             process_response(ntohl(ipv4_hdr->saddr),
                              ntohl(ipv4_hdr->daddr),
                              ntohs(tcp_hdr->source),
                              ntohs(tcp_hdr->dest));
-            return TCP;
+        } else {
+            process_request(ntohl(ipv4_hdr->saddr),
+                            ntohl(ipv4_hdr->daddr),
+                            ntohs(tcp_hdr->source),
+                            ntohs(tcp_hdr->dest));
         }
-        process_request(ntohl(ipv4_hdr->saddr),
-                        ntohl(ipv4_hdr->daddr),
-                        ntohs(tcp_hdr->source),
-                        ntohs(tcp_hdr->dest));
     } else {
+        dest_port = htons(tcp_hdr->source);
+        proto = dports2proto.lookup(&dest_port);
+        if (proto != NULL) {
+            // clock response receiving time
+            process_response(ntohl(ipv4_hdr->daddr),
+                             ntohl(ipv4_hdr->saddr),
+                             ntohs(tcp_hdr->dest),
+                             ntohs(tcp_hdr->source));
+        }
         egress_match.dst_ip = ntohl(ipv4_hdr->saddr);
         egress_match.dst_port = ntohs(tcp_hdr->source);
         policy_ptr = egress_lookup_table.lookup(&egress_match);
@@ -173,6 +187,7 @@ static inline app_proto_t ingress_tcp_parsing(struct tcphdr *tcp_hdr,
 
         if (policy_ptr != NULL) {
             if (*policy_ptr == RECORD) {
+                ret = HTTP;
                 if (tcp_hdr->fin || tcp_hdr->rst) {
                     process_response(ntohl(ipv4_hdr->daddr),
                                      ntohl(ipv4_hdr->saddr),
@@ -185,7 +200,7 @@ static inline app_proto_t ingress_tcp_parsing(struct tcphdr *tcp_hdr,
 
     // everything else drops to TCP
     //return ((void*)tcp_hdr);
-    return HTTP;
+    return ret;
 }
 
 static inline app_proto_t egress_tcp_parsing(struct tcphdr *tcp_hdr,
@@ -200,12 +215,13 @@ static inline app_proto_t egress_tcp_parsing(struct tcphdr *tcp_hdr,
     unsigned int *proto = dports2proto.lookup(&src_port);
 
     if (proto != NULL) {
-        if (tcp_hdr->fin || tcp_hdr->rst) {
-            process_response(ntohl(ipv4_hdr->daddr),
-                             ntohl(ipv4_hdr->saddr),
-                             ntohs(tcp_hdr->dest),
-                             ntohs(tcp_hdr->source));
-        }
+        //if (tcp_hdr->fin || tcp_hdr->rst) {
+        process_response(ntohl(ipv4_hdr->daddr),
+                         ntohl(ipv4_hdr->saddr),
+                         ntohs(tcp_hdr->dest),
+                         ntohs(tcp_hdr->source));
+        //}
+        ret = HTTP;
     } else {
 
         egress_match.dst_ip = ntohl(ipv4_hdr->daddr);
@@ -222,11 +238,12 @@ static inline app_proto_t egress_tcp_parsing(struct tcphdr *tcp_hdr,
                                 ntohl(ipv4_hdr->daddr),
                                 ntohs(tcp_hdr->source),
                                 ntohs(tcp_hdr->dest));
+                ret = HTTP;
             }
         }
     }
     //return(ret_hdr);
-    return HTTP;
+    return ret;
 }
 
 static inline int handle_packet(struct __sk_buff *skb, int is_ingress)
