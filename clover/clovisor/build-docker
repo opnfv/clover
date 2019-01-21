@@ -8,7 +8,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 if [ -z "$1" ]
   then
-    kernel_ver=`uname -r`
+    kernel_ver=linux-headers-`uname -r`
   else
     kernel_ver=$1
 fi
@@ -16,3 +16,5 @@ cp bin/clovisor .
 docker build --build-arg TARGET_KERNEL_VER=$kernel_ver -t clovisor .
 docker tag clovisor localhost:5000/clovisor
 docker push localhost:5000/clovisor
+#docker tag clovisor s3wong/clovisor
+#docker push s3wong/clovisor

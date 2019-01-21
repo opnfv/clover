@@ -38,8 +38,8 @@ func main() {
     fmt.Printf("Clovisor get monitoring info succeed: %v\n", monitoring_info_map)
 
     for pod := range monitoring_info_map {
-        podMon, err := clovisor.ClovisorNewPodInit(clovisor_k8s_client, pod,
-                                                   monitoring_info_map[pod])
+        podMon, err := clovisor.ClovisorNewPodInit(clovisor_k8s_client, node_name,
+                                                   pod, monitoring_info_map[pod])
         if err != nil {
             fmt.Printf("Clovisor monitoring pod %s failed: %v\n", pod, err)
             continue
