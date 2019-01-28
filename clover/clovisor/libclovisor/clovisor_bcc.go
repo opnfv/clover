@@ -509,6 +509,22 @@ func ClovisorNewPodInit(k8s_client *ClovisorK8s,
 
     session_table := bcc.NewTable(bpf_mod.TableId("sessions"), bpf_mod)
 
+    // check if qdisc clsact filter for this interface already exists
+    link, err := netlink.LinkByIndex(ifindex)
+    if err != nil {
+        fmt.Println(err)
+    } else {
+        qdiscs, err := netlink.QdiscList(link)
+        if err == nil {
+            for _, qdisc := range qdiscs {
+                if qdisc.Type() == "clsact" {
+                    netlink.QdiscDel(qdisc)
+                    break
+                }
+            }
+        }
+    }
+
     attrs := netlink.QdiscAttrs {
         LinkIndex: ifindex,
         Handle: netlink.MakeHandle(0xffff, 0),
