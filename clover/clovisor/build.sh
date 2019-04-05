@@ -5,11 +5,11 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 
-GOVERSION=1.10.3
+GOVERSION=1.12
 OS=linux
 ARCH=amd64
-GOPATH=/home/ubuntu/go
-CLIENTGOVERSION=v8.0.0
+GOPATH=/home/s3wong/go
+CLIENTGOVERSION=v10.0.0
 
 SRCDIR=`pwd`
 
@@ -28,6 +28,7 @@ go get github.com/google/gopacket
 go get github.com/iovisor/gobpf
 go get github.com/opentracing/opentracing-go
 go get github.com/pkg/errors
+go get github.com/go-redis/redis
 go get github.com/uber/jaeger-client-go
 go get github.com/vishvananda/netlink
 go get github.com/vishvananda/netns
@@ -39,7 +40,7 @@ cd $GOPATH/src/k8s.io/client-go
 git checkout $CLIENTGOVERSION
 godep restore ./...
 
-cd $SRCDIR/libclovisor
-go build .
-cd ../
-go build -o clovisor .
+#cd $SRCDIR/libclovisor
+#go build .
+#cd ../
+#go build -o clovisor .

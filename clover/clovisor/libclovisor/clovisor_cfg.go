@@ -25,6 +25,8 @@ import (
 var redisServer string = "redis.clover-system"
 var jaegerCollector string = "jaeger-collector.clover-system:14268"
 var jaegerAgent string = "jaeger-agent.clover-system:6831"
+var ProtoCfg string = "clovisor_proto_cfg"
+var protoPluginCfgChan string = "clovisor_proto_plugin_cfg_chan"
 
 /*
  * redisConnect: redis client connecting to redis server
@@ -40,6 +42,7 @@ func redisConnect() *redis.Client {
 
 func get_cfg_labels(node_name string) ([]string, error) {
     client := redisConnect()
+    defer client.Close()
     labels_list, err := client.LRange("clovisor_labels", 0, -1).Result()
     if err != nil {
         fmt.Println(err.Error())
@@ -51,6 +54,7 @@ func get_cfg_labels(node_name string) ([]string, error) {
 
 func get_egress_match_list(pod_name string) ([]egress_match_t) {
     client := redisConnect()
+    defer client.Close()
     egress_cfg_list, err := client.LRange("clovior_egress_match", 0, -1).Result()
     if err != nil {
         fmt.Println(err.Error())
@@ -85,13 +89,24 @@ func get_egress_match_list(pod_name string) ([]egress_match_t) {
 // https://www.socketloop.com/tutorials/golang-convert-ip-address-string-to-long-unsigned-32-bit-integer
 func ip2Long(ip string) uint32 {
     var long uint32
-    binary.Read(bytes.NewBuffer(net.ParseIP(ip).To4()), binary.LittleEndian, &long)
+    //binary.Read(bytes.NewBuffer(net.ParseIP(ip).To4()), binary.LittleEndian, &long)
+    binary.Read(bytes.NewBuffer(net.ParseIP(ip).To4()), binary.BigEndian, &long)
     return long
+}
+
+func backtoIP4(ipInt int64) string {
+    // need to do two bit shifting and “0xff” masking
+    b0 := strconv.FormatInt((ipInt>>24)&0xff, 10)
+    b1 := strconv.FormatInt((ipInt>>16)&0xff, 10)
+    b2 := strconv.FormatInt((ipInt>>8)&0xff, 10)
+    b3 := strconv.FormatInt((ipInt & 0xff), 10)
+    return b0 + "." + b1 + "." + b2 + "." + b3
 }
 
 func get_cfg_session_match() ([]egress_match_cfg, error) {
     var ret_list []egress_match_cfg
     client := redisConnect()
+    defer client.Close()
     keys, err := client.HKeys("clovisor_session_match").Result()
     if err != nil {
         fmt.Println(err.Error())
@@ -140,5 +155,27 @@ func initJaeger(service string) (opentracing.Tracer, io.Closer) {
 
 func get_jaeger_server() (string, error) {
     client := redisConnect()
+    defer client.Close()
     return client.Get("clovisor_jaeger_server").Result()
+}
+
+func Monitor_proto_plugin_cfg() {
+    client := redisConnect()
+    //defer client.Close()
+
+    pubsub := client.Subscribe(protoPluginCfgChan)
+    //defer pubsub.Close()
+
+    go func() {
+        for {
+            msg, err := pubsub.ReceiveMessage()
+            if err != nil {
+                fmt.Printf("Error getting protocol plugin configuration: %v\n", err)
+                return
+            }
+
+            fmt.Printf("Update on protocol %v notification received\n", msg.Payload)
+            loadProtoParser(msg.Payload, true)
+        }
+    }()
 }
