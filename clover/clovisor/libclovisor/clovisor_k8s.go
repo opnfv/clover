@@ -33,8 +33,9 @@ type monitoring_info_t struct {
     svc_name    string
     pod_name    string
     container_name  string
-    protocol    string
+    protocols   []string
     port_num    uint32
+    pod_ip      string
 }
 
 var DEFAULT_NAMESPACE = "default"
@@ -87,7 +88,10 @@ func (client *ClovisorK8s) Get_monitoring_info(nodeName string) (map[string]*mon
 func (client *ClovisorK8s) getPodsForSvc(svc *core_v1.Service,
                                          namespace string) (*core_v1.PodList, error) {
     set := labels.Set(svc.Spec.Selector)
+    //label := strings.Split(set.AsSelector().String(), ",")[0]
+    //fmt.Printf("Trying to get pods for service %v with label %v from %v\n", svc.GetName(), label, set.AsSelector().String())
     listOptions := metav1.ListOptions{LabelSelector: set.AsSelector().String()}
+    //listOptions := metav1.ListOptions{LabelSelector: label}
     return client.client.CoreV1().Pods(namespace).List(listOptions)
 }
 
@@ -104,7 +108,8 @@ func (client *ClovisorK8s) get_monitoring_pods(nodeName string,
     monitoring_info := make(map[string]*monitoring_info_t)
     if len(labels_list) == 0 {
         // TODO(s3wong): set it to 'default'
-        namespace = "linux-foundation-gke"
+        //namespace = "linux-foundation-gke"
+        namespace = "default"
         if svcs_list, err :=
             client.client.CoreV1().Services(namespace).List(metav1.ListOptions{});
                         err != nil {
@@ -151,14 +156,25 @@ func (client *ClovisorK8s) get_monitoring_pods(nodeName string,
     for ns, svc_slice := range ns_svc_map {
         for _, svc_list_ := range svc_slice {
             for _, svc := range svc_list_.Items {
-                fmt.Printf("Looking for supported protocols for service %v:%v\n", ns, svc.GetName())
-                var svc_port_map = map[string]core_v1.ServicePort{}
+                if ns == "default" && svc.GetName() == "kubernetes" {
+                    continue
+                }
+                //fmt.Printf("Looking for supported protocols for service %v:%v\n", ns, svc.GetName())
+                //var svc_port_map = map[string]core_v1.ServicePort{}
+                var svc_port_map = map[string][]string{}
                 for _, svc_port := range svc.Spec.Ports {
                     if len(svc_port.Name) > 0 {
-                        for _, sp := range SUPPORTED_PROTOCOLS {
-                            if strings.Contains(svc_port.Name, sp) {
-                                target_port := svc_port.TargetPort.String()
-                                svc_port_map[target_port] = svc_port
+                        svc_protos := strings.Split(svc_port.Name, "-")
+                        for _, proto := range svc_protos {
+                            if err := loadProtoParser(proto, false); err == nil {
+                                for _, sp := range SUPPORTED_PROTOCOLS {
+                                    if strings.Contains(proto, sp) {
+                                        target_port := svc_port.TargetPort.String()
+                                        svc_port_map[target_port] = append(svc_port_map[target_port], proto)
+                                    }
+                                }
+                            } else {
+                                fmt.Printf("Unsupported protocol: %v\n", proto)
                             }
                         }
                     }
@@ -166,13 +182,23 @@ func (client *ClovisorK8s) get_monitoring_pods(nodeName string,
                 if len(svc_port_map) == 0 {
                     fmt.Printf("Found no port with supported protocol for %v:%v\n", ns, svc.GetName())
                     continue
+                } else {
+                    fmt.Printf("svc_port_map for service %v is %v\n", svc.GetName(), svc_port_map)
                 }
-                fmt.Printf("Fetching pods for namespace %v service: %v\n", ns, svc.GetName())
+                //fmt.Printf("Fetching pods for namespace %v service: %v\n", ns, svc.GetName())
                 pod_list, err := client.getPodsForSvc(&svc, ns)
                 if err != nil {
                     fmt.Print("Error fetching pods for %v:%v [%v]\n", ns, svc.GetName(), err)
                     continue
                 }
+                /*
+                labelSet := labels.Set(svc.Spec.Selector)
+                pod_list, err := client.client.CoreV1().Pods(ns).List(metav1.ListOptions{})
+                if err != nil {
+                    fmt.Print("Error fetching pods for %v:%v [%v]\n", ns, svc.GetName(), err)
+                    continue
+                }
+                */
                 for _, pod := range pod_list.Items {
                     if pod.Spec.NodeName == nodeName {
                         for _, container := range pod.Spec.Containers {
@@ -191,12 +217,8 @@ func (client *ClovisorK8s) get_monitoring_pods(nodeName string,
                                 monitoring_info[pod_name].pod_name = pod_name
                                 monitoring_info[pod_name].container_name = container.Name
                                 monitoring_info[pod_name].port_num = port_num
-                                svc_port_name := svc_port_map[tp_string].Name
-                                if (strings.Contains(svc_port_name, "-")) {
-                                    monitoring_info[pod_name].protocol = svc_port_name[:strings.Index(svc_port_name, "-")]
-                                } else {
-                                    monitoring_info[pod_name].protocol = svc_port_name
-                                }
+                                monitoring_info[pod_name].protocols = svc_port_map[tp_string]
+                                monitoring_info[pod_name].pod_ip = pod.Status.PodIP
                             }
                         }
                     }
