@@ -22,9 +22,9 @@ import (
     jaeger_config "github.com/uber/jaeger-client-go/config"
 )
 
-var redisServer string = "redis.clover-system"
-var jaegerCollector string = "jaeger-collector.clover-system:14268"
-var jaegerAgent string = "jaeger-agent.clover-system:6831"
+var redisServer string = "redis.clovisor"
+var jaegerCollector string = "jaeger-collector.clovisor:14268"
+var jaegerAgent string = "jaeger-agent.clovisor:6831"
 var ProtoCfg string = "clovisor_proto_cfg"
 var protoPluginCfgChan string = "clovisor_proto_plugin_cfg_chan"
 
@@ -50,6 +50,14 @@ func get_cfg_labels(node_name string) ([]string, error) {
     }
 
     return labels_list, err
+}
+
+func parse_label_cfg(label_cfg string) (string, string, string) {
+    label_slice := strings.Split(label_cfg, ":")
+    if len(label_slice) == 1 {
+        return label_slice[0], "", ""
+    }
+    return label_slice[0], label_slice[1], label_slice[2]
 }
 
 func get_egress_match_list(pod_name string) ([]egress_match_t) {

@@ -60,14 +60,6 @@ func K8s_client_init(nodeName string) (*ClovisorK8s, error) {
     }, nil
 }
 
-func parse_label_cfg(label_cfg string) (string, string, string) {
-    label_slice := strings.Split(label_cfg, ":")
-    if len(label_slice) == 1 {
-        return label_slice[0], "", ""
-    }
-    return label_slice[0], label_slice[1], label_slice[2]
-}
-
 func (client *ClovisorK8s) Get_monitoring_info(nodeName string) (map[string]*monitoring_info_t,
                                                error) {
 
