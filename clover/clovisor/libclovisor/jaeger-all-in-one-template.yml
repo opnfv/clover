@@ -19,7 +19,7 @@ items:
   kind: Deployment
   metadata:
     name: jaeger-deployment
-    namespace: clover-system
+    namespace: clovisor
     labels:
       app: jaeger
       jaeger-infra: jaeger-deployment
@@ -64,7 +64,7 @@ items:
   kind: Service
   metadata:
     name: jaeger-query
-    namespace: clover-system
+    namespace: clovisor
     labels:
       app: jaeger
       jaeger-infra: jaeger-service
@@ -81,7 +81,7 @@ items:
   kind: Service
   metadata:
     name: jaeger-collector
-    namespace: clover-system
+    namespace: clovisor
     labels:
       app: jaeger
       jaeger-infra: collector-service
@@ -106,7 +106,7 @@ items:
   kind: Service
   metadata:
     name: jaeger-agent
-    namespace: clover-system
+    namespace: clovisor
     labels:
       app: jaeger
       jaeger-infra: agent-service
@@ -135,7 +135,7 @@ items:
   kind: Service
   metadata:
     name: zipkin
-    namespace: clover-system
+    namespace: clovisor
     labels:
       app: jaeger
       jaeger-infra: zipkin-service

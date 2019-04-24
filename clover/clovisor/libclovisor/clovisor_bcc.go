@@ -666,6 +666,9 @@ func setupNodeIntf(ifindex int) (*nodeIntf, error) {
         return nil, err
     }
 
+    ip_track_table.DeleteAll()
+    node_sess_table.DeleteAll()
+
     return &nodeIntf{
         bpfMod:         bpf_mod,
         ipTrackTable:   ip_track_table,
