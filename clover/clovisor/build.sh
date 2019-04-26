@@ -9,6 +9,7 @@ GOVERSION=1.12
 OS=linux
 ARCH=amd64
 GOPATH=/home/s3wong/go
+GOLANGUNIXVERSION=release-branch.go1.11
 CLIENTGOVERSION=v10.0.0
 
 SRCDIR=`pwd`
@@ -33,6 +34,8 @@ go get github.com/uber/jaeger-client-go
 go get github.com/vishvananda/netlink
 go get github.com/vishvananda/netns
 go get golang.org/x/sys/unix
+cd $GOPATH/src/golang.org/x/sys/unix
+git checkout $GOLANGUNIXVERSION
 
 go get github.com/tools/godep
 go get k8s.io/client-go/...
