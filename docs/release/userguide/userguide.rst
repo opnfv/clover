@@ -8,18 +8,18 @@
 Clover User Guide (Gambia Release)
 ================================================================
 
-This document provides the Clover user guide for the OPNFV Gambia release.
+This document provides the Clover user guide for the OPNFV Hunter release.
 
 Description
 ===========
 
-Clover Gambia builds on previous release to further enhance the toolset for
-cloud native network functions operations. The two emphasis on the release are:
+Clover Hunter builds on previous release to further enhance the toolset for
+cloud native network functions operations. The main emphasis on the release are:
 
-#. Integration of Spinnaker to support continuous delivery
-#. Centralizing Operational Data for Visibility
+#. ONAP SDC on Istio with Clover providing visibility
+#. Clovisor enhancement and stability
 
-What is in Gambia?
+What is in Hunter?
 ==================
 
  * Sample micro-service composed VNF named Service Delivery Controller (SDC)
@@ -42,10 +42,6 @@ What is in Gambia?
 
  * Clover UI: sample UI to offer single pane view / configuration point of the
    Clover system
-
- * Spinnaker Integration: add ability to add/update/delete cloud provider via
-   cloverctl, and sample pipeline utilized by Clover project to deploy SDC
-
 
 Usage
 =====
