@@ -17,10 +17,10 @@ No Configuration
 ================
 
 If redis server isn't running as service name **redis** in namespace
-**clover-system** or there isn't any configuration related to Clovisor in that
+**clovisor** or there isn't any configuration related to Clovisor in that
 redis service, then Clovisor would monitor all pods under the **default**
 namespace. The traces would be sent to **jaeger-collector** service under the
-**clover-system** namespace
+**clovisor** namespace
 
 Using redis-cli
 ===============
@@ -29,7 +29,7 @@ Install ``redis-cli`` on the client machine, and look up redis IP address:
 
 .. code-block:: bash
 
-    $ kubectl get services -n clover-system
+    $ kubectl get services -n clovisor
 
 which one may get something like the following:
 
@@ -51,13 +51,13 @@ plugin):
 
 and one can connect to redis via::
 
-    redis-cli -h 10.244.0.187 -p 6379
+    kubectl exec -n clovisor -it redis redis-cli
 
 Jaeger Collector Configuration
 ==============================
 
 Clovisor allows user to specify the Jaeger service for which Clovisor would send
-the network traces to. This is configured via setting the values for
+the network traces to, by default it is Jaegar service running in **clovisor** namespace. To change, user can configure via setting the values for
 keys **clovisor_jaeger_collector** and **clovisor_jaeger_agent**::
 
     redis> SET clovisor_jaeger_collector "jaeger-collector.istio-system:14268"
@@ -154,3 +154,26 @@ applied::
 the command above will cause Clovisor to trace packets going out of pods under
 monitoring which have name starting with the string "proxy" that match destination
 TCP port 3456
+
+Clovisor in Hunter release supports the ability to run user-defined protocol analyzer as a plugin library --- and the corresponding traces will be sent to Jaeger just like all the default Clovisor network tracing. User needs to implement the following interface (only golang is supported at this time)::
+
+    type Parser interface {
+        Parse(session_key string, is_req bool, 
+              data []byte)([]byte, map[string]string)
+    }
+
+and compile it with the following command::
+
+    go build --buildmode=plugin -o <something>.so <something>.go
+
+then, for Hunter, one needs to push the .so to each Clovisor instance::
+
+    kubectl cp <something>.so clovisor/clovisor-bnh2v:/proto/<something>.so
+
+do that for each Clovisor pods, and afterward, configure via::
+
+    redis> HSET clovisor_proto_cfg <protocol> "/proto/<something>.so"
+    (integer) 1
+    redis> PUBLISH clovisor_proto_plugin_cfg_chan <protocol>
+    (integer) 6
+
